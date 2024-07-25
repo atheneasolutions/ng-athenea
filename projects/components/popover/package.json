@@ -1,0 +1,19 @@
+{
+  "name": "@atheneasolutions/ion-popover-component",
+  "version": "1.0.3",
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:atheneasolutions/ng-athenea.git"
+  },
+  "devDependencies": {
+    "@ionic/angular": "^8.2.5"
+  }
+}
