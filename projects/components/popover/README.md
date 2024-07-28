@@ -1,24 +1,32 @@
-# Popover
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+# Popover ionic
 
-## Code scaffolding
+Paquet d'athenea per generar un popover de ionic angular
 
-Run `ng generate component component-name --project popover` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project popover`.
-> Note: Don't forget to add `--project popover` or else it will be added to the default project in your `angular.json` file. 
+## Funcions
 
-## Build
+#### Generar popover 
 
-Run `ng build popover` to build the project. The build artifacts will be stored in the `dist/` directory.
+```http
+presentPopover(e: Event, items: Items[]): string
+```
 
-## Publishing
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `e`       | `Event`  | **Required**. $event del trigger. |
+| `items`   | `Items[]`| **Required**. Items que es mostrarán al popover |
 
-After building your library with `ng build popover`, go to the dist folder `cd dist/popover` and run `npm publish`.
+```
+Items {
+  text: string,     // Text que es mostrará
+  icon?: string,    // Opcional: Icona ionic
+  if?: boolean,     // Opcional: Condicional si s'ha de mostrar o no
+  role: string      // Rol que retornará la funció un cop seleccionada una opció
+};
+```
 
-## Running unit tests
+Retorna el rol del item que s'ha seleccionat.
+## Authors
 
-Run `ng test popover` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- [@llucg-athenea](https://www.github.com/llucg-athenea)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
