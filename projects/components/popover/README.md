@@ -14,14 +14,14 @@ presentPopover(e: Event, items: Items[]): string
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `e`       | `Event`  | **Required**. $event del trigger. |
-| `items`   | `Items[]`| **Required**. Items que es mostrarán al popover |
+| `items`   | `Items[]`| **Required**. Items que es mostraran al popover |
 
 ```
 Items {
-  text: string,     // Text que es mostrará
+  text: string,     // Text que es mostrarà
   icon?: string,    // Opcional: Icona ionic
   if?: boolean,     // Opcional: Condicional si s'ha de mostrar o no
-  role: string      // Rol que retornará la funció un cop seleccionada una opció
+  role: string      // Rol que retornarà la funció un cop seleccionada una opció
 };
 ```
 
