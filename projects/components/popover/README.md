@@ -7,7 +7,7 @@ Paquet d'athenea per generar un popover de ionic angular
 
 #### Generar popover 
 
-```http
+```
 presentPopover(e: Event, items: Items[]): string
 ```
 
