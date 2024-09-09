@@ -5,8 +5,8 @@ import { IonicModule, PopoverController } from '@ionic/angular';
 @Component({
   selector: 'popover',
   template: `<ion-content class="messageOptionsDisabledClick">
-                <ng-container *ngFor="let item of items">
-                    <ion-item button (click)="click(item.role)" detail="false" lines="full" *ngIf="item?.if ?? true">
+                <ng-container *ngFor="let item of items; last as isLast">
+                    <ion-item button (click)="click(item.role)" detail="false" [lines]="isLast ? 'none' : 'full'">
                         <ion-icon *ngIf="item?.icon" [name]="item.icon"></ion-icon>
                         {{item.text}}
                     </ion-item>
@@ -57,6 +57,5 @@ type TriggerAction = 'click' | 'press';
 export interface Items {
   text: string,
   icon?: string,
-  if?: boolean,
   role: string
 };

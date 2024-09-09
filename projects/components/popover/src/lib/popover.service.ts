@@ -12,11 +12,12 @@ export class PopoverService {
     ) {
     }
 
-    async presentPopover(ev: Event, items: Items[]) {
+    async presentPopover(ev: Event, items: Items[], className: string = '') {
         const popover = await this.popoverCtrl.create({
           component: PopoverComponent,
           componentProps: { items },
           event: ev,
+          cssClass: className
         //   dismissOnSelect: true
         });
         await popover.present();
