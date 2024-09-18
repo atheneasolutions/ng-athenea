@@ -16,6 +16,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
+      "@components/atheneaform": [
+        "./dist/components/atheneaform"
+      ],
       "popover": [
         "./dist/popover"
       ]
