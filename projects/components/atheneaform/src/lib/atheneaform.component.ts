@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
-
 
 @Component({
   selector: 'atheneaform',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    SwiperModule
+    SwiperModule,
+    IonicModule,
+    FormsModule
   ],
   templateUrl: './form-component/form.component.html',
   styleUrl: './form-component/form.component.scss'
@@ -19,7 +20,8 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
 export class AtheneaformComponent {
 
   @Input() questions: Question[] = [];
-  @Output() questionsChange = new EventEmitter<Question[]>();
+  @Output() sendSurvey = new EventEmitter<Question[]>();
+  @Input() lang: 'ca' | 'es' | 'en' = 'ca';
 
   @ViewChild('frequencySelector') frequencySelector!: TemplateRef<any>;
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
@@ -79,9 +81,7 @@ export class AtheneaformComponent {
       return;
     }
 
-    //SAVE DATA
-    this.questionsChange.emit(this.questions);
-    console.log("EVERYTHING IS CORRECT =>", this.questions);
+    this.sendSurvey.emit(this.questions);
   }
 
   getType(type: string) {
@@ -97,10 +97,13 @@ export class AtheneaformComponent {
     }
   }
 
-  isMainPositive(mainTag: string) {
-    let question = this.getQuestion(mainTag);
-    if (question && question.value == 'si') return true;
-    else return false;
+  isMainPositive(mainTag: string | null) {
+    if (mainTag) {
+      let question = this.getQuestion(mainTag);
+      if (question && question.value == 'si') return true;
+    }
+    
+    return false;
   }
 
   getQuestion(tag: string) {
@@ -132,7 +135,7 @@ export class AtheneaformComponent {
     return this.swiper?.swiperRef.isEnd;
   }
 
-  inputChange(index: number, e: string | null = null) {
+  inputChange(index: number, e: any = null) {
     //Assignem valor
     if (e) this.questions[index].value = e;
     //Si hi ha errors, slideTo el següent
@@ -164,5 +167,5 @@ export interface Question {
   };
   value: string | number | null;
   type: Type;
-  mainTag?: string;
+  mainTag: string | null;
 };

@@ -3,8 +3,8 @@
     [config]="config" 
     (slideChange)="onSlideChange()" 
     class="swiper-container">
-        <ng-container *ngFor="let question of premQuestions; let index = index">
-            <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question?.mainTag) : true">
+        <ng-container *ngFor="let question of questions; let index = index">
+            <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
                 <div class="question-container">
                     <ion-grid class="no-padding">
                         <ion-row>
@@ -14,7 +14,7 @@
                                         <h6>{{question.tag}}.</h6>
                                     </ion-col>
                                     <ion-col size="11" sizeMd="10">
-                                        <h3>{{'PREM.'+question.label | translate}}</h3>
+                                        <h3>{{question.label[lang]}}</h3>
                                     </ion-col>
                                 </ion-row>
                             </ion-col>
@@ -45,7 +45,7 @@
 </div>
 
 <ng-template #frequencySelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="premQuestions[index].value" (ngModelChange)="inputChange(index, $event)">
+    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
         <ion-item lines="none" detail="false" [disabled]="loading">
             <ion-label>Nunca</ion-label>
             <ion-radio slot="start" value="nunca"></ion-radio>
@@ -70,7 +70,7 @@
 </ng-template>
 <ng-template #numberSelector let-index="index">
     <ion-range min="1" max="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
-    [(ngModel)]="premQuestions[index].value" (ionKnobMoveEnd)="inputChange(index)">
+    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios">
         <ion-label slot="start">1</ion-label>
         <ion-label slot="end">10</ion-label>
     </ion-range>
@@ -79,7 +79,7 @@
     <!-- INPUT TXT -->
 </ng-template>
 <ng-template #yesnoSelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="premQuestions[index].value" (ngModelChange)="inputChange(index, $event)">
+    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
         <ion-item lines="none" detail="false" [disabled]="loading">
             <ion-label>Si</ion-label>
             <ion-radio slot="start" value="si"></ion-radio>

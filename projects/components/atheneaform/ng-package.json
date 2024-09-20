@@ -3,5 +3,9 @@
   "dest": "../../../dist/components/atheneaform",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "swiper",
+    "tslib"
+  ]
 }
