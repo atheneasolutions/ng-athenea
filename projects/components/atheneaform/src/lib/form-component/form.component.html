@@ -5,7 +5,7 @@
     class="swiper-container">
         <ng-container *ngFor="let question of questions; let index = index">
             <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
-                <div class="question-container">
+                <div class="question-container" #scrollContainer>
                     <ion-grid class="no-padding">
                         <ion-row>
                             <ion-col class="no-padding" size="12">
@@ -25,21 +25,31 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
+
+                    <div class="scroll-anim" *ngIf="hasScroll[index]">
+                        <div class="bubble-container">
+                            <div class="bubble"></div>
+                        </div>
+                        <div class="chevron-container">
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                    </div>
                 </div>
             </ng-template>
         </ng-container>
     </swiper>
     <ion-buttons class="nav-buttons">
-        <button (click)="slidePrevious()" [disabled]="isBegining">
+        <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid">
             <ion-icon name="chevron-up-outline"></ion-icon>
-        </button>
-        <button (click)="slideNext()" *ngIf="!isEnd; else send">
+        </ion-button>
+        <ion-button (click)="slideNext()" *ngIf="!isEnd; else send" color="primary" shape="round" fill="solid">
             <ion-icon name="chevron-down-outline"></ion-icon>
-        </button>
+        </ion-button>
         <ng-template #send>
-            <button (click)="saveSurvey()">
+            <ion-button (click)="saveSurvey()" color="primary" shape="round" fill="solid" class="send">
                 Enviar
-            </button>
+            </ion-button>
         </ng-template>
     </ion-buttons>
 </div>
@@ -70,9 +80,9 @@
 </ng-template>
 <ng-template #numberSelector let-index="index">
     <ion-range min="1" max="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
-    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios">
-        <ion-label slot="start">1</ion-label>
-        <ion-label slot="end">10</ion-label>
+    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" class="mb-2">
+        <ion-label slot="start" mode="ios">1</ion-label>
+        <ion-label slot="end" mode="ios">10</ion-label>
     </ion-range>
 </ng-template>
 <ng-template #txtSelector let-index="index">

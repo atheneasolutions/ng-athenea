@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 
@@ -17,7 +17,7 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
   templateUrl: './form-component/form.component.html',
   styleUrl: './form-component/form.component.scss'
 })
-export class AtheneaformComponent {
+export class AtheneaformComponent implements AfterViewChecked {
 
   @Input() questions: Question[] = [];
   @Output() sendSurvey = new EventEmitter<Question[]>();
@@ -29,6 +29,7 @@ export class AtheneaformComponent {
   @ViewChild('yesnoSelector') yesnoSelector!: TemplateRef<any>;
   
   @ViewChild('swiper') swiper!: SwiperComponent;
+  @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
 
   config: SwiperOptions = {
     direction: 'vertical',
@@ -49,12 +50,21 @@ export class AtheneaformComponent {
 
   loading:boolean = false;
   errors: number[] = [];
+  hasScroll: any[] = [];
 
   constructor(
   ) { }
 
   ngOnInit() {
-    // if (this.swiper) this.swiper.updateSwiper({});
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollContainers.forEach((scrollContainer: ElementRef, index: number) => {
+      const element = scrollContainer.nativeElement;
+      
+      const isScrollable = element.scrollHeight > element.clientHeight;
+      this.hasScroll[index] = isScrollable;
+    });
   }
 
   saveSurvey() {

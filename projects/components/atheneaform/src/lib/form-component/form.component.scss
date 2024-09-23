@@ -1,33 +1,35 @@
 .swiper-container {
-    max-height: 500px;
+    max-height: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     --swiper-pagination-color: var(--ion-color-primary);
 }
 
 .nav-buttons {
     justify-content: end;
-    margin-right: 1em;
     gap: .5em;
+    padding: 0 1em 1em;
 
-    button {
+    ion-button {
         font-size: 20px;
-        padding: .5em;
-        border-radius: 10px;
+        height: 40px;
+        
+        &:not(.send) {
+            width: 40px;
+        }
     }
 }
 
 .question-container {
-    padding-top: 5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    overflow: scroll;
     width: 100%;
     height: 100%;
 
     @media screen and (max-width:767px) {
         padding-top: 2em;
-    }
-
-    * {
-        @media screen and (min-width:768px) {
-            font-weight: bold;
-        }
     }
 
     h6 {
@@ -65,7 +67,9 @@
 
 .swiper-buttons-container {
     background: var(--background);
-    padding-bottom: 1em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .no-padding {
@@ -124,5 +128,97 @@ ion-radio-group {
 ion-teaxtarea {
     textarea {
         padding: 1rem;
+    }
+}
+
+//SCROLLABLE QUESTION ANIMATION
+@keyframes bubbleAnimation {
+    0% {
+        transform: translateY(0);
+        height: 8px;
+    }
+    20% {
+        transform: translateY(0);
+        height: 30px;
+    }
+    40%{
+        height: 8px;
+        transform: translateY(22px); 
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes chevronPulse {
+    10% {
+        color: transparent;
+    }
+    50% {
+        color: var(--ion-color-primary);
+    }
+}
+@keyframes chevronPulseFollow {
+    10% {
+        color: transparent;
+    }
+    40% {
+        color: var(--ion-color-primary);
+    }
+    75% {
+        color: transparent;
+    }
+}
+
+.scroll-anim {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .bubble-container {
+        background: white;
+        -webkit-box-shadow: 0px 0px 5px 0px #00000021;
+        -moz-box-shadow: 0px 0px 5px 0px #00000021;
+        box-shadow: 0px 0px 5px 0px #00000021;
+        height: 40px;
+        width: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 5px 0;
+        border-radius: 25px;
+        overflow: hidden;
+
+        .bubble {
+            width: 8px;
+            height: 8px;
+            border-radius: 10px;
+            background-color: var(--ion-color-primary);
+            animation: bubbleAnimation  2s infinite;
+            animation-timing-function: cubic-bezier(0.5, 0.1, 0.60, 0.75);
+        }
+    }
+
+    .chevron-container {
+        display: flex;
+        flex-direction: column;
+
+        ion-icon {
+            color: transparent;
+            
+            &:first-of-type {
+                animation: chevronPulse 2s infinite;
+                margin-top: -.1em;
+            }
+            &:last-of-type {
+                animation: chevronPulseFollow 2s infinite;
+                margin-top: -.6em;
+                animation-delay: .3s;
+            }
+        }
     }
 }
