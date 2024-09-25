@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 
@@ -27,6 +27,9 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
   @ViewChild('yesnoSelector') yesnoSelector!: TemplateRef<any>;
+  @ViewChild('assuranceSelector') assuranceSelector!: TemplateRef<any>;
+  @ViewChild('treatmentSelector') treatmentSelector!: TemplateRef<any>;
+  @ViewChild('experienceSelector') experienceSelector!: TemplateRef<any>;
   
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -53,6 +56,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   hasScroll: any[] = [];
 
   constructor(
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -102,6 +106,12 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.frequencySelector;   
       case 'yesno':
         return this.yesnoSelector;
+      case 'assurance':
+        return this.assuranceSelector;
+      case 'treatment':
+        return this.treatmentSelector;
+      case 'experience':
+        return this.experienceSelector;
       default:
         return this.txtSelector;
     }
@@ -165,6 +175,25 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   }
 
+  scrollBottom(index: number) {
+    const elem = this.getNativeElem(index);
+    // const elem = (this.scrollContainers.get(index))?.nativeElement;
+    elem.scrollTo({
+      top: elem.scrollHeight, // Scroll to the bottom of the element
+      behavior: 'smooth' // Enable smooth scrolling
+    });
+  }
+
+  checkScroll(index: number) {
+    const elem = this.getNativeElem(index);
+    const threshold = 1;
+    let isBottom =  ((elem.scrollTop + elem.clientHeight) < (elem.scrollHeight - threshold));
+    if (isBottom) elem.classList.add('d-none');
+  }
+
+  getNativeElem(index: number) {
+    return (this.scrollContainers.get(index))?.nativeElement;
+  }
 }
 
 type Type = 'number' | 'frequency' | 'text' | 'conditional';

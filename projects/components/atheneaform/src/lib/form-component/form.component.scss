@@ -178,6 +178,14 @@ ion-teaxtarea {
     bottom: 0;
     left: 0;
     right: 0;
+    width: fit-content;
+    background: white;
+    margin: auto;
+    -webkit-box-shadow: 0px 0px 10px 0px #ffffff;
+    -moz-box-shadow: 0px 0px 10px 0px #ffffff;
+    box-shadow: 0px 0px 3px 12px #ffffff;
+    border-radius: 20px 20px 0 0;
+    padding-bottom: 1em;
 
     .bubble-container {
         background: white;
@@ -192,6 +200,8 @@ ion-teaxtarea {
         padding: 5px 0;
         border-radius: 25px;
         overflow: hidden;
+        z-index: 99;
+        cursor: pointer;
 
         .bubble {
             width: 8px;
@@ -220,5 +230,19 @@ ion-teaxtarea {
                 animation-delay: .3s;
             }
         }
+    }
+}
+
+@keyframes d-none {
+    99% {
+        transform: translateY(100%);
+    }
+    100% {
+        display: none;
+    }
+}
+.bottom-scroll {
+    .scroll-anim {
+        animation: d-none 1s forwards;
     }
 }
