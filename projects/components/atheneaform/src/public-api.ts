@@ -3,4 +3,4 @@
  */
 
 export * from './lib/atheneaform.service';
-export * from './lib/atheneaform.component';
+// export * from './lib/atheneaform.component';

@@ -1,58 +1,71 @@
-<div class="swiper-buttons-container">
-    <swiper #swiper 
-    [config]="config" 
-    (slideChange)="onSlideChange()" 
-    class="swiper-container">
-        <ng-container *ngFor="let question of questions; let index = index">
-            <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
-                <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
-                    <ion-grid class="no-padding">
-                        <ion-row>
-                            <ion-col class="no-padding" size="12">
-                                <ion-row>
-                                    <ion-col size="1">
-                                        <h6>{{question.tag}}.</h6>
-                                    </ion-col>
-                                    <ion-col size="11" sizeMd="10">
-                                        <h3>{{question.label[lang]}}</h3>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-col>
-                            <ion-col class="no-padding" offset="1" size="10">
-                                <ng-template 
-                                    [ngTemplateOutlet]="getType(question.type)" 
-                                    [ngTemplateOutletContext]="{index: index}"></ng-template>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
+<ion-header>
+    <ion-toolbar>
+        <ion-title slot="start">{{title}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="medium" (click)="cancel()">
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="swiper-buttons-container">
+        <swiper #swiper 
+        [config]="config" 
+        (slideChange)="onSlideChange()" 
+        class="swiper-container">
+            <ng-container *ngFor="let question of questions; let index = index">
+                <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
+                    <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
+                        <h3>{{question.tag}}. {{question.label[lang]}}</h3>
+                        <ng-template 
+                                        [ngTemplateOutlet]="getType(question.type)" 
+                                        [ngTemplateOutletContext]="{index: index}"></ng-template>
 
-                    <div class="scroll-anim" *ngIf="hasScroll[index]" (click)="scrollBottom(index)">
-                        <div class="bubble-container">
-                            <div class="bubble"></div>
-                        </div>
-                        <div class="chevron-container">
-                            <ion-icon name="chevron-down-outline"></ion-icon>
-                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        <div class="scroll-anim" *ngIf="hasScroll[index]" (click)="scrollBottom(index)">
+                            <div class="bubble-container">
+                                <div class="bubble"></div>
+                            </div>
+                            <div class="chevron-container">
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ng-template>
-        </ng-container>
-    </swiper>
-    <ion-buttons class="nav-buttons">
-        <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid">
-            <ion-icon name="chevron-up-outline"></ion-icon>
-        </ion-button>
-        <ion-button (click)="slideNext()" *ngIf="!isEnd; else send" color="primary" shape="round" fill="solid">
-            <ion-icon name="chevron-down-outline"></ion-icon>
-        </ion-button>
-        <ng-template #send>
-            <ion-button (click)="saveSurvey()" color="primary" shape="round" fill="solid" class="send">
-                Enviar
+                </ng-template>
+            </ng-container>
+        </swiper>
+
+        <ion-toolbar class="nav-buttons">
+            <ion-buttons slot="start">
+                <ion-button (click)="saveSurvey()" [disabled]="isNotCompleted" color="primary" shape="round" fill="solid" class="send">
+                    Enviar
+                </ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+                <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid" class="up">
+                    <ion-icon name="chevron-up-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="slideNext()" [disabled]="isEnd" color="primary" shape="round" fill="solid" class="down">
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <!-- <ion-buttons class="nav-buttons">
+            <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid">
+                <ion-icon name="chevron-up-outline"></ion-icon>
             </ion-button>
-        </ng-template>
-    </ion-buttons>
-</div>
+            <ion-button (click)="slideNext()" *ngIf="!isEnd; else send" color="primary" shape="round" fill="solid">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </ion-button>
+            <ng-template #send>
+                <ion-button (click)="saveSurvey()" color="primary" shape="round" fill="solid" class="send">
+                    Enviar
+                </ion-button>
+            </ng-template>
+        </ion-buttons> -->
+    </div>
+</ion-content>
 
 <ng-template #frequencySelector let-index="index">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">

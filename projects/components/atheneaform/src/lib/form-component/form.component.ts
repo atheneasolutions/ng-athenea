@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'atheneaform',
@@ -14,13 +14,13 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
     IonicModule,
     FormsModule
   ],
-  templateUrl: './form-component/form.component.html',
-  styleUrl: './form-component/form.component.scss'
+  templateUrl: './form.component.html',
+  styleUrl: './form.component.scss'
 })
-export class AtheneaformComponent implements AfterViewChecked {
+export class FormComponent implements AfterViewChecked {
 
   @Input() questions: Question[] = [];
-  @Output() sendSurvey = new EventEmitter<Question[]>();
+  @Input() title: string | null = null;
   @Input() lang: 'ca' | 'es' | 'en' = 'ca';
 
   @ViewChild('frequencySelector') frequencySelector!: TemplateRef<any>;
@@ -95,7 +95,11 @@ export class AtheneaformComponent implements AfterViewChecked {
       return;
     }
 
-    this.sendSurvey.emit(this.questions);
+    this.modalCtrl.dismiss(this.questions, 'send');
+  }
+
+  cancel() {
+    this.modalCtrl.dismiss();
   }
 
   getType(type: string) {
@@ -153,6 +157,11 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   get isEnd() {
     return this.swiper?.swiperRef.isEnd;
+  }
+
+  get isNotCompleted() {
+    // return this.swiper?.swiperRef.isEnd;
+    return true;
   }
 
   inputChange(index: number, e: any = null) {

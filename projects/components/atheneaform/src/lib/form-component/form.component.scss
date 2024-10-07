@@ -4,26 +4,37 @@
     display: flex;
     flex-direction: column;
     --swiper-pagination-color: var(--ion-color-primary);
+
+    ::ng-deep {
+        .swiper-pagination {
+            position: absolute!important;
+        }
+    }
 }
 
 .nav-buttons {
-    justify-content: end;
-    gap: .5em;
-    padding: 0 1em 1em;
-
     ion-button {
-        font-size: 20px;
-        height: 40px;
-        
-        &:not(.send) {
-            width: 40px;
+        // font-size: 20px;
+        // height: 40px;
+        color: inherit;
+
+        &.send {
+            --padding-start: 0.7em;
+            --padding-end: 0.7em;
+        }
+
+        &.up {
+            margin-right: .5em;
+        }
+
+        ion-icon {
+            color: inherit;
         }
     }
 }
 
 .question-container {
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding: 2em;
     overflow: scroll;
     width: 100%;
     height: 100%;
