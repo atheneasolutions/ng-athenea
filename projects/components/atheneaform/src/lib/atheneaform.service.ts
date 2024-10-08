@@ -18,7 +18,8 @@ export class AtheneaformService {
         questions: questions,
         lang: lang,
         title: title
-      }
+      },
+      backdropDismiss: false
       // cssClass: ''
     });
     await form.present();

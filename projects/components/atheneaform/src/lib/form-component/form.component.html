@@ -12,7 +12,7 @@
     <div class="swiper-buttons-container">
         <swiper #swiper 
         [config]="config" 
-        (slideChange)="onSlideChange()" 
+        (slideChange)="onSlideChange($event)" 
         class="swiper-container">
             <ng-container *ngFor="let question of questions; let index = index">
                 <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
@@ -38,15 +38,15 @@
 
         <ion-toolbar class="nav-buttons">
             <ion-buttons slot="start">
-                <ion-button (click)="saveSurvey()" [disabled]="isNotCompleted" color="primary" shape="round" fill="solid" class="send">
+                <ion-button (click)="saveSurvey()" [disabled]="!isCompleted" color="primary" shape="round" fill="solid" class="send" mode="md">
                     Enviar
                 </ion-button>
             </ion-buttons>
             <ion-buttons slot="end">
-                <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid" class="up">
+                <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid" class="up" mode="md">
                     <ion-icon name="chevron-up-outline"></ion-icon>
                 </ion-button>
-                <ion-button (click)="slideNext()" [disabled]="isEnd" color="primary" shape="round" fill="solid" class="down">
+                <ion-button (click)="slideNext()" [disabled]="!canContinue" color="primary" shape="round" fill="solid" class="down" mode="md">
                     <ion-icon name="chevron-down-outline"></ion-icon>
                 </ion-button>
             </ion-buttons>
@@ -69,23 +69,23 @@
 
 <ng-template #frequencySelector let-index="index">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading">
+        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'nunca'">
             <ion-label>Nunca</ion-label>
             <ion-radio slot="start" value="nunca"></ion-radio>
         </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
+        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'rara vez'">
             <ion-label>Rara vez</ion-label>
             <ion-radio slot="start" value="rara vez"></ion-radio>
         </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
+        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'a veces'">
             <ion-label>A veces</ion-label>
             <ion-radio slot="start" value="a veces"></ion-radio>
         </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
+        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'a menudo'">
             <ion-label>A menudo</ion-label>
             <ion-radio slot="start" value="a menudo"></ion-radio>
         </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
+        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'siempre'">
             <ion-label>Siempre</ion-label>
             <ion-radio slot="start" value="siempre"></ion-radio>
         </ion-item>

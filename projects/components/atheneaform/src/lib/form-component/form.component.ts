@@ -4,7 +4,7 @@ import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+const TIMEOUT_TIME = 150;
 @Component({
   selector: 'atheneaform',
   standalone: true,
@@ -48,12 +48,14 @@ export class FormComponent implements AfterViewChecked {
     effect: 'slide', // You can use 'fade' for a fade effect
     speed: 600, // Smooth transition speed
     preventInteractionOnTransition: true, // Prevent interaction while sliding
-    keyboard: { enabled: true } // Enable keyboard navigation
   }
 
   loading:boolean = false;
   errors: number[] = [];
   hasScroll: any[] = [];
+
+  slideIndex: number = 0;
+  isCompleted: Boolean = false;
 
   constructor(
     private modalCtrl: ModalController
@@ -72,6 +74,18 @@ export class FormComponent implements AfterViewChecked {
   }
 
   saveSurvey() {
+    this.checkForFormErrors();
+    //Si hi ha errors, slideTo el primer
+    if (this.errors.length > 0) 
+    {
+      this.slideTo(this.errors[0]);
+      return;
+    }
+
+    this.modalCtrl.dismiss(this.questions, 'send');
+  }
+
+  checkForFormErrors() {
     //Restart errors
     this.errors = [];
 
@@ -87,15 +101,6 @@ export class FormComponent implements AfterViewChecked {
           this.errors.push(index);
       }
     });
-
-    //Si hi ha errors, slideTo el primer
-    if (this.errors.length > 0) 
-    {
-      this.slideTo(this.errors[0]);
-      return;
-    }
-
-    this.modalCtrl.dismiss(this.questions, 'send');
   }
 
   cancel() {
@@ -148,22 +153,28 @@ export class FormComponent implements AfterViewChecked {
     this.swiper.swiperRef.slideTo(index, speed);
   }
 
-  onSlideChange() {
+  onSlideChange(e: any) {
+    this.slideIndex = e[0]?.activeIndex;
   }
 
   get isBegining() {
     return this.swiper?.swiperRef.isBeginning;
   }
 
-  get isEnd() {
-    return this.swiper?.swiperRef.isEnd;
+  get canContinue() {
+    //Si final swiper no continua
+    if (this.swiper?.swiperRef.isEnd) return false;
+
+    //Si pregunta contestada pot continuar, sinó no
+    if (this.questions[this.slideIndex].value) return true;
+    return false;
   }
 
-  get isNotCompleted() {
-    // return this.swiper?.swiperRef.isEnd;
-    return true;
-  }
+  // get isEnd() {
+  //   return this.swiper?.swiperRef.isEnd;
+  // }
 
+  //TODO rethink errors, ara no es pot continuar si no està contestat
   inputChange(index: number, e: any = null) {
     //Assignem valor
     if (e) this.questions[index].value = e;
@@ -174,13 +185,17 @@ export class FormComponent implements AfterViewChecked {
     if (this.errors.length > 0) {
       setTimeout(() => {
         this.slideTo(this.errors[0], 250);
-      }, 150);
+      }, TIMEOUT_TIME);
     }
     //Si no hi ha errors, slideNext
     else 
       setTimeout(() => {
         this.slideNext();
-      }, 150);
+      }, TIMEOUT_TIME);
+
+    this.checkForFormErrors();
+    if (this.errors.length == 0) this.isCompleted = true;
+    else this.isCompleted = false;
 
   }
 

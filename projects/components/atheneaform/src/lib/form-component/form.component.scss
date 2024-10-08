@@ -14,9 +14,8 @@
 
 .nav-buttons {
     ion-button {
-        // font-size: 20px;
-        // height: 40px;
         color: inherit;
+        height: revert-layer;
 
         &.send {
             --padding-start: 0.7em;
@@ -257,3 +256,17 @@ ion-teaxtarea {
         animation: d-none 1s forwards;
     }
 }
+
+.item-selected {
+    background: rgba(var(--ion-color-primary-rgb), 0.15);
+}
+
+ion-radio-group {
+    ion-item:hover {
+        background: rgba(var(--ion-color-tertiary-rgb), 0.15);
+    }
+}
+
+ion-range::part(pin) {
+    transform: scale(1.01);
+}  
