@@ -17,10 +17,10 @@
             <ng-container *ngFor="let question of questions; let index = index">
                 <ng-template swiperSlide *ngIf="question?.mainTag ? isMainPositive(question.mainTag) : true">
                     <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
-                        <h3>{{question.tag}}. {{question.label[lang]}}</h3>
+                        <h3><span *ngIf="question.tag">{{question.tag}}.</span> {{question.label[lang]}}</h3>
                         <ng-template 
                                         [ngTemplateOutlet]="getType(question.type)" 
-                                        [ngTemplateOutletContext]="{index: index}"></ng-template>
+                                        [ngTemplateOutletContext]="{index: index, options: question?.options}"></ng-template>
 
                         <div class="scroll-anim" *ngIf="hasScroll[index]" (click)="scrollBottom(index)">
                             <div class="bubble-container">
@@ -67,7 +67,17 @@
     </div>
 </ion-content>
 
-<ng-template #frequencySelector let-index="index">
+<ng-template #select let-index="index" let-options="options">
+    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
+        <ion-item *ngFor="let option of options | keyvalue: noSort" lines="none" detail="false" 
+        [disabled]="loading" [class.item-selected]="questions[index].value == option.key">
+            <ion-label>{{ $any(option.value)[lang] }}</ion-label>
+            <ion-radio slot="start" [value]="option.key"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+</ng-template>
+
+<!-- <ng-template #frequencySelector let-index="index">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
         <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'nunca'">
             <ion-label>Nunca</ion-label>
@@ -142,18 +152,18 @@
             <ion-radio slot="start" value="mucho"></ion-radio>
         </ion-item>
     </ion-radio-group>
-</ng-template>
+</ng-template> -->
 <ng-template #numberSelector let-index="index">
-    <ion-range min="1" max="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
+    <ion-range [min]="divideOption(questions[index].options, 0)" [max]="divideOption(questions[index].options, 1)" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
     [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" class="mb-2">
-        <ion-label slot="start" mode="ios">1</ion-label>
-        <ion-label slot="end" mode="ios">10</ion-label>
+        <ion-label slot="start" mode="ios">{{ divideOption(questions[index].options, 0) }}</ion-label>
+        <ion-label slot="end" mode="ios">{{ divideOption(questions[index].options, 1) }}</ion-label>
     </ion-range>
 </ng-template>
 <ng-template #txtSelector let-index="index">
     <!-- INPUT TXT -->
 </ng-template>
-<ng-template #yesnoSelector let-index="index">
+<!-- <ng-template #yesnoSelector let-index="index">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
         <ion-item lines="none" detail="false" [disabled]="loading">
             <ion-label>Si</ion-label>
@@ -164,4 +174,4 @@
             <ion-radio slot="start" value="no"></ion-radio>
         </ion-item>
     </ion-radio-group>
-</ng-template>
+</ng-template> -->

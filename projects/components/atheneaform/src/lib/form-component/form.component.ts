@@ -23,13 +23,14 @@ export class FormComponent implements AfterViewChecked {
   @Input() title: string | null = null;
   @Input() lang: 'ca' | 'es' | 'en' = 'ca';
 
-  @ViewChild('frequencySelector') frequencySelector!: TemplateRef<any>;
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
-  @ViewChild('yesnoSelector') yesnoSelector!: TemplateRef<any>;
-  @ViewChild('assuranceSelector') assuranceSelector!: TemplateRef<any>;
-  @ViewChild('treatmentSelector') treatmentSelector!: TemplateRef<any>;
-  @ViewChild('experienceSelector') experienceSelector!: TemplateRef<any>;
+  // @ViewChild('frequencySelector') frequencySelector!: TemplateRef<any>;
+  // @ViewChild('yesnoSelector') yesnoSelector!: TemplateRef<any>;
+  // @ViewChild('assuranceSelector') assuranceSelector!: TemplateRef<any>;
+  // @ViewChild('treatmentSelector') treatmentSelector!: TemplateRef<any>;
+  // @ViewChild('experienceSelector') experienceSelector!: TemplateRef<any>;
+  @ViewChild('select') select!: TemplateRef<any>;
   
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -111,16 +112,18 @@ export class FormComponent implements AfterViewChecked {
     switch (type) {
       case 'number':
         return this.numberSelector;   
-      case 'frequency':
-        return this.frequencySelector;   
-      case 'yesno':
-        return this.yesnoSelector;
-      case 'assurance':
-        return this.assuranceSelector;
-      case 'treatment':
-        return this.treatmentSelector;
-      case 'experience':
-        return this.experienceSelector;
+      case 'select':
+        return this.select;   
+      // case 'frequency':
+      //   return this.frequencySelector;   
+      // case 'yesno':
+      //   return this.yesnoSelector;
+      // case 'assurance':
+      //   return this.assuranceSelector;
+      // case 'treatment':
+      //   return this.treatmentSelector;
+      // case 'experience':
+      //   return this.experienceSelector;
       default:
         return this.txtSelector;
     }
@@ -137,7 +140,7 @@ export class FormComponent implements AfterViewChecked {
 
   getQuestion(tag: string) {
     return this.questions.find(obj => {
-      return obj.tag === tag;
+      return obj.id === tag;
     });
   }
 
@@ -222,17 +225,31 @@ export class FormComponent implements AfterViewChecked {
   close() {
     this.modalCtrl.dismiss();
   }
+
+  noSort(a: any, b: any) {
+    return 0;
+  }
+
+  divideOption(option: any, index: 0 | 1) {
+    if (option) return (option.split(':'))[index];
+    return null;
+  }
 }
 
 type Type = 'number' | 'frequency' | 'text' | 'conditional';
 export interface Question {
-  tag: string;
-  label: {
-    ca: string,
-    es: string,
-    en: string
-  };
+  id: string;
+  tag: string | null;
+  order: number | string;
+  label: Multilang;
   value: string | number | null;
   type: Type;
+  options: Record<string, Multilang> | null | string;
   mainTag: string | null;
 };
+
+export interface Multilang {
+  ca: string;
+  es: string;
+  en: string;
+}
