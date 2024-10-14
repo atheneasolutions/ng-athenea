@@ -16,6 +16,9 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "paths": {
+      "@utils/typescript-utils": [
+        "./dist/utils/typescript-utils"
+      ],
       "popover": [
         "./dist/popover"
       ]
