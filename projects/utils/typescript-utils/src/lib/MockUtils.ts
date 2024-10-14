@@ -1,7 +1,7 @@
 export interface GetMockOptions {
   path: string,
-  delay: number,
-  default_value: any
+  delay?: number,
+  default_value?: any
 }
 
 /**
@@ -10,9 +10,10 @@ export interface GetMockOptions {
  * @export
  * @param {path} path Mock file relative path
  * @param {number} [delay=500] Delay on getting mock service in miliseconds
+ * @param {default_value} [default_value=null] Delay on getting mock service in miliseconds
  * @return {*}  {Promise<any>}
  */
-export function getMock(options:GetMockOptions): Promise<any> {
+export function getMock(options:GetMockOptions = { path: '', delay: 500, default_value: null}): Promise<any> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         fetch(options.path)
