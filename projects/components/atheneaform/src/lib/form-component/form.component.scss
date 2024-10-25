@@ -78,6 +78,7 @@
 .swiper-buttons-container {
     background: var(--background);
     height: 100%;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
 }

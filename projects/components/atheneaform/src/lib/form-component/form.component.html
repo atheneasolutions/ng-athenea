@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar>
         <ion-title slot="start">{{title}}</ion-title>
         <ion-buttons slot="end">
@@ -8,7 +8,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content> -->
     <div class="swiper-buttons-container">
         <swiper #swiper 
         [config]="config" 
@@ -65,7 +65,7 @@
             </ng-template>
         </ion-buttons> -->
     </div>
-</ion-content>
+<!-- </ion-content> -->
 
 <ng-template #select let-index="index" let-options="options">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
@@ -77,82 +77,6 @@
     </ion-radio-group>
 </ng-template>
 
-<!-- <ng-template #frequencySelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'nunca'">
-            <ion-label>Nunca</ion-label>
-            <ion-radio slot="start" value="nunca"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'rara vez'">
-            <ion-label>Rara vez</ion-label>
-            <ion-radio slot="start" value="rara vez"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'a veces'">
-            <ion-label>A veces</ion-label>
-            <ion-radio slot="start" value="a veces"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'a menudo'">
-            <ion-label>A menudo</ion-label>
-            <ion-radio slot="start" value="a menudo"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading" [class.item-selected]="questions[index].value == 'siempre'">
-            <ion-label>Siempre</ion-label>
-            <ion-radio slot="start" value="siempre"></ion-radio>
-        </ion-item>
-    </ion-radio-group>
-</ng-template>
-<ng-template #assuranceSelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Nada segura</ion-label>
-            <ion-radio slot="start" value="nada"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Poco segura</ion-label>
-            <ion-radio slot="start" value="poco"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Segura</ion-label>
-            <ion-radio slot="start" value="segura"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Muy segura</ion-label>
-            <ion-radio slot="start" value="mucho"></ion-radio>
-        </ion-item>
-    </ion-radio-group>
-</ng-template>
-<ng-template #treatmentSelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Nada bueno</ion-label>
-            <ion-radio slot="start" value="nada"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Bueno</ion-label>
-            <ion-radio slot="start" value="bueno"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Muy bueno</ion-label>
-            <ion-radio slot="start" value="mucho"></ion-radio>
-        </ion-item>
-    </ion-radio-group>
-</ng-template>
-<ng-template #experienceSelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Nada buena</ion-label>
-            <ion-radio slot="start" value="nada"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Buena</ion-label>
-            <ion-radio slot="start" value="buena"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Muy buena</ion-label>
-            <ion-radio slot="start" value="mucho"></ion-radio>
-        </ion-item>
-    </ion-radio-group>
-</ng-template> -->
 <ng-template #numberSelector let-index="index">
     <ion-range [min]="divideOption(questions[index].options, 0)" [max]="divideOption(questions[index].options, 1)" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
     [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" class="mb-2">
@@ -160,18 +84,20 @@
         <ion-label slot="end" mode="ios">{{ divideOption(questions[index].options, 1) }}</ion-label>
     </ion-range>
 </ng-template>
+
 <ng-template #txtSelector let-index="index">
     <!-- INPUT TXT -->
+    <ion-textarea
+        placeholder="Escriu aquí la teva resposta"
+        [autoGrow]="true"
+        [(ngModel)]="questions[index].value">
+    </ion-textarea>
 </ng-template>
-<!-- <ng-template #yesnoSelector let-index="index">
-    <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>Si</ion-label>
-            <ion-radio slot="start" value="si"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" [disabled]="loading">
-            <ion-label>No</ion-label>
-            <ion-radio slot="start" value="no"></ion-radio>
-        </ion-item>
-    </ion-radio-group>
-</ng-template> -->
+
+<ng-template #painSelector let-index="index">
+    <ion-range [min]="0" [max]="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
+    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" class="mb-2">
+        <ion-label slot="start" mode="ios">Poc dolor</ion-label>
+        <ion-label slot="end" mode="ios">Molt dolor</ion-label>
+    </ion-range>
+</ng-template>
