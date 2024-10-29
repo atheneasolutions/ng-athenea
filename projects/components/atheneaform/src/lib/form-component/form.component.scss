@@ -30,6 +30,11 @@
             color: inherit;
         }
     }
+
+    .preview {
+        --padding-bottom: 0;
+        --padding-top: 0;
+    }
 }
 
 .question-container {
@@ -37,6 +42,10 @@
     overflow: scroll;
     width: 100%;
     height: 100%;
+
+    &.preview {
+        padding-bottom: 0;
+    }
 
     @media screen and (max-width:767px) {
         padding-top: 2em;
@@ -271,3 +280,14 @@ ion-radio-group {
 ion-range::part(pin) {
     transform: scale(1.01);
 }  
+
+.v-hidden {
+    visibility: hidden;
+}
+
+.mb-0 {
+    margin-bottom: 0!important;
+}
+.mt-0 {
+    margin-top: 0!important;
+}

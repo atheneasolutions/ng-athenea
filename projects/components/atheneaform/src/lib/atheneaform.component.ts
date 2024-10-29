@@ -1,4 +1,4 @@
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, RangeCustomEvent } from '@ionic/angular';
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
@@ -23,6 +23,9 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() title: string | null = null;
   @Input() lang: 'ca' | 'es' | 'en' = 'ca';
   @Output() sendSurvey:EventEmitter<any> = new EventEmitter<any>();
+  //PREVIEW
+  @Input() preview: Preview | null = null;
+  @Input() canAnswer: boolean = true;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
@@ -49,11 +52,62 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   loading:boolean = false;
-  errors: number[] = [];
   hasScroll: any[] = [];
 
   slideIndex: number = 0;
   isCompleted: Boolean = false;
+
+  selectedLabel: string | null = null;
+  painScaleLabels = [
+    {
+      value: 5,
+      label: {
+        ca: "Sense dolor",
+        es: "Sin dolor",
+        en: "Without pain"
+      }
+    },
+    {
+      value: 4,
+      label: {
+        ca: "Dolor molt lleu",
+        es: "Dolor muy leve",
+        en: "Very mild pain"
+      }
+    },
+    {
+      value: 3,
+      label: {
+        ca: "Dolor lleu",
+        es: "Dolor leve",
+        en: "Mild pain"
+      }
+    },
+    {
+      value: 2,
+      label: {
+        ca: "Dolor moderat",
+        es: "Dolor moderado",
+        en: "Moderate pain"
+      }
+    },
+    {
+      value: 1,
+      label: {
+        ca: "Dolor sever",
+        es: "Dolor severo",
+        en: "Severe pain"
+      }
+    },
+    {
+      value: 0,
+      label: {
+        ca: "Dolor insoportable",
+        es: "Dolor insoportable",
+        en: "Unbearable pain"
+      }
+    }
+  ]
 
   constructor(
     // private modalCtrl: ModalController
@@ -73,13 +127,8 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   saveSurvey() {
-    this.checkForFormErrors();
-    //Si hi ha errors, slideTo el primer
-    if (this.errors.length > 0) 
-    {
-      this.slideTo(this.errors[0]);
-      return;
-    }
+    if (!this.canAnswer) return;
+    if (this.formHasErrors(true)) return;
 
     this.sendSurvey.emit({
       "questions": this.questions,
@@ -87,22 +136,24 @@ export class AtheneaformComponent implements AfterViewChecked {
     });
   }
 
-  checkForFormErrors() {
-    //Restart errors
-    this.errors = [];
-
+  formHasErrors(slide = false): Boolean {
     //Itera entre les preguntes
-    this.questions.forEach((elem, index) => {
-      //Comprova preguntes sense resposta
+    for (let index = 0; index < this.questions.length; index++) {
+      const elem = this.questions[index];
       if (!elem.value) {
-        if (elem?.mainTag) {
-          if (this.isMainPositive(elem.mainTag))
-            this.errors.push(index);
+        if (elem?.main_tag) {
+          if (this.isMainPositive(elem.main_tag)) {
+            if (slide) this.slideTo(index);
+            return true;
+          }
         }
-        else 
-          this.errors.push(index);
+        else {
+          if (slide) this.slideTo(index);
+          return true;
+        }
       }
-    });
+    }
+    return false;
   }
 
   cancel() {
@@ -127,7 +178,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   isMainPositive(mainTag: string | null) {
     if (mainTag) {
       let question = this.getQuestion(mainTag);
-      if (question && question.value == 'si') return true;
+      if (question && question.value == '1') return true;
     }
     
     return false;
@@ -148,7 +199,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   slideTo(index: number, speed: number = 100) {
-    this.swiper.swiperRef.slideTo(index, speed);
+    this.swiper.swiperRef.slideTo(this.preview ? index+1 : index, speed);
   }
 
   onSlideChange(e: any) {
@@ -162,37 +213,22 @@ export class AtheneaformComponent implements AfterViewChecked {
   get canContinue() {
     //Si final swiper no continua
     if (this.swiper?.swiperRef.isEnd) return false;
-
+    if (!this.canAnswer) return true;
     //Si pregunta contestada pot continuar, sinó no
-    if (this.questions[this.slideIndex].value) return true;
+    if (this.preview && this.slideIndex == 0) return true;
+    else if (this.questions[this.preview ? this.slideIndex-1 : this.slideIndex].value) return true;
     return false;
   }
 
-  // get isEnd() {
-  //   return this.swiper?.swiperRef.isEnd;
-  // }
-
-  //TODO rethink errors, ara no es pot continuar si no està contestat
   inputChange(index: number, e: any = null) {
     //Assignem valor
     if (e) this.questions[index].value = e;
-    //Si hi ha errors, slideTo el següent
 
-    let indexof = this.errors.indexOf(index);
-    if (indexof > -1) this.errors.splice(indexof, 1);
-    if (this.errors.length > 0) {
-      setTimeout(() => {
-        this.slideTo(this.errors[0], 250);
-      }, TIMEOUT_TIME);
-    }
-    //Si no hi ha errors, slideNext
-    else 
-      setTimeout(() => {
-        this.slideNext();
-      }, TIMEOUT_TIME);
+    setTimeout(() => {
+      this.slideNext();
+    }, TIMEOUT_TIME);
 
-    this.checkForFormErrors();
-    if (this.errors.length == 0) this.isCompleted = true;
+    if (!this.formHasErrors()) this.isCompleted = true;
     else this.isCompleted = false;
 
   }
@@ -208,9 +244,7 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   checkScroll(index: number) {
     const elem = this.getNativeElem(index);
-    const threshold = 1;
-    let isBottom =  ((elem.scrollTop + elem.clientHeight) < (elem.scrollHeight - threshold));
-    if (isBottom) elem.classList.add('d-none');
+    elem.classList.add('d-none');
   }
 
   getNativeElem(index: number) {
@@ -221,13 +255,50 @@ export class AtheneaformComponent implements AfterViewChecked {
   //   this.modalCtrl.dismiss();
   // }
 
-  noSort(a: any, b: any) {
-    return 0;
+  descend(a: any, b: any) {
+    return b.key - a.key;
   }
 
   divideOption(option: any, index: 0 | 1) {
     if (option) return (option.split(':'))[index];
     return null;
+  }
+
+  updateLabel(index: number, e: Event) {
+    let question = this.questions[index].value;
+    switch ((e as RangeCustomEvent).detail.value) {
+      case 0:
+        this.selectedLabel = this.painScaleLabels[0].label[this.lang];
+        question = this.painScaleLabels[0].value;
+        break;
+      case 1:
+      case 2:
+        this.selectedLabel = this.painScaleLabels[1].label[this.lang];
+        question = this.painScaleLabels[1].value;
+        break;
+        break;
+      case 3:
+      case 4:
+        this.selectedLabel = this.painScaleLabels[2].label[this.lang];
+        question = this.painScaleLabels[2].value;
+        break;
+      case 5:
+      case 6:
+        this.selectedLabel = this.painScaleLabels[3].label[this.lang];
+        question = this.painScaleLabels[3].value;
+        break;
+      case 7:
+      case 8:
+        this.selectedLabel = this.painScaleLabels[4].label[this.lang];
+        question = this.painScaleLabels[4].value;
+        break;
+      case 9:
+      case 10:
+      default:
+        this.selectedLabel = this.painScaleLabels[5].label[this.lang];
+        question = this.painScaleLabels[5].value;
+        break;
+    }
   }
 }
 
@@ -240,11 +311,20 @@ export interface Question {
   value: string | number | null;
   type: Type;
   options: Record<string, Multilang> | null | string;
-  mainTag: string | null;
+  main_tag: string | null;
+  escala: string | null;
+  caract_form: string | null;
 };
 
 export interface Multilang {
   ca: string;
   es: string;
   en: string;
+}
+
+export interface Preview {
+  title: string | null;
+  subtitle: string | null;
+  desc_html: string | null;
+  button: string;
 }
