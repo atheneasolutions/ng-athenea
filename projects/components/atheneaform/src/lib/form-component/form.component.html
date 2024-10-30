@@ -2,32 +2,13 @@
     <swiper #swiper 
     [config]="config" 
     (slideChange)="onSlideChange($event)" 
-    class="swiper-container">
+    class="swiper-container"
+    [class.preview]="preview ? slideIndex==0 : false">
         <ng-template swiperSlide *ngIf="preview">
             <div class="question-container preview">
                 <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1>
                 <p class="mt-0" *ngIf="preview.subtitle">{{preview.subtitle}}</p>
                 <div *ngIf="preview.desc_html" [innerHtml]="preview.desc_html"></div>
-                <ion-toolbar class="nav-buttons preview" *ngIf="canAnswer; else cant">
-                    <ion-buttons class="justify-center">
-                        <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
-                            {{preview.button}}
-                        </ion-button>
-                    </ion-buttons>
-                </ion-toolbar>
-                <ng-template #cant>
-                    <ion-toolbar class="nav-buttons preview">
-                        <ion-buttons class="justify-center">
-                            <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
-                                @switch (lang) {
-                                    @case ('ca') { Veure qüestionari }
-                                    @case ('es') { Ver cuestionario }
-                                    @case ('en') { See form }
-                                }
-                            </ion-button>
-                        </ion-buttons>
-                    </ion-toolbar>
-                </ng-template>
             </div>
         </ng-template>
         <ng-container *ngFor="let question of questions; let index = index">
@@ -52,8 +33,9 @@
         </ng-container>
     </swiper>
 
-    <ion-toolbar class="nav-buttons" [class.v-hidden]="preview ? slideIndex==0 : false">
-        <ion-buttons slot="start">
+    <ion-toolbar class="nav-buttons">
+        <!-- SEND BUTTON -->
+        <ion-buttons slot="start" [class.v-hidden]="preview ? slideIndex==0 : false">
             <ion-button (click)="saveSurvey()" [disabled]="!isCompleted" color="primary" shape="round" fill="solid" class="send" mode="ios">
                 @switch (lang) {
                     @case ('ca') { Enviar }
@@ -62,7 +44,29 @@
                 }
             </ion-button>
         </ion-buttons>
-        <ion-buttons slot="end">
+
+        <!-- IN PREVIEW, CONTINUE OR SEE BUTTON -->
+        <ng-container *ngIf="preview ? slideIndex==0 : false">
+            <ion-buttons class="justify-center" *ngIf="canAnswer; else cant">
+                <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
+                    {{preview?.button}}
+                </ion-button>
+            </ion-buttons>
+            <ng-template #cant>
+                <ion-buttons class="justify-center">
+                    <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
+                        @switch (lang) {
+                            @case ('ca') { Veure qüestionari }
+                            @case ('es') { Ver cuestionario }
+                            @case ('en') { See form }
+                        }
+                    </ion-button>
+                </ion-buttons>
+            </ng-template>
+        </ng-container>
+
+        <!-- FORM NAV -->
+        <ion-buttons slot="end" [class.v-hidden]="preview ? slideIndex==0 : false">
             <ion-button (click)="slidePrevious()" [disabled]="isBegining" color="primary" shape="round" fill="solid" class="up" mode="ios">
                 <ion-icon name="chevron-up-outline"></ion-icon>
             </ion-button>
@@ -84,8 +88,9 @@
 </ng-template>
 
 <ng-template #numberSelector let-index="index">
-    <ion-range [min]="divideOption(questions[index].options, 0)" [max]="divideOption(questions[index].options, 1)" step="1" [pin]="questions[index].value ? true : false" [snaps]="true" [ticks]="false" 
-    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index, $event)" mode="ios" class="mb-2" [disabled]="loading || !canAnswer">
+    <ion-range [min]="divideOption(questions[index].options, 0)" [max]="divideOption(questions[index].options, 1)" step="1" [pin]="questions[index].value != null ? true : false" [snaps]="true" [ticks]="false" 
+    [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" 
+    class="mb-2 range-has-pin" [disabled]="loading || !canAnswer">
         <ion-label slot="start" mode="ios">{{ divideOption(questions[index].options, 0) }}</ion-label>
         <ion-label slot="end" mode="ios">{{ divideOption(questions[index].options, 1) }}</ion-label>
     </ion-range>
@@ -102,17 +107,20 @@
 
 <ng-template #painSelector let-index="index">
     <ion-range [min]="0" [max]="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
-     (ionChange)="updateLabel(index, $event)" (ionKnobMoveEnd)="inputChange(index)" mode="ios" class="mb-2" [disabled]="loading || !canAnswer">
-        <ion-label slot="start" mode="ios">@switch (lang) {
+     (ionChange)="updateLabel(index, $event)" (ionKnobMoveEnd)="inputChange(index, $event.detail.value, false)" 
+     mode="ios" class="pb-0 pain-range" [disabled]="loading || !canAnswer">
+    </ion-range>
+    <ion-row class="justify-between">
+        <p class="small left">@switch (lang) {
             @case ('ca') { Sense dolor }
             @case ('es') { Sin dolor }
             @case ('en') { Without pain }
-        }</ion-label>
-        <ion-label slot="end" mode="ios">@switch (lang) {
+        }</p>
+        <p class="center">{{ selectedLabel }}</p>
+        <p class="small right">@switch (lang) {
             @case ('ca') { Dolor insoportable }
             @case ('es') { Dolor insoportable }
             @case ('en') { Unbearable pain }
-        }</ion-label>
-    </ion-range>
-    <p>{{ selectedLabel }}</p>
+        }</p>
+    </ion-row>
 </ng-template>

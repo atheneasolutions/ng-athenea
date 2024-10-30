@@ -4,7 +4,7 @@ import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-const TIMEOUT_TIME = 150;
+const TIMEOUT_TIME = 350;
 @Component({
   selector: 'atheneaform',
   standalone: true,
@@ -44,7 +44,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       // el: 'form-progressbar',
       enabled: true,
       type: 'progressbar',
-      progressbarOpposite: true
+      progressbarOpposite: false
     },
     effect: 'slide', // You can use 'fade' for a fade effect
     speed: 600, // Smooth transition speed
@@ -140,7 +140,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     //Itera entre les preguntes
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
-      if (!elem.value) {
+      if (elem.value == null) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
             if (slide) this.slideTo(index);
@@ -220,10 +220,11 @@ export class AtheneaformComponent implements AfterViewChecked {
     return false;
   }
 
-  inputChange(index: number, e: any = null) {
+  inputChange(index: number, e: any = null, slide: boolean = true) {
     //Assignem valor
     if (e) this.questions[index].value = e;
 
+    if (slide)
     setTimeout(() => {
       this.slideNext();
     }, TIMEOUT_TIME);
