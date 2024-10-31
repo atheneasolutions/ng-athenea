@@ -79,7 +79,7 @@
 
 <ng-template #select let-index="index" let-options="options">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
-        <ion-item *ngFor="let option of options | keyvalue: descend" lines="none" detail="false" 
+        <ion-item *ngFor="let option of options | keyvalue" lines="none" detail="false" 
         [disabled]="loading || !canAnswer" [class.item-selected]="questions[index].value == option.key">
             <ion-label>{{ $any(option.value)[lang] }}</ion-label>
             <ion-radio slot="start" [value]="option.key"></ion-radio>
@@ -106,9 +106,9 @@
 </ng-template>
 
 <ng-template #painSelector let-index="index">
-    <ion-range [min]="0" [max]="10" step="1" [pin]="true" [snaps]="true" [ticks]="false" 
-     (ionChange)="updateLabel(index, $event)" (ionKnobMoveEnd)="inputChange(index, $event.detail.value, false)" 
-     mode="ios" class="pb-0 pain-range" [disabled]="loading || !canAnswer">
+    <ion-range [min]="0" [max]="10" step="1" [pin]="questions[index].value != null ? true : false" [snaps]="true" [ticks]="false" 
+     [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index, null, false)" 
+     mode="ios" class="pb-0 pain-range range-has-pin" [disabled]="loading || !canAnswer">
     </ion-range>
     <ion-row class="justify-between">
         <p class="small left">@switch (lang) {
@@ -116,11 +116,56 @@
             @case ('es') { Sin dolor }
             @case ('en') { Without pain }
         }</p>
-        <p class="center">{{ selectedLabel }}</p>
         <p class="small right">@switch (lang) {
             @case ('ca') { Dolor insoportable }
             @case ('es') { Dolor insoportable }
             @case ('en') { Unbearable pain }
         }</p>
     </ion-row>
+
+    <table cellpadding="10" cellspacing="0" class="pain-legend" >
+        <tbody>
+            <tr class="only">
+                <td style="border-top-left-radius: 5px;" [class.selected]="questions[index].value == 0">0</td>
+                <td rowspan="1" class="pl-1" style="border-top-right-radius: 5px;" [class.selected]="questions[index].value == 0">Sin dolor</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 1">1</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 1 || questions[index].value == 2">Dolor muy leve</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 2">2</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 3">3</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 3 || questions[index].value == 4">Dolor leve</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 4">4</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 5">5</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 5 || questions[index].value == 6">Dolor moderado</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 6">6</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 7">7</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 7 || questions[index].value == 8">Dolor severo</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 8">8</td>
+            </tr>
+            <tr>
+                <td [class.selected]="questions[index].value == 9">9</td>
+                <td rowspan="2" class="pl-1" style="border-bottom-right-radius: 5px;" [class.selected]="questions[index].value == 9 || questions[index].value == 10">Dolor insoportable</td>
+            </tr>
+            <tr>
+                <td style="border-bottom-left-radius: 5px;" [class.selected]="questions[index].value == 10">10</td>
+            </tr>
+        </tbody>
+      </table>
+      
+
 </ng-template>

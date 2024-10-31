@@ -216,7 +216,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (!this.canAnswer) return true;
     //Si pregunta contestada pot continuar, sinó no
     if (this.preview && this.slideIndex == 0) return true;
-    else if (this.questions[this.preview ? this.slideIndex-1 : this.slideIndex].value) return true;
+    else if (this.questions[this.preview ? this.slideIndex-1 : this.slideIndex].value != null) return true;
     return false;
   }
 
@@ -252,54 +252,9 @@ export class AtheneaformComponent implements AfterViewChecked {
     return (this.scrollContainers.get(index))?.nativeElement;
   }
 
-  // close() {
-  //   this.modalCtrl.dismiss();
-  // }
-
-  descend(a: any, b: any) {
-    return b.key - a.key;
-  }
-
   divideOption(option: any, index: 0 | 1) {
     if (option) return (option.split(':'))[index];
     return null;
-  }
-
-  updateLabel(index: number, e: Event) {
-    let question = this.questions[index].value;
-    switch ((e as RangeCustomEvent).detail.value) {
-      case 0:
-        this.selectedLabel = this.painScaleLabels[0].label[this.lang];
-        question = this.painScaleLabels[0].value;
-        break;
-      case 1:
-      case 2:
-        this.selectedLabel = this.painScaleLabels[1].label[this.lang];
-        question = this.painScaleLabels[1].value;
-        break;
-        break;
-      case 3:
-      case 4:
-        this.selectedLabel = this.painScaleLabels[2].label[this.lang];
-        question = this.painScaleLabels[2].value;
-        break;
-      case 5:
-      case 6:
-        this.selectedLabel = this.painScaleLabels[3].label[this.lang];
-        question = this.painScaleLabels[3].value;
-        break;
-      case 7:
-      case 8:
-        this.selectedLabel = this.painScaleLabels[4].label[this.lang];
-        question = this.painScaleLabels[4].value;
-        break;
-      case 9:
-      case 10:
-      default:
-        this.selectedLabel = this.painScaleLabels[5].label[this.lang];
-        question = this.painScaleLabels[5].value;
-        break;
-    }
   }
 }
 
