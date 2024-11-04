@@ -12,12 +12,13 @@
             </div>
         </ng-template>
         <ng-container *ngFor="let question of questions; let index = index">
-            <ng-template swiperSlide *ngIf="question?.main_tag ? isMainPositive(question.main_tag) : true">
+            <ng-template swiperSlide 
+                *ngIf="question?.main_tag ? (question?.type == 'mult' ? false : isMainPositive(question.main_tag)) : true">
                 <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
                     <h3><span *ngIf="question.tag">{{question.tag}}.</span> {{question.label[lang]}}</h3>
                     <ng-template 
                         [ngTemplateOutlet]="getType(question.type)" 
-                        [ngTemplateOutletContext]="{index: index, options: question?.options}"></ng-template>
+                        [ngTemplateOutletContext]="{index: index, options: question?.options, id: question.id}"></ng-template>
 
                     <div class="scroll-anim" *ngIf="hasScroll[index]" (click)="scrollBottom(index)">
                         <div class="bubble-container">
@@ -127,39 +128,63 @@
         <tbody>
             <tr class="only">
                 <td style="border-top-left-radius: 5px;" [class.selected]="questions[index].value == 0">0</td>
-                <td rowspan="1" class="pl-1" style="border-top-right-radius: 5px;" [class.selected]="questions[index].value == 0">Sin dolor</td>
+                <td rowspan="1" class="pl-1" style="border-top-right-radius: 5px;" [class.selected]="questions[index].value == 0">@switch (lang) {
+                    @case ('ca') { Sense dolor }
+                    @case ('es') { Sin dolor }
+                    @case ('en') { Without pain }
+                }</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 1">1</td>
-                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 1 || questions[index].value == 2">Dolor muy leve</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 1 || questions[index].value == 2">@switch (lang) {
+                    @case ('ca') { Dolor molt lleu }
+                    @case ('es') { Dolor muy leve }
+                    @case ('en') { Very mild pain }
+                }</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 2">2</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 3">3</td>
-                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 3 || questions[index].value == 4">Dolor leve</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 3 || questions[index].value == 4">@switch (lang) {
+                    @case ('ca') { Dolor lleu }
+                    @case ('es') { Dolor leve }
+                    @case ('en') { Mild pain }
+                }</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 4">4</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 5">5</td>
-                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 5 || questions[index].value == 6">Dolor moderado</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 5 || questions[index].value == 6">@switch (lang) {
+                    @case ('ca') { Dolor moderat }
+                    @case ('es') { Dolor moderado }
+                    @case ('en') { Moderate pain }
+                }</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 6">6</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 7">7</td>
-                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 7 || questions[index].value == 8">Dolor severo</td>
+                <td rowspan="2" class="pl-1" [class.selected]="questions[index].value == 7 || questions[index].value == 8">@switch (lang) {
+                    @case ('ca') { Dolor sever }
+                    @case ('es') { Dolor severo }
+                    @case ('en') { Severe pain }
+                }</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 8">8</td>
             </tr>
             <tr>
                 <td [class.selected]="questions[index].value == 9">9</td>
-                <td rowspan="2" class="pl-1" style="border-bottom-right-radius: 5px;" [class.selected]="questions[index].value == 9 || questions[index].value == 10">Dolor insoportable</td>
+                <td rowspan="2" class="pl-1" style="border-bottom-right-radius: 5px;" [class.selected]="questions[index].value == 9 || questions[index].value == 10">@switch (lang) {
+                    @case ('ca') { Dolor insoportable }
+                    @case ('es') { Dolor insoportable }
+                    @case ('en') { Unbearable pain }
+                }</td>
             </tr>
             <tr>
                 <td style="border-bottom-left-radius: 5px;" [class.selected]="questions[index].value == 10">10</td>
@@ -167,5 +192,29 @@
         </tbody>
       </table>
       
+
+</ng-template>
+
+<ng-template #diagnosisMultiple let-index="index" let-id="id">
+
+    <ion-item lines="none" detail="false" [disabled]="loading || !canAnswer"
+        *ngFor="let option of multMap[id]">
+        <ion-label>{{ questions[option].label[lang] }}</ion-label>
+        <ion-radio-group mode="md" class="d-flex" [ngModel]="questions[option].value" (ngModelChange)="inputChange(option, $event, false)">
+            <ion-item lines="none" detail="false">
+                <ion-label>@switch (lang) {
+                    @case ('ca') { Si }
+                    @case ('es') { Si }
+                    @case ('en') { Yes }
+                }</ion-label>
+                <ion-radio value="1"></ion-radio>
+            </ion-item>
+            <ion-item lines="none" detail="false">
+                <ion-label>No</ion-label>
+                <ion-radio value="2"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+        <span *ngIf="questions[option].value == 1">showYear</span>
+    </ion-item>
 
 </ng-template>

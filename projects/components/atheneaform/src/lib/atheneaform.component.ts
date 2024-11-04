@@ -5,6 +5,8 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 const TIMEOUT_TIME = 350;
+const SI_VAL = '1';
+
 @Component({
   selector: 'atheneaform',
   standalone: true,
@@ -31,6 +33,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
   @ViewChild('select') select!: TemplateRef<any>;
   @ViewChild('painSelector') pain!: TemplateRef<any>;
+  @ViewChild('diagnosisMultiple') multiple!: TemplateRef<any>;
   
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -53,61 +56,10 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   loading:boolean = false;
   hasScroll: any[] = [];
+  multMap: any[] = [];
 
   slideIndex: number = 0;
   isCompleted: Boolean = false;
-
-  selectedLabel: string | null = null;
-  painScaleLabels = [
-    {
-      value: 5,
-      label: {
-        ca: "Sense dolor",
-        es: "Sin dolor",
-        en: "Without pain"
-      }
-    },
-    {
-      value: 4,
-      label: {
-        ca: "Dolor molt lleu",
-        es: "Dolor muy leve",
-        en: "Very mild pain"
-      }
-    },
-    {
-      value: 3,
-      label: {
-        ca: "Dolor lleu",
-        es: "Dolor leve",
-        en: "Mild pain"
-      }
-    },
-    {
-      value: 2,
-      label: {
-        ca: "Dolor moderat",
-        es: "Dolor moderado",
-        en: "Moderate pain"
-      }
-    },
-    {
-      value: 1,
-      label: {
-        ca: "Dolor sever",
-        es: "Dolor severo",
-        en: "Severe pain"
-      }
-    },
-    {
-      value: 0,
-      label: {
-        ca: "Dolor insoportable",
-        es: "Dolor insoportable",
-        en: "Unbearable pain"
-      }
-    }
-  ]
 
   constructor(
     // private modalCtrl: ModalController
@@ -115,6 +67,24 @@ export class AtheneaformComponent implements AfterViewChecked {
   ) { }
 
   ngOnInit() {
+    this.questions.forEach((question, index) => {
+      if (question.type == 'csi_multiple') this.multMap[question.id] = [];
+      else if (question.type == 'mult') {
+        this.multMap[question.main_tag].push(index);
+
+        // let cont = true;
+
+        // while (cont) {
+        //   const childQuestion = this.questions[index];
+        //   if (childQuestion.main_tag == question.id) {
+        //     questions.push(index);
+        //     index++;
+        //     // this.questions.splice(index, 1);
+        //   } else cont = false;
+        // }
+        // this.isMult[parentIndex] = questions;
+      }
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -137,7 +107,6 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   formHasErrors(slide = false): Boolean {
-    //Itera entre les preguntes
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
       if (elem.value == null) {
@@ -170,6 +139,8 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.select;   
       case 'pain':
         return this.pain;   
+      case 'csi_multiple':
+        return this.multiple;
       default:
         return this.txtSelector;
     }
@@ -178,7 +149,9 @@ export class AtheneaformComponent implements AfterViewChecked {
   isMainPositive(mainTag: string | null) {
     if (mainTag) {
       let question = this.getQuestion(mainTag);
-      if (question && question.value == '1') return true;
+      //NO és ópitm
+      if (question && question.type == 'csi_multiple') return true;
+      if (question && question.value == SI_VAL) return true;
     }
     
     return false;
@@ -258,7 +231,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 }
 
-type Type = 'number' | 'frequency' | 'text' | 'conditional';
+type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult';
 export interface Question {
   id: string;
   tag: string | null;
@@ -266,7 +239,7 @@ export interface Question {
   label: Multilang;
   value: string | number | null;
   type: Type;
-  options: Record<string, Multilang> | null | string;
+  options: Record<string, Multilang> | null | string | Array<any>;
   main_tag: string | null;
   escala: string | null;
   caract_form: string | null;
