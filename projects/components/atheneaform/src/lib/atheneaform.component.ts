@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
+const SKIP_CHECK_TYPE = 'csi_multiple';
+const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple'];
 
 @Component({
   selector: 'atheneaform',
@@ -56,10 +58,14 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   loading:boolean = false;
   hasScroll: any[] = [];
+  /**
+   * Array that contains questionID(key) and subquestionsIndex(value)
+   */
   multMap: any[] = [];
 
   slideIndex: number = 0;
   isCompleted: Boolean = false;
+  continueButton: Boolean = false;
 
   constructor(
     // private modalCtrl: ModalController
@@ -68,21 +74,9 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   ngOnInit() {
     this.questions.forEach((question, index) => {
-      if (question.type == 'csi_multiple') this.multMap[question.id] = [];
+      if (question.type == SKIP_CHECK_TYPE) this.multMap[question.id as any] = [];
       else if (question.type == 'mult') {
-        this.multMap[question.main_tag].push(index);
-
-        // let cont = true;
-
-        // while (cont) {
-        //   const childQuestion = this.questions[index];
-        //   if (childQuestion.main_tag == question.id) {
-        //     questions.push(index);
-        //     index++;
-        //     // this.questions.splice(index, 1);
-        //   } else cont = false;
-        // }
-        // this.isMult[parentIndex] = questions;
+        if (question.main_tag) this.multMap[question.main_tag as any].push(index);
       }
     });
   }
@@ -100,8 +94,14 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (!this.canAnswer) return;
     if (this.formHasErrors(true)) return;
 
+    let questRet = [];
+    for (let index = 0; index < this.questions.length; index++) {
+      const element = this.questions[index];
+      if (element.type != SKIP_CHECK_TYPE) questRet.push(element);
+    }
+
     this.sendSurvey.emit({
-      "questions": this.questions,
+      "questions": questRet,
       "role": 'send'
     });
   }
@@ -109,7 +109,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   formHasErrors(slide = false): Boolean {
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
-      if (elem.value == null) {
+      if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
             if (slide) this.slideTo(index);
@@ -139,7 +139,7 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.select;   
       case 'pain':
         return this.pain;   
-      case 'csi_multiple':
+      case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
         return this.txtSelector;
@@ -150,7 +150,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (mainTag) {
       let question = this.getQuestion(mainTag);
       //NO és ópitm
-      if (question && question.type == 'csi_multiple') return true;
+      if (question && question.type == SKIP_CHECK_TYPE) return true;
       if (question && question.value == SI_VAL) return true;
     }
     
@@ -165,10 +165,12 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   slideNext() {
     this.swiper.swiperRef.slideNext(250);
+    this.continueButton = false;
   }
 
   slidePrevious() {
     this.swiper.swiperRef.slidePrev(250);
+    this.continueButton = false;
   }
 
   slideTo(index: number, speed: number = 100) {
@@ -201,6 +203,9 @@ export class AtheneaformComponent implements AfterViewChecked {
     setTimeout(() => {
       this.slideNext();
     }, TIMEOUT_TIME);
+    else {
+      this.showContinueButton();
+    }
 
     if (!this.formHasErrors()) this.isCompleted = true;
     else this.isCompleted = false;
@@ -228,6 +233,10 @@ export class AtheneaformComponent implements AfterViewChecked {
   divideOption(option: any, index: 0 | 1) {
     if (option) return (option.split(':'))[index];
     return null;
+  }
+
+  showContinueButton() {
+    this.continueButton = true;
   }
 }
 
