@@ -112,7 +112,8 @@
         [autoGrow]="true"
         [(ngModel)]="questions[index].value"
         [disabled]="loading || !canAnswer"
-        (ionInput)="showContinueButton()">
+        (ionInput)="showContinueButton()"
+        rows="4">
     </ion-textarea>
 </ng-template>
 

@@ -34,7 +34,7 @@
 .nav-buttons {
     ion-button {
         color: inherit;
-        height: revert-layer;
+        height: 40px;
 
         &.send {
             --padding-start: 0.7em;
@@ -57,20 +57,19 @@
 }
 
 .question-container {
-    padding: 2em;
-    padding-left: 3em;
+    padding: 1em 2em 0em 3em;
     overflow: scroll;
     width: 100%;
     height: 100%;
 
     &.preview {
-        padding-bottom: 0;
+        text-align: justify;
         line-height: 1.4;
-    }
+        padding: 1em 2em;
 
-    @media screen and (max-width:767px) {
-        padding-top: 2em;
-        padding-left: 2em;
+        ul {
+            padding-left: 15px;
+        }
     }
 
     h6 {
@@ -84,6 +83,7 @@
 
     h3 {
         font-size: 20px;
+        line-height: 1.35;
 
         @media screen and (max-width:767px) {
             font-size: 17px;
@@ -347,8 +347,7 @@ ion-range::part(pin) {
     border-radius: 10px;
     overflow: hidden;
     background-color: #f5f5f5;
-    width: 70%;
-    min-width: 260px;
+    width: 260px;
     margin: auto;
     margin-top: 2em;
 
@@ -357,7 +356,7 @@ ion-range::part(pin) {
     }
 
     tbody {
-        vertical-align: middle;
+        font-size: 85%;
 
         tr {
             transition: all .5s;
