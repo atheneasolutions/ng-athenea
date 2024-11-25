@@ -1,9 +1,10 @@
-import { IonicModule, ModalController, RangeCustomEvent } from '@ionic/angular';
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AlertController, IonicModule, ModalController, RangeCustomEvent } from '@ionic/angular';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Preferences } from '@capacitor/preferences';
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
 const SKIP_CHECK_TYPE = 'csi_multiple';
@@ -18,18 +19,23 @@ const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple'];
     IonicModule,
     FormsModule
   ],
-  templateUrl: './form-component/form.component.html',
-  styleUrl: './form-component/form.component.scss'
+  templateUrl: './__form-component/form.component.html',
+  styleUrl: './__form-component/form.component.scss'
 })
 export class AtheneaformComponent implements AfterViewChecked {
 
   @Input() questions: Question[] = [];
   @Input() title: string | null = null;
-  @Input() lang: 'ca' | 'es' | 'en' = 'ca';
+  @Input() set lang(val: Lang){
+    this.checkHasLang(val ?? 'ca');
+  };
   @Output() sendSurvey:EventEmitter<any> = new EventEmitter<any>();
   //PREVIEW
   @Input() preview: Preview | null = null;
+  @Input() end: Multilang | null = null;
   @Input() canAnswer: boolean = true;
+  @Input() availableDate: Date | null = null;
+  @Input() answersId: string | undefined;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
@@ -43,7 +49,6 @@ export class AtheneaformComponent implements AfterViewChecked {
   config: SwiperOptions = {
     direction: 'vertical',
     slidesPerView: 1, // Show only one slide at a time
-    spaceBetween: 30, // Add space between slides
     allowTouchMove: false, // Allow manual swipe between slides
     pagination: {
       // el: 'form-progressbar',
@@ -65,14 +70,16 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   slideIndex: number = 0;
   isCompleted: Boolean = false;
+  hasReachedEnd: Boolean = false;
   continueButton: Boolean = false;
+  selectedLang: Lang = 'ca';
+  lastIndex: number | null = null;
 
   constructor(
-    // private modalCtrl: ModalController
-    private cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.checkSavedAnswers();
     this.questions.forEach((question, index) => {
       if (question.type == SKIP_CHECK_TYPE) this.multMap[question.id as any] = [];
       else if (question.type == 'mult') {
@@ -82,11 +89,14 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    this.scrollContainers.forEach((scrollContainer: ElementRef, index: number) => {
-      const element = scrollContainer.nativeElement;
-      
-      const isScrollable = element.scrollHeight > element.clientHeight;
-      this.hasScroll[index] = isScrollable;
+    this.scrollContainers.changes.subscribe(() => {
+      setTimeout(() => {
+        this.scrollContainers.forEach((scrollContainer: ElementRef, index: number) => {
+          const element = scrollContainer.nativeElement;
+          const isScrollable = element.scrollHeight > element.clientHeight;
+          if (isScrollable) this.hasScroll.push(index);
+        });
+      }, 500);
     });
   }
 
@@ -96,6 +106,7 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     let questRet = [];
     for (let index = 0; index < this.questions.length; index++) {
+      if (this.questions[index].type == 'text' && this.questions[index].value == '-') this.questions[index].value = ''; 
       const element = this.questions[index];
       if (element.type != SKIP_CHECK_TYPE) questRet.push(element);
     }
@@ -109,6 +120,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   formHasErrors(slide = false): Boolean {
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
+      if (elem.optional) continue;
       if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
@@ -163,14 +175,24 @@ export class AtheneaformComponent implements AfterViewChecked {
     });
   }
 
-  slideNext() {
+  slideNext(save: boolean = false) {
+    if (save) this.saveAnswers();
+
     this.swiper.swiperRef.slideNext(250);
-    this.continueButton = false;
+
+    let question = this.questions[(this.preview ? this.slideIndex-1 : this.slideIndex)];
+    if (question.optional) this.showContinueButton();
+    else this.hideContinueButton();
+
+    if (this.isEnd) 
+      setTimeout(() => { 
+        this.hasReachedEnd = true;
+      }, 250);
   }
 
   slidePrevious() {
     this.swiper.swiperRef.slidePrev(250);
-    this.continueButton = false;
+    this.hideContinueButton();
   }
 
   slideTo(index: number, speed: number = 100) {
@@ -184,32 +206,55 @@ export class AtheneaformComponent implements AfterViewChecked {
   get isBegining() {
     return this.swiper?.swiperRef.isBeginning;
   }
+  get isEnd() {
+    return this.swiper?.swiperRef.isEnd;
+  }
 
   get canContinue() {
     //Si final swiper no continua
     if (this.swiper?.swiperRef.isEnd) return false;
     if (!this.canAnswer) return true;
     //Si pregunta contestada pot continuar, sinó no
+    let question = this.questions[this.preview ? this.slideIndex-1 : this.slideIndex]
     if (this.preview && this.slideIndex == 0) return true;
-    else if (this.questions[this.preview ? this.slideIndex-1 : this.slideIndex].value != null) return true;
+    else if (question.optional || question.value != null) return true;
+    else if (question.type == 'csi_multiple') return this.multValue(question.id);
     return false;
   }
 
-  inputChange(index: number, e: any = null, slide: boolean = true) {
+  inputChange(index: number, e: any = null, slide: boolean = true, valNul: boolean = false) {
     //Assignem valor
-    if (e) this.questions[index].value = e;
+    if (e && !valNul) this.questions[index].value = e;
+    else if (valNul) {
+      this.questions[index].value = null;
+      this.hideContinueButton();
+    }
+
+    this.saveAnswers();
 
     if (slide)
     setTimeout(() => {
       this.slideNext();
     }, TIMEOUT_TIME);
     else {
-      this.showContinueButton();
+      if (this.questions[index].type == 'mult') {
+        if (this.multValue(this.questions[index].main_tag)) this.showContinueButton();
+      }
+      else if (!valNul) this.showContinueButton();
     }
 
     if (!this.formHasErrors()) this.isCompleted = true;
     else this.isCompleted = false;
 
+  }
+
+  multValue(tag: any): boolean {
+    let map = this.multMap[tag];
+    let canCont = true;
+    map.forEach((key: any, value: any) => {
+      if (this.questions[key].value == null) canCont = false;
+    });
+    return canCont;
   }
 
   scrollBottom(index: number) {
@@ -222,8 +267,11 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   checkScroll(index: number) {
-    const elem = this.getNativeElem(index);
-    elem.classList.add('d-none');
+    const element = this.scrollContainers.get(index)?.nativeElement;
+    if (element) {
+      const isScrolledToBottom = element.scrollTop + element.clientHeight >= element.scrollHeight -1;
+      if (isScrolledToBottom) this.hasScroll.splice(this.hasScroll.indexOf(index), 1);
+    }
   }
 
   getNativeElem(index: number) {
@@ -238,9 +286,68 @@ export class AtheneaformComponent implements AfterViewChecked {
   showContinueButton() {
     this.continueButton = true;
   }
+  hideContinueButton() {
+    this.continueButton = false;
+  }
+
+  checkHasLang(lang: Lang, toCheck: Array<string> = ['ca', 'es', 'en']) {
+    let label = this.questions[0].label[lang];
+    if (label && label.trim() != "") this.selectedLang = lang;
+    else {
+      toCheck.splice(toCheck.indexOf(lang), 1);
+      if (toCheck.length == 0) 
+        this.sendSurvey.emit({
+          "questions": null,
+          "role": 'error'
+        });
+
+      this.checkHasLang(toCheck[0] as Lang, toCheck);
+    }
+  }
+
+  async saveAnswers() {
+    let answers = await this.questions.filter(function(obj) {
+      return obj.value != null;
+    }).map(elem => ({
+      ID: elem?.id,
+      VALOR: elem?.value
+    }));
+
+    let progress = Math.round((answers.length*100)/this.questions.length);
+
+    Preferences.set({key: this.answersId, value: JSON.stringify({
+      "answers": answers,
+      "progress": progress
+    })});
+  }
+
+  async checkSavedAnswers() {
+    let answers = JSON.parse((await Preferences.get({key: this.answersId})).value);
+
+    if (answers)
+    await answers.answers.forEach((answer: any) => {
+      const index = this.questions.findIndex(question => {
+        return question.id == answer.ID
+      })
+      // const index = this.questions.map(function (e) {
+      //   return e.id;
+      // }).indexOf(element.ID);
+      if (index >= 0) {
+        this.questions[index].value = answer.VALOR;
+        this.lastIndex = index;
+      }
+    });
+  }
+
+  slideLastAnswered() {
+    this.slideTo(this.lastIndex??0+1, 500);
+    this.lastIndex = null;
+  }
+
 }
 
 type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult';
+type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id: string;
   tag: string | null;
@@ -252,6 +359,7 @@ export interface Question {
   main_tag: string | null;
   escala: string | null;
   caract_form: string | null;
+  optional: boolean;
 };
 
 export interface Multilang {

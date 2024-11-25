@@ -57,7 +57,7 @@
 }
 
 .question-container {
-    padding: 1em 2em 0em 3em;
+    padding: 0em 2em 0em 3em;
     overflow: scroll;
     width: 100%;
     height: 100%;
@@ -66,12 +66,14 @@
         text-align: justify;
         line-height: 1.4;
         padding: 1em 2em;
-
-        ul {
-            padding-left: 15px;
-        }
     }
 
+    
+    .param-start {
+        ul {
+            padding-left: 1.5em;
+        }
+    }
     h6 {
         font-size: 25px;
         text-align: right;
@@ -410,4 +412,18 @@ ion-range::part(pin) {
 }
 .d-flex {
     display: flex;
+}
+
+ion-buttons {
+    flex: 1;
+}
+
+.justify-end {
+    justify-content: end;
+}
+
+.warning-box {
+    background: var(--ion-color-accent300)!important;
+    padding: .75rem;
+    font-weight: bold;
 }
