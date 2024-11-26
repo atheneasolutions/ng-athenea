@@ -54,9 +54,9 @@
                 </h4>
                 <p>
                     @switch (selectedLang) {
-                        @case ('ca') { Apreta el botó "Enviar" per a enviar les respostes del qüestionari. }
-                        @case ('es') { Aprieta el botón "Enviar" para enviar las respuestas del cuestionario. }
-                        @case ('en') { Press the "Send" button to send the answers to the questionnaire. }
+                        @case ('ca') { Apreta el botó <b>Enviar</b> per a enviar les respostes del qüestionari. }
+                        @case ('es') { Aprieta el botón <b>Enviar</b> para enviar las respuestas del cuestionario. }
+                        @case ('en') { Press the <b>Send</b> button to send the answers to the questionnaire. }
                     }
                 </p>
                 <p>
@@ -74,8 +74,8 @@
     <ion-toolbar class="nav-buttons">
         <!-- SEND AND CONTINUE BUTTON -->
         <ion-buttons slot="start" [class.v-hidden]="isEnd ? true : (preview ? slideIndex==0 : false)">
-            <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" class="send" mode="ios"
-                *ngIf="!isCompleted && continueButton">
+            <ion-button (click)="slideNext(true)" color="primary" shape="round" fill="solid" class="send" mode="ios"
+                *ngIf="!hasReachedEnd && continueButton">
                 @switch (selectedLang) {
                     @case ('ca') { Continuar }
                     @case ('es') { Continuar }
@@ -83,7 +83,7 @@
                 }
             </ion-button>
             <ion-button (click)="saveSurvey()" color="primary" shape="round" fill="solid" class="send" mode="ios"
-                [class.v-hidden]="!isCompleted">
+                [class.v-hidden]="!hasReachedEnd">
                 @switch (selectedLang) {
                     @case ('ca') { Enviar }
                     @case ('es') { Enviar }
@@ -95,9 +95,20 @@
         <!-- IN PREVIEW, CONTINUE OR SEE BUTTON -->
         <ng-container *ngIf="preview ? slideIndex==0 : false">
             <ion-buttons class="justify-center" *ngIf="canAnswer; else cant">
-                <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
-                    {{preview?.button}}
-                </ion-button>
+                @if (!lastIndex) {
+                    <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
+                        {{preview?.button}}
+                    </ion-button>
+                }
+                @else {
+                    <ion-button *ngIf="lastIndex" (click)="slideLastAnswered()" color="primary" shape="round" fill="solid" mode="ios" class="send">
+                        @switch (selectedLang) {
+                            @case ('ca') { Continuar }
+                            @case ('es') { Continuar }
+                            @case ('en') { Continue }
+                        }
+                    </ion-button>
+                }
             </ion-buttons>
             <ng-template #cant>
                 <ion-buttons class="justify-center">
@@ -167,14 +178,32 @@
 </ng-template>
 
 <ng-template #txtSelector let-index="index">
-    <ion-textarea
-        placeholder="Escriu aquí la teva resposta"
-        [autoGrow]="true"
-        [(ngModel)]="questions[index].value"
-        [disabled]="loading || !canAnswer"
-        (ionInput)="showContinueButton()"
-        rows="4">
-    </ion-textarea>
+    <ion-radio-group mode="md" #radioGroup class="d-flex" [value]="questions[index].value ? (questions[index].value == '-' ? '-' : 'si') : null">
+        <ion-item lines="none" detail="false" 
+        [disabled]="loading || !canAnswer" [class.item-selected]="radioGroup.value == 'si'" (click)="inputChange(index, null, false, true)">
+            <ion-label>@switch (selectedLang) {
+                @case ('ca') { Sí }
+                @case ('es') { Sí }
+                @case ('en') { Yes }
+            }</ion-label>
+            <ion-radio slot="start" value="si"></ion-radio>
+        </ion-item>
+        <ion-item lines="none" detail="false" 
+        [disabled]="loading || !canAnswer" [class.item-selected]="radioGroup.value == '-'" (click)="inputChange(index, '-', false)">
+            <ion-label>No</ion-label>
+            <ion-radio slot="start" value="-"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+    @if (radioGroup.value === 'si') {
+        <ion-textarea
+            placeholder="Escriu aquí la teva resposta"
+            [autoGrow]="false"
+            [(ngModel)]="questions[index].value"
+            [disabled]="loading || !canAnswer"
+            (ionInput)="showContinueButton()"
+            rows="5">
+        </ion-textarea>
+    }
 </ng-template>
 
 <ng-template #painSelector let-index="index">
