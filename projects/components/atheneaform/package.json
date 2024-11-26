@@ -1,11 +1,12 @@
 {
   "name": "@atheneasolutions/swiper-form-component",
-  "version": "3.0.17",
+  "version": "3.0.18",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0",
     "@angular/forms": "^17.3.0",
-    "@ionic/angular": "^6.0.0"
+    "@ionic/angular": "^6.0.0",
+    "@capacitor/preferences": "^6.0.0"
   },
   "dependencies": {
     "swiper": "^8.4.7",
@@ -14,6 +15,7 @@
   "sideEffects": false,
   "devDependencies": {
     "@angular/forms": "^17.3.0",
-    "@ionic/angular": "^6.0.0"
+    "@ionic/angular": "^6.0.0",
+    "@capacitor/preferences": "^6.0.0"
   }
 }

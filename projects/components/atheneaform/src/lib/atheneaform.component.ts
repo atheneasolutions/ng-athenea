@@ -19,8 +19,8 @@ const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple'];
     IonicModule,
     FormsModule
   ],
-  templateUrl: './__form-component/form.component.html',
-  styleUrl: './__form-component/form.component.scss'
+  templateUrl: './form-component/form.component.html',
+  styleUrl: './form-component/form.component.scss'
 })
 export class AtheneaformComponent implements AfterViewChecked {
 
@@ -35,7 +35,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() end: Multilang | null = null;
   @Input() canAnswer: boolean = true;
   @Input() availableDate: Date | null = null;
-  @Input() answersId: string | undefined;
+  @Input() answersId!: string;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
@@ -322,7 +322,10 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   async checkSavedAnswers() {
-    let answers = JSON.parse((await Preferences.get({key: this.answersId})).value);
+    if (!this.answersId) return;
+    let preference = (await Preferences.get({key: this.answersId})).value;
+    if (!preference) return;
+    let answers = JSON.parse(preference);
 
     if (answers)
     await answers.answers.forEach((answer: any) => {
