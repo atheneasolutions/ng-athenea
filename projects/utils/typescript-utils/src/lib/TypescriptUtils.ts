@@ -45,11 +45,63 @@ export function hasDifferences(object1: any, object2: any): boolean {
       if (!arraysEqual(value1, value2)) {
         return true;
       }
-    } 
-    else if (value1 !== value2) {
+    } else if (typeof value1 === 'object' && typeof value2 === 'object'){
+      if(hasDifferences(value1, value2)) return true;
+    } else if (value1 !== value2) {
       return true;
     }
   }
 
   return false;
+}
+
+
+
+type Diff<T> = {
+  [K in keyof T]?: T[K];
+};
+
+
+/**
+ * Compares two objects and returns an object containing the differences
+ * in their common fields, with values taken from the second object.
+ *
+ * @template T The type of the objects being compared.
+ * @param {T} obj1 The original object to compare.
+ * @param {T} obj2 The object containing potential changes.
+ * @returns {Partial<Diff<T>>} An object with the differences from the common fields.
+ */
+export function objectChanges<T extends Record<string, any>>(
+    obj1: T,
+    obj2: T,
+  ): Partial<Diff<T>> {
+    const differences: Partial<Diff<T>> = {};
+
+    for (const key in obj1) {
+      if (key in obj2) {
+        const value1 = obj1[key];
+        const value2 = obj2[key];
+
+        // Check if both values are objects and not null
+        if (
+          value1 &&
+          value2 &&
+          typeof value1 === 'object' &&
+          typeof value2 === 'object' &&
+          !Array.isArray(value1) &&
+          !Array.isArray(value2)
+        ) {
+          // Recursive call
+          const nestedDiff = objectChanges(value1, value2);
+          if (Object.keys(nestedDiff).length > 0) {
+            // Cast nestedDiff to the correct type for the key
+            differences[key] = nestedDiff as T[typeof key];
+          }
+        } else if (value1 !== value2) {
+          differences[key] = value2;
+        }
+      }
+    }
+
+    return differences;
   }
