@@ -42,6 +42,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('select') select!: TemplateRef<any>;
   @ViewChild('painSelector') pain!: TemplateRef<any>;
   @ViewChild('diagnosisMultiple') multiple!: TemplateRef<any>;
+  @ViewChild('info') info!: TemplateRef<any>;
   
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -151,6 +152,8 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.select;   
       case 'pain':
         return this.pain;   
+      case 'info':
+        return this.info;
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:

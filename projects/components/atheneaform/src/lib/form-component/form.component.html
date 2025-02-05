@@ -168,6 +168,13 @@
     </ion-radio-group>
 </ng-template>
 
+<ng-template #info>
+    <div class="preview" let-index="index">
+        <p class="mt-0" *ngIf="questions[index].info.subtitle">{{questions[index].info.subtitle}}</p>
+        <div *ngIf="questions[index].info.desc_html" [innerHtml]="questions[index].info.desc_html" class="param-start"></div>
+    </div>
+</ng-template>
+
 <ng-template #numberSelector let-index="index">
     <ion-range [min]="divideOption(questions[index].options, 0)" [max]="divideOption(questions[index].options, 1)" step="1" [pin]="questions[index].value != null ? true : false" [snaps]="true" [ticks]="false" 
     [(ngModel)]="questions[index].value" (ionKnobMoveEnd)="inputChange(index)" mode="ios" 
