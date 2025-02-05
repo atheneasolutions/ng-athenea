@@ -352,7 +352,7 @@ export class AtheneaformComponent implements AfterViewChecked {
 
 }
 
-type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult';
+type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info';
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id: string;
@@ -366,7 +366,13 @@ export interface Question {
   escala: string | null;
   caract_form: string | null;
   optional: boolean;
+  info: Info | null;
 };
+
+export interface Info {
+  subtitle: Multilang;
+  desc_html: Multilang;
+}
 
 export interface Multilang {
   ca: string;

@@ -11,7 +11,7 @@
     [config]="config" 
     (slideChange)="onSlideChange($event)" 
     class="swiper-container"
-    [class.preview]="isEnd ? true: (preview ? slideIndex==0 : false)">
+    [class.preview]="isEnd ? true: (preview ? slideIndex==0 || questions[slideIndex].type == 'info': false)">
         <ng-template swiperSlide *ngIf="preview">
             <div class="question-container preview">
                 <!-- <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1> -->
@@ -24,7 +24,7 @@
             <ng-template swiperSlide 
                 *ngIf="question?.main_tag ? (question?.type == 'mult' ? false : isMainPositive(question.main_tag)) : true">
                 <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
-                    <h3><span *ngIf="question.tag">{{question.tag}}.</span> {{question.label[selectedLang]}}</h3>
+                    <h3 *ngIf="question.type != 'info'"><span *ngIf="question.tag">{{question.tag}}.</span> {{question.label[selectedLang]}}</h3>
                     <ng-template 
                         [ngTemplateOutlet]="getType(question.type)" 
                         [ngTemplateOutletContext]="{index: index, options: question?.options, id: question.id}"></ng-template>
@@ -93,11 +93,20 @@
         </ion-buttons>
 
         <!-- IN PREVIEW, CONTINUE OR SEE BUTTON -->
-        <ng-container *ngIf="preview ? slideIndex==0 : false">
+        <ng-container *ngIf="(preview ? slideIndex == 0 : false) || (questions[slideIndex-1]?.type === 'info')">
             <ion-buttons class="justify-center" *ngIf="canAnswer; else cant">
-                @if (!lastIndex) {
+                @if (!lastIndex && slideIndex == 0) {
                     <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
                         {{preview?.button}}
+                    </ion-button>
+                }
+                @else if (lastIndex != slideIndex) {
+                    <ion-button *ngIf="lastIndex" (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
+                        @switch (selectedLang) {
+                            @case ('ca') { Continuar }
+                            @case ('es') { Continuar }
+                            @case ('en') { Continue }
+                        }
                     </ion-button>
                 }
                 @else {
@@ -168,10 +177,10 @@
     </ion-radio-group>
 </ng-template>
 
-<ng-template #info>
-    <div class="preview" let-index="index">
-        <p class="mt-0" *ngIf="questions[index].info.subtitle">{{questions[index].info.subtitle}}</p>
-        <div *ngIf="questions[index].info.desc_html" [innerHtml]="questions[index].info.desc_html" class="param-start"></div>
+<ng-template #info let-index="index">
+    <div class="question-container preview">
+        <p class="mt-0" *ngIf="questions[index].info.subtitle">{{questions[index].info.subtitle[selectedLang]}}</p>
+        <div *ngIf="questions[index].info.desc_html" [innerHtml]="questions[index].info.desc_html[selectedLang]" class="param-start"></div>
     </div>
 </ng-template>
 
