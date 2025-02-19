@@ -250,9 +250,9 @@
         </div>
         <div *ngIf="questions[index].max_questions !== questions[index].min_questions" class="bottom">
             @switch (selectedLang) {
-                @case ('ca') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Preguntes) }
-                @case ('es') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Preguntas) }
-                @case ('en') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Questions) }
+                @case ('ca') { ({{questions[index].min_questions}}-{{questions[index].max_questions}} Preguntes) }
+                @case ('es') { ({{questions[index].min_questions}}-{{questions[index].max_questions}} Preguntas) }
+                @case ('en') { ({{questions[index].min_questions}}-{{questions[index].max_questions}} Questions) }
             }
         </div>
     </div>
@@ -280,6 +280,11 @@
 <ng-template #txtSelector let-index="index">
     <ion-radio-group mode="md" #radioGroup class="d-flex" [value]="questions[index].value ? (questions[index].value == '-' ? '-' : 'si') : null">
         <ion-item lines="none" detail="false" 
+        [disabled]="loading || !canAnswer" [class.item-selected]="radioGroup.value == '-'" (click)="inputChange(index, '-', false)">
+            <ion-label>No</ion-label>
+            <ion-radio slot="start" value="-"></ion-radio>
+        </ion-item>
+        <ion-item lines="none" detail="false" 
         [disabled]="loading || !canAnswer" [class.item-selected]="radioGroup.value == 'si'" (click)="inputChange(index, null, false, true)">
             <ion-label>@switch (selectedLang) {
                 @case ('ca') { Sí }
@@ -287,11 +292,6 @@
                 @case ('en') { Yes }
             }</ion-label>
             <ion-radio slot="start" value="si"></ion-radio>
-        </ion-item>
-        <ion-item lines="none" detail="false" 
-        [disabled]="loading || !canAnswer" [class.item-selected]="radioGroup.value == '-'" (click)="inputChange(index, '-', false)">
-            <ion-label>No</ion-label>
-            <ion-radio slot="start" value="-"></ion-radio>
         </ion-item>
     </ion-radio-group>
     @if (radioGroup.value === 'si') {

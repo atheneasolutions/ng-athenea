@@ -420,6 +420,7 @@ ion-range::part(pin) {
 }
 .d-flex {
   display: flex;
+  flex-direction: column;
 }
 
 ion-buttons {

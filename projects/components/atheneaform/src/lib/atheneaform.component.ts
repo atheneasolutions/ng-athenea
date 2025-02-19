@@ -11,11 +11,6 @@ const SI_VAL = '1';
 const SKIP_CHECK_TYPE = 'csi_multiple';
 const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple', 'info'];
 
-const happyUrl = new URL("../assets/face-happy-svgrepo-com.svg", import.meta.url)
-const neutralUrl = new URL("../assets/face-neutral-svgrepo-com.svg", import.meta.url)
-const sadUrl = new URL("../assets/face-sad-svgrepo-com.svg", import.meta.url)
-const humanBodyUrl = new URL("../assets/icons/human-body-outline.svg", import.meta.url)
-
 @Component({
   selector: 'atheneaform',
   standalone: true,
@@ -57,13 +52,10 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
 
   moods = [
-    { value: 'happy',   icon: happyUrl.href, label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' }, index : 0},
-    { value: 'neutral', icon: neutralUrl.href, label: { en: 'Neutral', es: 'Neutral',  ca: 'Neutral'}, index : 1 },
-    { value: 'sad',     icon: sadUrl.href, label: { en: 'Sad', es: 'Triste', ca: 'Trist' }, index : 2,  },
+    { value: 'happy',   icon: "./../../../../assets/icons/face-happy-svgrepo-com.svg", label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' }, index : 0},
+    { value: 'neutral', icon: "./../../../../assets/icons/face-neutral-svgrepo-com.svg", label: { en: 'Neutral', es: 'Neutral',  ca: 'Neutral'}, index : 1 },
+    { value: 'sad',     icon: "./../../../../assets/icons/face-sad-svgrepo-com.svg", label: { en: 'Sad', es: 'Triste', ca: 'Trist' }, index : 2,  },
   ];
-  humanBodyIcon = humanBodyUrl.href;
-
-
 
   config: SwiperOptions = {
     direction: 'vertical',
@@ -426,6 +418,17 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (!this.canAnswer) return true;
     //Si pregunta contestada pot continuar, sinó no
     let question = this.questions[this.preview ? this.slideIndex-1 : this.slideIndex]
+        // Get the visible questions mapping.
+    const visibleIndices = this.visibleQuestionIndices;
+
+    // Adjust the index if you're using a preview slide.
+    const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
+    
+    // Make sure we have a valid mapping.
+    if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
+      const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
+      question = this.questions[actualQuestionIndex];
+    }
     if (this.preview && this.slideIndex == 0) return true;
     else if (question.optional || question.value != null) return true;
     else if (question.type == 'csi_multiple') return this.multValue(question.id);
