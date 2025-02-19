@@ -5,10 +5,16 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
+
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
 const SKIP_CHECK_TYPE = 'csi_multiple';
-const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple'];
+const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple', 'info'];
+
+const happyUrl = new URL("../assets/face-happy-svgrepo-com.svg", import.meta.url)
+const neutralUrl = new URL("../assets/face-neutral-svgrepo-com.svg", import.meta.url)
+const sadUrl = new URL("../assets/face-sad-svgrepo-com.svg", import.meta.url)
+const humanBodyUrl = new URL("../assets/icons/human-body-outline.svg", import.meta.url)
 
 @Component({
   selector: 'atheneaform',
@@ -17,7 +23,7 @@ const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple'];
     CommonModule,
     SwiperModule,
     IonicModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './form-component/form.component.html',
   styleUrl: './form-component/form.component.scss'
@@ -43,10 +49,22 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('painSelector') pain!: TemplateRef<any>;
   @ViewChild('diagnosisMultiple') multiple!: TemplateRef<any>;
   @ViewChild('info') info!: TemplateRef<any>;
-  
+  @ViewChild('selectMood') selectMood!: TemplateRef<any>;
+  @ViewChild('inputNum') inputNum!: TemplateRef<any>;
+  @ViewChild('painLocation') painLocation!: TemplateRef<any>;
+
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
 
+  moods = [
+    { value: 'happy',   icon: happyUrl.href, label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' }, index : 0},
+    { value: 'neutral', icon: neutralUrl.href, label: { en: 'Neutral', es: 'Neutral',  ca: 'Neutral'}, index : 1 },
+    { value: 'sad',     icon: sadUrl.href, label: { en: 'Sad', es: 'Triste', ca: 'Trist' }, index : 2,  },
+  ];
+  humanBodyIcon = humanBodyUrl.href;
+
+
+  
   config: SwiperOptions = {
     direction: 'vertical',
     slidesPerView: 1, // Show only one slide at a time
@@ -76,18 +94,154 @@ export class AtheneaformComponent implements AfterViewChecked {
   selectedLang: Lang = 'ca';
   lastIndex: number | null = null;
 
+  // This will hold the identifier of the selected zone.
+  selectedZone: string = '';
+  zones: Zone[] = [
+    { code: 'mama1', ordinary_name: 'Mama esquerra', formal_name: 'Mama esquerra' },
+    { code: 'mama2', ordinary_name: 'Mama dreta',    formal_name: 'Mama dreta' },
+    { code: 'pit',   ordinary_name: 'Pit',           formal_name: 'Pit' },
+    { code: 'cap',   ordinary_name: 'Cap',           formal_name: 'Cap' },
+    { code: 'panxa', ordinary_name: 'Panxa',         formal_name: 'Abdomen' },
+    { code: 'genitals', ordinary_name: 'Genitals',   formal_name: 'Genitals' },
+    { code: 'camafd', ordinary_name: 'Cama posterior dreta',   formal_name: 'Cama posterior dreta' },
+    { code: 'camafe', ordinary_name: 'Cama posterior esquerra', formal_name: 'Cama posterior esquerra' },
+    { code: 'camate', ordinary_name: 'Cama anterior esquerra', formal_name: 'Cama anterior esquerra' },
+    { code: 'camatd', ordinary_name: 'Cama anterior dreta',  formal_name: 'Cama anterior dreta' },
+    { code: 'zonaAnal', ordinary_name: 'Zona anal',         formal_name: 'Zona anal' },
+    { code: 'partBaixaEsquena', ordinary_name: 'Part baixa de l\'esquena', formal_name: 'Part inferior de l\'esquena' },
+    { code: 'braçe', ordinary_name: 'Braç esquerre',         formal_name: 'Braç esquerre' },
+    { code: 'braçd', ordinary_name: 'Braç dret',             formal_name: 'Braç dret' },
+    { code: 'general', ordinary_name: 'General',            formal_name: 'Cos general' },
+    { code: 'tronc', ordinary_name: 'Tronc',                formal_name: 'Tronc corporal' }
+  ];
+  
+  onZoneClick(index: number, zone_formal_name: string, zone_code: string, slide: boolean): void {
+    this.selectedZone = zone_code;
+    this.inputChange(index, zone_code, slide);
+  }
+
+  questionValueIsZero(id: string | null): boolean {
+    if(id == null) return true;
+    let question = this.questions.find(q => q.id === id);
+    return question?.value == 0
+  }
+ 
+  shouldRenderQuestion(question: Question): boolean {
+    // If there's a dependency, render only if the dependent question's value is not zero.
+    if (question?.depends_on) {
+      return !this.questionValueIsZero(question.depends_on);
+    }
+    // If it has a main tag, use the main tag logic.
+    if (question?.main_tag) {
+      return question.type === 'mult' ? false : this.isMainPositive(question.main_tag);
+    }
+    // Otherwise, always render.
+    return true;
+  }
+
+  get visibleQuestionIndices(): number[] {
+    const indices: number[] = [];
+    this.questions.forEach((question, index) => {
+      if (this.shouldRenderQuestion(question)) {
+        indices.push(index);
+      }
+    });
+    return indices;
+  }
+  
+  
+  
+
   constructor(
   ) { }
 
   async ngOnInit() {
     await this.checkSavedAnswers();
+
+    let indexI = 0;
+    let indexII = 0;
+    let indexIII = 0;
+    let mainTag = ''
+
+    // Iterem sobre les questions, posant el tag corresponent
+    for (let i = 1; i < this.questions.length+1; i++) {
+      if(this.questions[i-1].type === 'info') {
+        indexII = 0;
+        indexIII = 0;
+        if(indexI === 0) {
+          indexI = i;
+          this.questions[i-1].tag = `${indexI}`
+        } else {
+          indexI = indexI + 1
+          this.questions[i-1].tag = `${indexI}`
+        }
+      } else if(indexIII !== 0) {
+        if(this.questions[i-1].type === 'mult') {
+          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
+          this.questions[i-1].main_tag = mainTag;
+          indexIII = indexIII + 1;
+        } 
+        else if(this.questions[i-1].depends_on) {
+          indexIII = indexIII + 1;
+          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
+        }
+        else {
+          indexII = indexII + 1;
+          this.questions[i-1].tag = `${indexI}.${indexII}`;
+          indexIII = 0
+        }
+      } else if(indexI !== 0) {
+        indexII = indexII + 1;
+        this.questions[i-1].tag = `${indexI}.${indexII}`;
+        if(this.questions[i-1].type === 'csi_multiple') {
+          indexIII = 1;
+          mainTag = `${indexI}.${indexII}`;
+        } else if(this.questions[i-1].depends_on) {
+          indexII = indexII - 1;
+          indexIII = 1;
+          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
+        }
+      } 
+    }
+
+    // Iterem sobre les questions per posar quina és la capçalera
+    let headform = ''
+    for (let i = 0; i < this.questions.length; i++) {
+      if(this.questions[i].type === 'info') {
+        headform = this.questions[i].info?.subtitle[this.selectedLang] ?? ""
+      } else {
+        if (headform != '') {
+          this.questions[i].headform = headform;
+        }
+      }
+    }
+
+    // Iterem sobre les questions per posar el contador de preguntes sobre la pantalla info
+    let max_questions = 0;
+    let min_questions = 0;
+    for (let i = this.questions.length-1; i >= 0; i--) {
+      if(this.questions[i].type === 'info') {
+        this.questions[i].max_questions = max_questions;
+        this.questions[i].min_questions = min_questions;
+        max_questions = 0;
+        min_questions = 0;
+      } else {
+        max_questions = max_questions + 1;
+        if(!this.questions[i].depends_on) min_questions = min_questions + 1;
+      }
+    }
+
+
+
     this.questions.forEach((question, index) => {
-      if (question.type == SKIP_CHECK_TYPE) this.multMap[question.id as any] = [];
+      if (question.type == SKIP_CHECK_TYPE) this.multMap[question.tag as any] = [];
       else if (question.type == 'mult') {
         if (question.main_tag) this.multMap[question.main_tag as any].push(index);
       }
     });
   }
+
+
 
   ngAfterViewChecked(): void {
     this.scrollContainers.changes.subscribe(() => {
@@ -99,6 +253,13 @@ export class AtheneaformComponent implements AfterViewChecked {
         });
       }, 500);
     });
+  }
+
+  getColSize(index: number): number {
+    const totalColumns = 12;
+    const count = this.moods.length;
+    const baseSize = Math.floor(totalColumns / count);
+    return baseSize;
   }
 
   saveSurvey() {
@@ -151,9 +312,15 @@ export class AtheneaformComponent implements AfterViewChecked {
       case 'select':
         return this.select;   
       case 'pain':
-        return this.pain;   
+        return this.pain;  
       case 'info':
         return this.info;
+      case 'select_mood':
+        return this.selectMood;
+      case 'input_num':
+        return this.inputNum
+      case 'pain_location':
+        return this.painLocation; 
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -181,11 +348,34 @@ export class AtheneaformComponent implements AfterViewChecked {
   slideNext(save: boolean = false) {
     if (save) this.saveAnswers();
 
-    this.swiper.swiperRef.slideNext(250);
+      // Trigger the slide animation.
+  this.swiper.swiperRef.slideNext(250);
 
-    let question = this.questions[(this.preview ? this.slideIndex-1 : this.slideIndex)];
-    if (question.optional) this.showContinueButton();
-    else this.hideContinueButton();
+  // Get the visible questions mapping.
+  const visibleIndices = this.visibleQuestionIndices;
+
+  // Adjust the index if you're using a preview slide.
+  const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
+  
+  // Make sure we have a valid mapping.
+  if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
+    const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
+    let question = this.questions[actualQuestionIndex];
+
+    if (question.optional) {
+      this.showContinueButton();
+    } else {
+      this.hideContinueButton();
+    }
+
+    console.log(question, this.slideIndex, this.questions);
+  }
+
+    // let question = this.questions[(this.preview ? this.slideIndex-1 : this.slideIndex)];
+    // if (question.optional) this.showContinueButton();
+    // else this.hideContinueButton();
+
+    // console.log(question, this.slideIndex, this.questions)
 
     if (this.isEnd) 
       setTimeout(() => { 
@@ -195,8 +385,25 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   slidePrevious() {
     this.swiper.swiperRef.slidePrev(250);
-    this.hideContinueButton();
+    
+    // Get the current mapping of visible question indices
+    const visibleIndices = this.visibleQuestionIndices;
+    
+    // Adjust slideIndex for preview (if applicable)
+    const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
+    
+    if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
+      const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
+      const question = this.questions[actualQuestionIndex];
+      
+      if (question.optional) {
+        this.showContinueButton();
+      } else {
+        this.hideContinueButton();
+      }
+    }
   }
+  
 
   slideTo(index: number, speed: number = 100) {
     this.swiper.swiperRef.slideTo(this.preview ? index+1 : index, speed);
@@ -335,9 +542,6 @@ export class AtheneaformComponent implements AfterViewChecked {
       const index = this.questions.findIndex(question => {
         return question.id == answer.ID
       })
-      // const index = this.questions.map(function (e) {
-      //   return e.id;
-      // }).indexOf(element.ID);
       if (index >= 0) {
         this.questions[index].value = answer.VALOR;
         this.lastIndex = index;
@@ -352,7 +556,7 @@ export class AtheneaformComponent implements AfterViewChecked {
 
 }
 
-type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info';
+type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info' | 'select_mood' | 'input_num' | 'pain_location';
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id: string;
@@ -367,6 +571,11 @@ export interface Question {
   caract_form: string | null;
   optional: boolean;
   info: Info | null;
+  units: string | null;
+  max_questions: number | null;
+  min_questions: number | null;
+  headform: string | null;
+  depends_on: string | null;
 };
 
 export interface Info {
@@ -385,4 +594,10 @@ export interface Preview {
   subtitle: string | null;
   desc_html: string | null;
   button: string;
+}
+
+export interface Zone {
+  code: string;
+  ordinary_name: string;
+  formal_name: string;
 }

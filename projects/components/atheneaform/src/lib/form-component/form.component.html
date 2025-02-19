@@ -11,7 +11,7 @@
     [config]="config" 
     (slideChange)="onSlideChange($event)" 
     class="swiper-container"
-    [class.preview]="isEnd ? true: (preview ? slideIndex==0 || questions[slideIndex].type == 'info': false)">
+    [class.preview]="isEnd ? true: (preview ? slideIndex==0 || questions[slideIndex].type == 'info': false)">
         <ng-template swiperSlide *ngIf="preview">
             <div class="question-container preview">
                 <!-- <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1> -->
@@ -22,9 +22,11 @@
 
         <ng-container *ngFor="let question of questions; let index = index">
             <ng-template swiperSlide 
-                *ngIf="question?.main_tag ? (question?.type == 'mult' ? false : isMainPositive(question.main_tag)) : true">
-                <div class="question-container" #scrollContainer (scroll)="checkScroll(index)">
-                    <h3 *ngIf="question.type != 'info'"><span *ngIf="question.tag">{{question.tag}}.</span> {{question.label[selectedLang]}}</h3>
+                *ngIf=" (question?.depends_on) ? !questionValueIsZero(question.depends_on) :
+                question?.main_tag ? (question?.type == 'mult' ? false : isMainPositive(question.main_tag)) : true">
+                <div class="question-container" #scrollContainer (scroll)="checkScroll(index)" [ngClass]="{'grid-class': question.type === 'info'}">
+                    <h2 class="headform" *ngIf="question.headform"><span>{{question.headform}}</span></h2>
+                    <h3 *ngIf="question.type !== 'info'"><span *ngIf="question.tag">{{question.tag}}. {{question.label[selectedLang]}}</span></h3>
                     <ng-template 
                         [ngTemplateOutlet]="getType(question.type)" 
                         [ngTemplateOutletContext]="{index: index, options: question?.options, id: question.id}"></ng-template>
@@ -73,7 +75,7 @@
 
     <ion-toolbar class="nav-buttons">
         <!-- SEND AND CONTINUE BUTTON -->
-        <ion-buttons slot="start" [class.v-hidden]="isEnd ? true : (preview ? slideIndex==0 : false)">
+        <ion-buttons class="justify-center" slot="start" [class.v-hidden]="isEnd ? true : (preview ? slideIndex==0 : false)">
             <ion-button (click)="slideNext(true)" color="primary" shape="round" fill="solid" class="send" mode="ios"
                 *ngIf="!hasReachedEnd && continueButton">
                 @switch (selectedLang) {
@@ -93,9 +95,9 @@
         </ion-buttons>
 
         <!-- IN PREVIEW, CONTINUE OR SEE BUTTON -->
-        <ng-container *ngIf="(preview ? slideIndex == 0 : false) || (questions[slideIndex-1]?.type === 'info')">
+        <ng-container *ngIf="(preview ? slideIndex == 0 : false)">
             <ion-buttons class="justify-center" *ngIf="canAnswer; else cant">
-                @if (!lastIndex && slideIndex == 0) {
+                @if (!lastIndex && preview && slideIndex==0) {
                     <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
                         {{preview?.button}}
                     </ion-button>
@@ -167,6 +169,104 @@
     </ion-toolbar>
 </div>
 
+<ng-template #selectMood let-index="index">
+    <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
+        <div class="container">
+
+                        <div class="card-button" *ngFor="let mood of moods; let i = index"
+                            (click)="inputChange(index, mood.value, false)"
+                            [class.item-selected]="questions[index].value === mood.value">
+                            <img [src]="mood.icon" [ngClass]="mood.value">
+                            <!-- <ion-label>{{mood.label[selectedLang]}}</ion-label> -->
+                        </div>
+
+        </div>
+    </ion-radio-group>
+</ng-template>
+
+ <!-- // TO DO  -->
+<ng-template #painLocation let-index="index">
+    <ion-grid>
+        <ion-row> 
+            <ion-col size="11" size-md="8" offset="0.5" offset-md="2">          
+                <div class="img-container">
+                    <img src="./../../../../assets/icons/human-body-outline.svg">
+
+                    <div *ngFor="let zone of zones" 
+                        class="clickable-zone {{ zone.code }}" 
+                        [class.selected]="this.questions[index].value === zone.code" 
+                        (click)="onZoneClick(index, zone.formal_name, zone.code, false)">
+                        <div class="dot dot-{{zone.code}}"></div>
+                    </div>
+
+                    <div class="border-general"></div>
+                    <div class="line-general"></div>
+                    <div class="border-tronc"></div>
+                    <div class="line-tronc"></div>
+
+                </div>
+
+                <ion-list>
+                    <ion-item fill="outline" class="mt-2 ion-item-select-padding">
+                        <ion-select class="justify-space-between" aria-label="zone" placeholder="Escull zona" [(ngModel)]="this.questions[index].value">
+                            <ion-select-option class="overflow-text-wrap" *ngFor="let zone of zones" [value]="zone.code">
+                                {{ zone.ordinary_name }}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>     
+</ng-template>
+    
+<ng-template #inputNum let-index="index">
+    <ion-grid>
+        <ion-row>
+          <ion-col size-lg="3" size-md="6" size-sm="6">
+            <ion-textarea
+            type="number"
+            [autoGrow]="false"
+            [(ngModel)]="questions[index].value"
+            [disabled]="loading || !canAnswer"
+            (ionInput)="showContinueButton()"
+            rows="1"
+            inputmode="numeric">
+            </ion-textarea>
+          </ion-col>
+          <ion-col size-lg="1" size-md="2" size-sm="2" class="unit-label">
+            <ion-label>{{ questions[index].units }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>      
+</ng-template>
+
+<ng-template #info let-index="index">
+    <h2 class="info_tag">{{questions[index].tag}}</h2>
+    <h2 *ngIf="questions[index]?.info?.subtitle">{{questions[index]?.info?.subtitle?.[selectedLang] ?? ""}}</h2>
+    <div [innerHtml]="questions[index]?.info?.desc_html?.[selectedLang]" class="param-start"></div>
+    <!-- <div *ngIf="questions[index].counter" class="bottom">
+        {{ 'emc.forms.questions_in_subsection' | translate:{count: questions[index].counter} }}
+    </div> -->
+    <div *ngIf="questions[index].max_questions">
+        <div *ngIf="questions[index].max_questions === questions[index].min_questions" class="bottom">
+            @switch (selectedLang) {
+                @case ('ca') { ({{questions[index].max_questions}} Preguntes) }
+                @case ('es') { ({{questions[index].max_questions}} Preguntas) }
+                @case ('en') { ({{questions[index].max_questions}} Questions) }
+            }
+        </div>
+        <div *ngIf="questions[index].max_questions !== questions[index].min_questions" class="bottom">
+            @switch (selectedLang) {
+                @case ('ca') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Preguntes) }
+                @case ('es') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Preguntas) }
+                @case ('en') { ({{questions[index].max_questions}}-{{questions[index].min_questions}} Questions) }
+            }
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #select let-index="index" let-options="options">
     <ion-radio-group mode="md" [ngModel]="questions[index].value" (ngModelChange)="inputChange(index, $event)">
         <ion-item *ngFor="let option of options | keyvalue" lines="none" detail="false" 
@@ -179,8 +279,8 @@
 
 <ng-template #info let-index="index">
     <div class="question-container preview">
-        <p class="mt-0" *ngIf="questions[index].info.subtitle">{{questions[index].info.subtitle[selectedLang]}}</p>
-        <div *ngIf="questions[index].info.desc_html" [innerHtml]="questions[index].info.desc_html[selectedLang]" class="param-start"></div>
+        <p class="mt-0" *ngIf="questions[index]?.info?.subtitle">{{questions[index]?.info?.subtitle?.[selectedLang]}}</p>
+        <div *ngIf="questions[index]?.info?.desc_html" [innerHtml]="questions[index]?.info?.desc_html?.[selectedLang]" class="param-start"></div>
     </div>
 </ng-template>
 
@@ -292,7 +392,7 @@
 <ng-template #diagnosisMultiple let-index="index" let-id="id">
 
     <ion-item lines="none" detail="false" [disabled]="loading || !canAnswer"
-        *ngFor="let option of multMap[id]">
+    *ngFor="let option of multMap[id]">
         <ion-label>{{ questions[option].label[selectedLang] }}</ion-label>
         <ion-radio-group mode="md" class="d-flex" [ngModel]="questions[option].value" (ngModelChange)="inputChange(option, $event, false)">
             <ion-item lines="none" detail="false">
@@ -311,3 +411,4 @@
     </ion-item>
 
 </ng-template>
+
