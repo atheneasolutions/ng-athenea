@@ -64,7 +64,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   humanBodyIcon = humanBodyUrl.href;
 
 
-  
+
   config: SwiperOptions = {
     direction: 'vertical',
     slidesPerView: 1, // Show only one slide at a time
@@ -125,7 +125,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     let question = this.questions.find(q => q.id === id);
     return question?.value == 0
   }
- 
+
   shouldRenderQuestion(question: Question): boolean {
     // If there's a dependency, render only if the dependent question's value is not zero.
     if (question?.depends_on) {
@@ -208,7 +208,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     let headform = ''
     for (let i = 0; i < this.questions.length; i++) {
       if(this.questions[i].type === 'info') {
-        headform = this.questions[i].info?.subtitle[this.selectedLang] ?? ""
+        headform = this.questions[i].info?.subtitle[this.selectedLang] ?? ''
       } else {
         if (headform != '') {
           this.questions[i].headform = headform;

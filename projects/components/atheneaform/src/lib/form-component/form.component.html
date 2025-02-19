@@ -11,7 +11,7 @@
     [config]="config" 
     (slideChange)="onSlideChange($event)" 
     class="swiper-container"
-    [class.preview]="isEnd ? true: (preview ? slideIndex==0 || questions[slideIndex].type == 'info': false)">
+    [class.preview]="isEnd ? true: (preview ? slideIndex==0 : false)">
         <ng-template swiperSlide *ngIf="preview">
             <div class="question-container preview">
                 <!-- <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1> -->
@@ -100,15 +100,6 @@
                 @if (!lastIndex && preview && slideIndex==0) {
                     <ion-button (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
                         {{preview?.button}}
-                    </ion-button>
-                }
-                @else if (lastIndex != slideIndex) {
-                    <ion-button *ngIf="lastIndex" (click)="slideNext()" color="primary" shape="round" fill="solid" mode="ios" class="send">
-                        @switch (selectedLang) {
-                            @case ('ca') { Continuar }
-                            @case ('es') { Continuar }
-                            @case ('en') { Continue }
-                        }
                     </ion-button>
                 }
                 @else {
@@ -275,13 +266,6 @@
             <ion-radio slot="start" [value]="option.key"></ion-radio>
         </ion-item>
     </ion-radio-group>
-</ng-template>
-
-<ng-template #info let-index="index">
-    <div class="question-container preview">
-        <p class="mt-0" *ngIf="questions[index]?.info?.subtitle">{{questions[index]?.info?.subtitle?.[selectedLang]}}</p>
-        <div *ngIf="questions[index]?.info?.desc_html" [innerHtml]="questions[index]?.info?.desc_html?.[selectedLang]" class="param-start"></div>
-    </div>
 </ng-template>
 
 <ng-template #numberSelector let-index="index">
