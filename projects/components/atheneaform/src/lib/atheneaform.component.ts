@@ -593,7 +593,12 @@ export class AtheneaformComponent implements AfterViewChecked {
       VALOR: elem?.value
     }));
 
-    let progress = Math.round((answers.length*100)/this.questions.length);
+    let possibleAnswers = await this.questions.filter((q) => {
+      if(q.type !== 'info') return false;
+      return this.shouldRenderQuestion(q)
+    })
+
+    let progress = Math.round((answers.length*100)/possibleAnswers.length);
 
     Preferences.set({key: this.answersId, value: JSON.stringify({
       "answers": answers,
