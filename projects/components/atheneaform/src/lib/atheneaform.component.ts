@@ -89,25 +89,90 @@ export class AtheneaformComponent implements AfterViewChecked {
   // This will hold the identifier of the selected zone.
   selectedZone: string = '';
   zones: Zone[] = [
-    { code: 'mama1', ordinary_name: 'Mama esquerra', formal_name: 'Mama esquerra' },
-    { code: 'mama2', ordinary_name: 'Mama dreta',    formal_name: 'Mama dreta' },
-    { code: 'pit',   ordinary_name: 'Pit',           formal_name: 'Pit' },
-    { code: 'cap',   ordinary_name: 'Cap',           formal_name: 'Cap' },
-    { code: 'panxa', ordinary_name: 'Panxa',         formal_name: 'Abdomen' },
-    { code: 'genitals', ordinary_name: 'Genitals',   formal_name: 'Genitals' },
-    { code: 'camafd', ordinary_name: 'Cama posterior dreta',   formal_name: 'Cama posterior dreta' },
-    { code: 'camafe', ordinary_name: 'Cama posterior esquerra', formal_name: 'Cama posterior esquerra' },
-    { code: 'camate', ordinary_name: 'Cama anterior esquerra', formal_name: 'Cama anterior esquerra' },
-    { code: 'camatd', ordinary_name: 'Cama anterior dreta',  formal_name: 'Cama anterior dreta' },
-    { code: 'zonaAnal', ordinary_name: 'Zona anal',         formal_name: 'Zona anal' },
-    { code: 'partBaixaEsquena', ordinary_name: 'Part baixa de l\'esquena', formal_name: 'Part inferior de l\'esquena' },
-    { code: 'braçe', ordinary_name: 'Braç esquerre',         formal_name: 'Braç esquerre' },
-    { code: 'braçd', ordinary_name: 'Braç dret',             formal_name: 'Braç dret' },
-    { code: 'general', ordinary_name: 'General',            formal_name: 'Cos general' },
-    { code: 'tronc', ordinary_name: 'Tronc',                formal_name: 'Tronc corporal' }
+    {
+      code: 'general',
+      ordinary_name: { ca: 'General', es: 'General', en: 'General' },
+      formal_name:   { ca: 'General', es: 'General', en: 'General' }
+    },
+    {
+      code: 'tronc',
+      ordinary_name: { ca: 'Tronc', es: 'Tronco', en: 'Trunk' },
+      formal_name:   { ca: 'Torso', es: 'Torso', en: 'Torso' }
+    },
+    {
+      code: 'braçd',
+      ordinary_name: { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' },
+      formal_name:   { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' }
+    },
+    {
+      code: 'braçe',
+      ordinary_name: { ca: 'Braç esquerre', es: 'Brazo izquierdo', en: 'Left arm' },
+      formal_name:   { ca: 'Braç esquerre', es: 'Brazo izquierdo', en: 'Left arm' }
+    },
+    {
+      code: 'cap',
+      ordinary_name: { ca: 'Cap', es: 'Cabeza', en: 'Head' },
+      formal_name:   { ca: 'Cefàlic', es: 'Cefálico', en: 'Cephalic' }
+    },
+    {
+      code: 'camate',
+      ordinary_name: { ca: 'Cama anterior esquerra', es: 'Pierna anterior izquierda', en: 'Front left leg' },
+      formal_name:   { ca: 'Cama anterior esquerra', es: 'Pierna anterior izquierda', en: 'Front left leg' }
+    },
+    {
+      code: 'camatd',
+      ordinary_name: { ca: 'Cama anterior dreta', es: 'Pierna anterior derecha', en: 'Front right leg' },
+      formal_name:   { ca: 'Cama anterior dreta', es: 'Pierna anterior derecha', en: 'Front right leg' }
+    },
+    {
+      code: 'camafe',
+      ordinary_name: { ca: 'Cama posterior esquerra', es: 'Pierna posterior izquierda', en: 'Back left leg' },
+      formal_name:   { ca: 'Cama posterior esquerra', es: 'Pierna posterior izquierda', en: 'Back left leg' }
+    },
+    {
+      code: 'camafd',
+      ordinary_name: { ca: 'Cama posterior dreta', es: 'Pierna posterior derecha', en: 'Back right leg' },
+      formal_name:   { ca: 'Cama posterior dreta', es: 'Pierna posterior derecha', en: 'Back right leg' }
+    },
+    {
+      code: 'genitals',
+      ordinary_name: { ca: 'Genitals', es: 'Genitales', en: 'Genitals' },
+      formal_name:   { ca: 'Genitals', es: 'Genitales', en: 'Genitals' }
+    },
+    {
+      code: 'mama2',
+      ordinary_name: { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' },
+      formal_name:   { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' }
+    },
+    {
+      code: 'mama1',
+      ordinary_name: { ca: 'Mama esquerra', es: 'Mama izquierda', en: 'Left breast' },
+      formal_name:   { ca: 'Mama esquerra', es: 'Mama izquierda', en: 'Left breast' }
+    },
+    {
+      code: 'panxa',
+      ordinary_name: { ca: 'Panxa', es: 'Barriga', en: 'Belly' },
+      formal_name:   { ca: 'Abdomen', es: 'Abdomen', en: 'Abdomen' }
+    },
+    {
+      code: 'partBaixaEsquena',
+      ordinary_name: { ca: "Part baixa de l'esquena", es: 'Parte baja de la espalda', en: 'Lower back' },
+      formal_name:   { ca: 'Lumbar', es: 'Lumbar', en: 'Lumbar' }
+    },
+    {
+      code: 'pit',
+      ordinary_name: { ca: 'Pit', es: 'Pecho', en: 'Chest' },
+      formal_name:   { ca: 'Tòrax', es: 'Tórax', en: 'Thorax' }
+    },
+    {
+      code: 'zonaAnal',
+      ordinary_name: { ca: 'Zona anal', es: 'Zona anal', en: 'Anal area' },
+      formal_name:   { ca: 'Periné', es: 'Perineo', en: 'Perineum' }
+    }
   ];
   
-  onZoneClick(index: number, zone_formal_name: string, zone_code: string, slide: boolean): void {
+  
+  onZoneClick(index: number, zone_code: string, slide: boolean): void {
     this.selectedZone = zone_code;
     this.inputChange(index, zone_code, slide);
   }
@@ -193,6 +258,8 @@ export class AtheneaformComponent implements AfterViewChecked {
           indexIII = 1;
           this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
         }
+      } else {
+        this.questions[i-1].tag = `${i}`
       } 
     }
 
@@ -601,6 +668,6 @@ export interface Preview {
 
 export interface Zone {
   code: string;
-  ordinary_name: string;
-  formal_name: string;
+  ordinary_name: Multilang;
+  formal_name: Multilang;
 }

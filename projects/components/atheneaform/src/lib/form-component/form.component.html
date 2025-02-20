@@ -186,7 +186,7 @@
                     <div *ngFor="let zone of zones" 
                         class="clickable-zone {{ zone.code }}" 
                         [class.selected]="this.questions[index].value === zone.code" 
-                        (click)="onZoneClick(index, zone.formal_name, zone.code, false)">
+                        (click)="onZoneClick(index, zone.code, false)">
                         <div class="dot dot-{{zone.code}}"></div>
                     </div>
 
@@ -199,9 +199,9 @@
 
                 <ion-list>
                     <ion-item fill="outline" class="mt-2 ion-item-select-padding">
-                        <ion-select class="justify-space-between" aria-label="zone" placeholder="Escull zona" [(ngModel)]="this.questions[index].value">
+                        <ion-select class="justify-space-between" aria-label="zone" placeholder="" [(ngModel)]="this.questions[index].value">
                             <ion-select-option class="overflow-text-wrap" *ngFor="let zone of zones" [value]="zone.code">
-                                {{ zone.ordinary_name }}
+                                {{ zone.ordinary_name[selectedLang] }}
                             </ion-select-option>
                         </ion-select>
                     </ion-item>
