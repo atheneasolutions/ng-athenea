@@ -1,0 +1,45 @@
+.device-itm{
+    border-left: 6px solid var(--ion-color-primary);
+
+    ion-icon{
+        font-size: 4rem;
+        margin: 0 !important;
+    }
+  
+    &.pending{
+        border-left: 6px solid var(--ion-color-primary400);
+    }
+    &.locked{
+        border-left: 6px solid var(--ion-color-neutro600);
+    }
+
+    .info-container{
+        display: flex;
+        width: 100%;
+    }
+    .time-container{
+        display: flex;
+        margin-right: 1rem;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 500px) {
+        .info-container{
+            display: block;
+        }
+        .time-container{
+            h2{
+                font-size: 16px;
+                margin: 1rem 0 0 0;
+            }
+        }
+        .obs-label{
+            margin-top: 4px;
+        }
+    }
+}
+@media screen and (max-width:767px){
+    emc-footer{
+        margin-bottom: 5.5rem;
+    }
+}

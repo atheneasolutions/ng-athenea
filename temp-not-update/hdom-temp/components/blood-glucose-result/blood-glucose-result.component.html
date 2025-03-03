@@ -1,0 +1,15 @@
+<ion-row class="custom_input my-3">
+  <ion-input #obsInput type="number" [(ngModel)]="temp_value" (ionChange)="checkValid()"
+    placeholder="0" min="1" max="999"
+    [class.danger]="!check?.valid && check?.error != 'invalid_unit'"></ion-input>
+  <p [class.danger]="!check?.valid && check?.error === 'invalid_unit'">
+    {{ hdom?.UNITS?.mg_dl }}
+  </p>
+</ion-row>
+
+<div class="alert-box danger" *ngIf="temp_value && !check?.valid">
+  <strong>{{'emc.hdom.scan.read_error' | translate}}</strong>
+  <p>
+    {{(check?.error === 'invalid_unit' ? 'emc.hdom.scan.bloodGlucoseObservation.invalid_unit_error' : 'emc.hdom.scan.bloodGlucoseObservation.invalid_value_error') | translate}}
+  </p>
+</div>

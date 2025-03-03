@@ -1,0 +1,13 @@
+.value-register-cards-container .value-register-container {
+    border: 0px solid var(--ion-color-neutro400); 
+}
+
+.value-register-cards-container.list .value-register-container {
+    padding: 0rem;
+}
+
+@media screen and (max-width: 425px) {
+    .custom_input ion-input {
+        padding: 0;
+    }
+}

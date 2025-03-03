@@ -1,0 +1,39 @@
+
+<div class="hdom-card-wrap">
+
+  <h2 class="text-center mb-2"> SCAN HARDCODED</h2>
+
+  <ng-container>
+      <div>
+          <p class="custom-label bold text-center">
+              <ng-container>
+                  {{'emc.hdom.scan.start_manually' | translate}}
+              </ng-container>
+          </p>
+
+          <div class="value-register-cards-container list">
+
+<ion-row class="custom_input my-3">
+  <ion-input #obsInput type="number" [(ngModel)]="temp_value" (ionChange)="checkValid()"
+    placeholder="0" min="0" max="299"
+    [class.danger]="!check?.valid && check?.error != 'invalid_unit'"></ion-input>
+  <p [class.danger]="!check?.valid && check?.error === 'invalid_unit'">
+    {{ hdom?.UNITS?.kg}}
+  </p>
+</ion-row>
+
+<div class="alert-box danger" *ngIf="temp_value && !check?.valid">
+  <strong>{{'emc.hdom.scan.read_error' | translate}}</strong>
+  <p>
+    {{(check?.error === 'invalid_unit' ? 'emc.hdom.scan.weightObservation.invalid_unit_error' : 'emc.hdom.scan.weightObservation.invalid_value_error') | translate}}
+  </p>
+</div>
+
+</div>
+<ion-button [disabled]="!temp_value || !check?.valid"
+    class="mt-1 round center" expand="block" (click)="inputChange()">
+    general.register HARDCODED 
+</ion-button>
+</div>
+</ng-container>
+</div>

@@ -277,6 +277,55 @@
     </ion-range>
 </ng-template>
 
+<ng-template #bloodGlucose let-index="index">
+    <app-blood-glucose-result
+    [value]="getString(this.questions[index].value)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+    ></app-blood-glucose-result>
+</ng-template>
+
+<ng-template #bloodPressure let-index="index">
+    <app-blood-pressure-result
+    [value]="getBloodPressure(index)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
+    ></app-blood-pressure-result>
+</ng-template> 
+
+<ng-template #heart let-index="index">
+    <app-blood-pressure-heart-rate-result
+    [value]="getBloodPressure(index)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
+    ></app-blood-pressure-heart-rate-result>
+</ng-template>
+
+<ng-template #heartRate let-index="index">
+    <app-heart-rate-result
+    [value]="getString(this.questions[index].value)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+    ></app-heart-rate-result>
+</ng-template>
+
+<ng-template #thermometer let-index="index">
+    <app-thermometer-result
+    [value]="getString(this.questions[index].value)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+    ></app-thermometer-result>
+</ng-template>
+
+<ng-template #scale let-index="index">
+    <app-scale-result
+    [value]="getString(this.questions[index].value)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+    ></app-scale-result>
+</ng-template>
+
+
 <ng-template #txtSelector let-index="index">
     <ion-radio-group mode="md" #radioGroup class="d-flex" [value]="questions[index].value ? (questions[index].value == '-' ? '-' : 'si') : null">
         <ion-item lines="none" detail="false" 

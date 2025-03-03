@@ -1,0 +1,47 @@
+<div class="hdom-card-wrap">
+    <h2 class="text-center mb-2">{{'emc.hdom.tensiometer.usage' | translate}}</h2>
+    <swiper #swiper [config]="config" (slideChange)="onSlideChange()" [spaceBetween]="20">
+        <ng-template swiperSlide>
+            <ion-row>
+                <img
+                    [src]="'../../../../../assets/img/hdom/hdom-tensiometer-'+hdomDevice?.tensiometerModel+'-usage-1.png'">
+            </ion-row>
+            <p [innerHTML]="'emc.hdom.tensiometer.instructions_'+hdomDevice?.tensiometerModel+'_1' | translate"></p>
+        </ng-template>
+        <ng-template swiperSlide>
+            <ion-row>
+                <img
+                    [src]="'../../../../../assets/img/hdom/hdom-tensiometer-'+hdomDevice?.tensiometerModel+'-usage-2.png'">
+            </ion-row>
+            <p [innerHTML]="'emc.hdom.tensiometer.instructions_'+hdomDevice?.tensiometerModel+'_2' | translate"></p>
+        </ng-template>
+        <ng-template *ngIf="hdomDevice?.tensiometerModel === 1" swiperSlide>
+            <ion-row>
+                <img src="../../../../../assets/img/hdom/hdom-tensiometer-1-usage-3.png">
+            </ion-row>
+            <p [innerHTML]="'emc.hdom.tensiometer.instructions_'+hdomDevice?.tensiometerModel+'_3' | translate"></p>
+        </ng-template>
+    </swiper>
+
+    <ion-row class="mb-3 mb-1d5-sm jc-space-between">
+        <ion-button class="round m-0" (click)="slidePrevious()" expand="block" [disabled]="isStart"
+            color="light">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+            <span class="hide-sm">&nbsp;{{'general.previous' | translate}}</span>
+        </ion-button>
+        <ion-button class="round m-0" (click)="slideNext()" expand="block" [disabled]="isEnd">
+            <span class="hide-sm">{{'general.next' | translate}}&nbsp;</span>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+    </ion-row>
+
+    <app-hdom-device-conn-box (refresh)="init()"></app-hdom-device-conn-box>
+
+    <ion-button class="center round mt-1" expand="block"
+        (click)="navForward(hdom?.TASKS_TYPE?.TENSIOMETER, true)"
+        color="light">{{'emc.hdom.register_manual' | translate}}</ion-button>
+
+    <div class="mt-2 mb-1 text-center">
+        <a (click)="navHdom()"><u>{{'general.go_init' | translate}}</u></a>
+    </div>
+</div>          

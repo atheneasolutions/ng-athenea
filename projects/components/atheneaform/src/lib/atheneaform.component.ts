@@ -5,11 +5,13 @@ import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
+import { HdomComponentsModule } from './hdom/components/hdom-components.module';
 
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
 const SKIP_CHECK_TYPE = 'csi_multiple';
 const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple', 'info'];
+const CONSTANT_TYPES = ['blood_glucose', 'blood_pressure', 'heart_rate', 'scale', 'thermometer', 'heart']
 
 @Component({
   selector: 'atheneaform',
@@ -19,6 +21,7 @@ const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple', 'info'];
     SwiperModule,
     IonicModule,
     FormsModule,
+    HdomComponentsModule,
   ],
   templateUrl: './form-component/form.component.html',
   styleUrl: './form-component/form.component.scss'
@@ -37,6 +40,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() canAnswer: boolean = true;
   @Input() availableDate: Date | null = null;
   @Input() answersId!: string;
+  @Input() useStorage: boolean = true;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
@@ -47,6 +51,15 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('selectMood') selectMood!: TemplateRef<any>;
   @ViewChild('inputNum') inputNum!: TemplateRef<any>;
   @ViewChild('painLocation') painLocation!: TemplateRef<any>;
+
+  @ViewChild('bloodGlucose') bloodGlucose!: TemplateRef<any>;
+  @ViewChild('bloodPressure') bloodPressure!: TemplateRef<any>;
+  @ViewChild('heartRate') heartRate!: TemplateRef<any>;
+  @ViewChild('scale') scale!: TemplateRef<any>;
+  @ViewChild('thermometer') thermometer!: TemplateRef<any>;
+  @ViewChild('heart') heart!: TemplateRef<any>;
+
+
 
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -170,6 +183,30 @@ export class AtheneaformComponent implements AfterViewChecked {
       formal_name:   { ca: 'Periné', es: 'Perineo', en: 'Perineum' }
     }
   ];
+
+  isConstantInputValid: boolean = false;
+
+  onConstantInputValidChange(index: number, value: string) {
+    console.log("@AtheneaForm - onConstantInputValidChange - ", this.questions[index])
+    this.isConstantInputValid = value !== '' ;
+    if(this.isConstantInputValid) {
+      this.inputChange(index, value ,false)
+      this.showContinueButton()
+    } else {
+      this.hideContinueButton()
+    }
+  }
+
+  onBloodPressureInputValidChange(index: number, value: BloodPreasure) {
+    console.log("@AtheneaForm - onConstantInputValidChange - ", this.questions[index])
+    this.isConstantInputValid = value.dia_value !==  '' && value.sys_value !== '';
+    if(this.isConstantInputValid) {
+      this.inputChange(index, value ,false)
+      this.showContinueButton()
+    } else {
+      this.hideContinueButton()
+    }
+  }
   
   
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
@@ -205,14 +242,43 @@ export class AtheneaformComponent implements AfterViewChecked {
     });
     return indices;
   }
+
+  getBloodPressure(index: number): BloodPreasure {
+    const value = this.questions[index].value;
   
+    if (typeof value === "object" && value !== null) {
+      return {
+        dia_value: value.dia_value ?? "",
+        sys_value: value.sys_value ?? "",
+        bpm_value: value.bpm_value ?? ""
+      };
+    }
   
+    return { dia_value: "", sys_value: "", bpm_value: "" };
+  }
   
+
+  getString(value: string | number | BloodPreasure | null): string {
+    console.log('Original Value:', value);
+    if (typeof value === "string") {
+      console.log('String Value:' , value)
+      return value;
+    }
+    
+    if (typeof value === "number") {
+      console.log('Number Value:' , value)
+      return ''+value+'';
+    }
+  
+    console.log('Default Value:' , value)
+    return "";
+  }
 
   constructor(
   ) { }
 
   async ngOnInit() {
+    console.log("Update9 console log strings and localStorage is optional")
     await this.checkSavedAnswers();
 
     let indexI = 0;
@@ -364,6 +430,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     });
   }
 
+
   getType(type: string) {
     switch (type) {
       case 'number':
@@ -380,6 +447,18 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.inputNum
       case 'pain_location':
         return this.painLocation; 
+      case 'blood_glucose':
+        return this.bloodGlucose
+      case 'blood_pressure':
+        return this.bloodPressure
+      case 'heart_rate':
+        return this.heartRate
+      case 'scale':
+        return this.scale
+      case 'thermometer':
+        return this.thermometer
+        case 'heart':
+          return this.heart
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -497,6 +576,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       question = this.questions[actualQuestionIndex];
     }
     if (this.preview && this.slideIndex == 0) return true;
+    else if (question.type in CONSTANT_TYPES) return this.isConstantInputValid
     else if (question.optional || question.value != null) return true;
     else if (question.type == 'csi_multiple') return this.multValue(question.id);
     return false;
@@ -525,7 +605,6 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     if (!this.formHasErrors()) this.isCompleted = true;
     else this.isCompleted = false;
-
   }
 
   multValue(tag: any): boolean {
@@ -586,17 +665,22 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   async saveAnswers() {
+
+    if(!this.useStorage) return;
+
     let answers = await this.questions.filter(function(obj) {
-      return obj.value != null;
+      return obj.value != null && obj.value != '';
     }).map(elem => ({
       ID: elem?.id,
       VALOR: elem?.value
     }));
 
     let possibleAnswers = await this.questions.filter((q) => {
-      if(q.type !== 'info') return false;
+      if(q.type === 'info') return false;
       return this.shouldRenderQuestion(q)
     })
+
+    console.log("POSSIBLE ANSWERS", possibleAnswers, "ANSWERS", answers, "PROGRESS", Math.round((answers.length*100)/possibleAnswers.length));
 
     let progress = Math.round((answers.length*100)/possibleAnswers.length);
 
@@ -607,6 +691,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   async checkSavedAnswers() {
+    if (!this.useStorage) return;
     if (!this.answersId) return;
     let preference = (await Preferences.get({key: this.answersId})).value;
     if (!preference) return;
@@ -631,14 +716,14 @@ export class AtheneaformComponent implements AfterViewChecked {
 
 }
 
-type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info' | 'select_mood' | 'input_num' | 'pain_location';
+type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info' | 'select_mood' | 'input_num' | 'pain_location' | 'blood_glucose' | 'blood_pressure' | 'heart_rate' | 'scale' | 'thermometer';
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id: string;
   tag: string | null;
   order: number | string;
   label: Multilang;
-  value: string | number | null;
+  value: string | number | BloodPreasure | null;
   type: Type;
   options: Record<string, Multilang> | null | string | Array<any>;
   main_tag: string | null;
@@ -652,6 +737,12 @@ export interface Question {
   headform: string | null;
   depends_on: string | null;
 };
+
+export interface BloodPreasure {
+  sys_value: string;
+  dia_value: string;
+  bpm_value: string;
+} 
 
 export interface Info {
   subtitle: Multilang;

@@ -1,0 +1,75 @@
+
+<div class="hdom-card-wrap">
+
+  <h2 class="text-center mb-2"> SCAN HARDCODED</h2>
+
+  <ng-container>
+      <div>
+          <p class="custom-label bold text-center">
+              <ng-container>
+                  {{'emc.hdom.scan.start_manually' | translate}}
+              </ng-container>
+          </p>
+
+          <div class="value-register-cards-container list">
+
+<ng-container>
+
+  <div class="value-register-container">
+    <ion-row class="value-register-header">
+      <h4>{{'emc.hdom.scan.bloodpressObservation.sistolic' | translate}}</h4>
+    </ion-row>
+    <div class="value-register-list-container">
+      <div class="value-register-list-item">
+        <ion-row class="custom_input constant">
+          <ion-input #obsInput type="number" [(ngModel)]="temp_sys_value"
+            (ionChange)="checkValid('systolic')" placeholder="0" min="0" max="299"
+            [class.danger]="!checkSystolic?.valid && checkSystolic?.error != 'invalid_unit'"></ion-input>
+          <p [class.danger]="!checkSystolic?.valid && checkSystolic?.error === 'invalid_unit'">
+            {{ hdom?.UNITS?.mmHg }}
+          </p>
+        </ion-row>
+      </div>
+    </div>
+    <div class="alert-box danger round mt-1" *ngIf="temp_sys_value && !checkSystolic?.valid">
+      <strong>{{'emc.hdom.scan.read_error' | translate}}</strong>
+      <p>
+        {{(checkSystolic?.error === 'invalid_unit' ? 'emc.hdom.scan.bloodpressObservation.sistolic_invalid_unit_error' : 'emc.hdom.scan.bloodpressObservation.sistolic_invalid_value_error') | translate}}
+      </p>
+    </div>
+  </div>
+
+  <div class="value-register-container mt-1">
+    <ion-row class="value-register-header">
+      <h4>{{'emc.hdom.scan.bloodpressObservation.diastolic' | translate}}</h4>
+    </ion-row>
+    <div class="value-register-list-container">
+      <div class="value-register-list-item">
+        <ion-row class="custom_input constant">
+          <ion-input #obsInput2 type="number" [(ngModel)]="temp_dia_value"
+            (ionChange)="checkValid('diastolic')" placeholder="0" min="0" max="299"
+            [class.danger]="!checkDiastolic?.valid && checkDiastolic?.error != 'invalid_unit'"></ion-input>
+          <p [class.danger]="!checkDiastolic?.valid && checkDiastolic?.error === 'invalid_unit'">
+            {{ hdom?.UNITS?.mmHg }}
+          </p>
+        </ion-row>
+      </div>
+    </div>
+    <div class="alert-box danger round mt-1" *ngIf="temp_dia_value && !checkDiastolic?.valid">
+      <strong>{{'emc.hdom.scan.read_error' | translate}}</strong>
+      <p>
+        {{(checkDiastolic?.error === 'invalid_unit' ? 'emc.hdom.scan.bloodpressObservation.diastolic_invalid_unit_error' : 'emc.hdom.scan.bloodpressObservation.diastolic_invalid_value_error') | translate}}
+      </p>
+    </div>
+  </div>
+
+</ng-container>
+
+</div>
+<ion-button [disabled]="!temp_value || !check?.valid"
+    class="mt-1 round center" expand="block" (click)="inputChange()">
+    general.register HARDCODED 
+</ion-button>
+</div>
+</ng-container>
+</div>
