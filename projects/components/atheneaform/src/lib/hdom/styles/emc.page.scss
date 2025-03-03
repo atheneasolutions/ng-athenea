@@ -1,240 +1,240 @@
 ion-content {
-    .emc-content {
-        top: 0;
-        margin-bottom: auto;
-        --padding-bottom: 2rem;
-        &.tabs-page{
-            margin: 0 auto;
-            width: 70%;
-            margin-bottom: auto;
-            @media screen and (max-width: 900px) {
-                width: 80%;
-            }
-            @media screen and (max-width:767px) {
-                width: 100%;
-                padding: .15rem;
-            }
-        }
+  .emc-content {
+    top: 0;
+    margin-bottom: auto;
+    --padding-bottom: 2rem;
+    &.tabs-page {
+      margin: 0 auto;
+      width: 70%;
+      margin-bottom: auto;
+      @media screen and (max-width: 900px) {
+        width: 80%;
+      }
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        padding: 0.15rem;
+      }
     }
-    #home-page {
-        @media screen and (max-width: 425px) {
-            padding: 0;
-        }
+  }
+  #home-page {
+    @media screen and (max-width: 425px) {
+      padding: 0;
     }
+  }
 }
 
-
 ion-content::part(scroll) {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .board {
-    background-color: #fff;
-    border-left: 7px solid var(--ion-color-primary);
-    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
-    border-radius: var(--card-border-radius-small);
-    height: 100%;
-    display: grid;
-    transition: all .15s ease;
-    cursor: pointer;
-    @media screen and (max-width: 767px) {
-        height: unset;
-    }
+  background-color: #fff;
+  border-left: 7px solid var(--ion-color-primary);
+  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+  border-radius: var(--card-border-radius-small);
+  height: 100%;
+  display: grid;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  @media screen and (max-width: 767px) {
+    height: unset;
+  }
 
-    &:hover {
-        box-shadow: var(--card-box-shadow-hover);
-        background-color: var(--ion-color-primary-01);
-    }
+  &:hover {
+    box-shadow: var(--card-box-shadow-hover);
+    background-color: var(--ion-color-primary-01);
+  }
 
-    &.added-module:hover {
-        background-color: var(--ion-color-accent-button-01);
-    }
+  &.added-module:hover {
+    background-color: var(--ion-color-accent-button-01);
+  }
 
-    &.added-module{
-        border-left: 7px solid var(--ion-color-accent-button);
+  &.added-module {
+    border-left: 7px solid var(--ion-color-accent-button);
+  }
+  .board-content {
+    padding: 1.875rem;
+    // padding-bottom: 0.25rem;
+    text-align: left;
+    min-width: 0;
+    h2 {
+      margin: 0 0 0.75rem;
     }
-    .board-content {
-        padding: 1.875rem;
-        // padding-bottom: 0.25rem;
-        text-align: left;
-        min-width: 0;
-        h2 {
-            margin: 0 0 0.75rem;
-        }
-        p {
-            margin-top: 0;
-            margin-bottom: 0rem;
-        }
-        .info-icon {
-            float: right;
-            font-size: 22px;
-            cursor: pointer;
-            /*treure per alinear
+    p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+    }
+    .info-icon {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+      /*treure per alinear
             position: absolute;
             right: 23px;*/
-        }
-        .detail-icon {
-            font-size: 22px;
-        }
-        @media screen and (max-width: 425px) {
-            padding: 1.25rem;
-            h2 {
-                margin: 0 0 0.25rem;
-            }
-        }
     }
-    .border-item{
-        border: solid 1px var(--ion-color-neutro400);
-        padding: 0.15rem;
-        border-radius: 5px;
+    .detail-icon {
+      font-size: 22px;
     }
+    @media screen and (max-width: 425px) {
+      padding: 1.25rem;
+      h2 {
+        margin: 0 0 0.25rem;
+      }
+    }
+  }
+  .border-item {
+    border: solid 1px var(--ion-color-neutro400);
+    padding: 0.15rem;
+    border-radius: 5px;
+  }
 
-    .board-bottom {
-        display: none;
-        padding: 0 1.875rem;
-        text-align: left;
-        align-self: end;
-        padding-bottom: 1.5rem;
-        @media screen and (max-width: 767px) {
-            height: unset;
-            padding-top: 0.5rem;
-            padding-bottom: 2rem;
-        }
-        .link {
-            font-weight: 600;
-            border-bottom: 1px solid var(--ion-color-primary);
-            color: var(--ion-color-primary);
-            cursor: pointer;
-            text-decoration: none;
-        }
-        ion-icon {
-            vertical-align: middle;
-        }
+  .board-bottom {
+    display: none;
+    padding: 0 1.875rem;
+    text-align: left;
+    align-self: end;
+    padding-bottom: 1.5rem;
+    @media screen and (max-width: 767px) {
+      height: unset;
+      padding-top: 0.5rem;
+      padding-bottom: 2rem;
     }
-
+    .link {
+      font-weight: 600;
+      border-bottom: 1px solid var(--ion-color-primary);
+      color: var(--ion-color-primary);
+      cursor: pointer;
+      text-decoration: none;
+    }
     ion-icon {
-        &.notification {
-            font-size: 20px;
-            right: 20px;
-            top: 20px;
-            position: absolute;
-        }
-        &.module-image {
-            width: 3em;
-            min-width: 3em;
-            height: 3em;
-            padding-right: 1em;
-        }
+      vertical-align: middle;
     }
+  }
+
+  ion-icon {
+    &.notification {
+      font-size: 20px;
+      right: 20px;
+      top: 20px;
+      position: absolute;
+    }
+    &.module-image {
+      width: 3em;
+      min-width: 3em;
+      height: 3em;
+      padding-right: 1em;
+    }
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .board::after{
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M184 112l144 144-144 144'/%3E%3C/svg%3E");
-        opacity: .25;
-        display: block;
-        position: absolute;
-        top: calc(((100% - var(--board-arrow-size)) / 2));
-        right: calc(var(--board-arrow-size) + var(--board-arrow-offset));
-        width: var(--board-arrow-size);
-        height: var(--board-arrow-size);
-    }
+  .board::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='48' d='M184 112l144 144-144 144'/%3E%3C/svg%3E");
+    opacity: 0.25;
+    display: block;
+    position: absolute;
+    top: calc(((100% - var(--board-arrow-size)) / 2));
+    right: calc(var(--board-arrow-size) + var(--board-arrow-offset));
+    width: var(--board-arrow-size);
+    height: var(--board-arrow-size);
+  }
 }
 
 ion-content {
-    ion-grid {
-        --ion-grid-column-padding: 0.6rem;
-        max-width: 1280px;
-        justify-content: center;
-        text-align: left;
-        margin-right: auto;
-        margin-left: auto;
+  ion-grid {
+    --ion-grid-column-padding: 0.6rem;
+    max-width: 1280px;
+    justify-content: center;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media screen and (max-width: 767px) {
+    ion-col {
+      padding-bottom: 0.7rem;
     }
-    @media screen and (max-width: 767px) {
-        ion-col {
-            padding-bottom: 0.7rem;
-        }
-    }
+  }
 }
 
-ion-input{
-    transition: .3s ease-out;
+ion-input {
+  transition: 0.3s ease-out;
 }
 
-ion-progress-bar{
+ion-progress-bar {
+  width: 100%;
+  height: 5px;
+  margin-top: 0.25rem;
+}
+
+app-show-hide-password {
+  ion-input {
+    border-radius: var(--card-border-radius-small) 0px 0px
+      var(--card-border-radius-small);
+    input {
+      border-radius: var(--card-border-radius-small) 0px 0px
+        var(--card-border-radius-small);
+    }
+  }
+}
+
+.medication-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ion-color-neutro400);
+  border-radius: var(--card-border-radius-small);
+  .medication-title {
+    font-weight: bold;
+    margin-bottom: 0.35rem;
+  }
+  .medication-icon {
+    margin: 0 0.75rem;
+    font-size: 3.5rem;
+  }
+  .medication-info {
+    padding: 0.75rem 0.5rem;
+  }
+  .medicament-final-date {
+    color: var(--ion-color-neutro600);
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 0.25rem;
+  }
+  .medication-header {
+    padding: 0.75rem;
+    font-weight: bold;
+    border-radius: var(--card-border-radius-small) 5px 0px 0px;
+    border-bottom: 1px solid var(--ion-color-neutro400);
+    span {
+      color: var(--ion-color-neutro600);
+    }
+  }
+  .alert-box {
+    border-radius: 0px 0px 5px 5px;
+    p.bold {
+      margin-bottom: 0.5rem !important;
+    }
+  }
+  ion-col {
+    @media screen and (min-width: 768px) {
+      padding: 0rem;
+    }
+  }
+  ion-row {
     width: 100%;
-    height: 5px;
-    margin-top: .25rem;
+  }
+  p {
+    margin: 0;
+  }
+  @media screen and (max-width: 769px) {
+    ion-col:not(nth-last-child) {
+      padding-top: 0;
+      padding-bottom: 0.7rem;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+  }
 }
-
-app-show-hide-password{
-    ion-input{
-        border-radius: var(--card-border-radius-small) 0px 0px var(--card-border-radius-small);
-        input{
-            border-radius: var(--card-border-radius-small) 0px 0px var(--card-border-radius-small);
-        }
-    }
-}
-
-.medication-container{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--ion-color-neutro400);
-    border-radius: var(--card-border-radius-small);
-    .medication-title{
-        font-weight: bold;
-        margin-bottom: .35rem;
-    }
-    .medication-icon{
-        margin: 0 .75rem;
-        font-size: 3.5rem;
-    }
-    .medication-info{
-        padding: .75rem .5rem;
-    }
-    .medicament-final-date{
-        color: var(--ion-color-neutro600);
-        font-style: italic;
-        font-weight: bold;
-        margin-top: .25rem;
-    }
-    .medication-header{
-        padding: 0.75rem; 
-        font-weight: bold;
-        border-radius: var(--card-border-radius-small) 5px 0px 0px;
-        border-bottom: 1px solid var(--ion-color-neutro400);
-        span{
-            color: var(--ion-color-neutro600);
-        }
-    }
-    .alert-box{
-        border-radius: 0px 0px 5px 5px;
-        p.bold{
-            margin-bottom: .5rem !important;
-        }
-    }
-    ion-col{
-        @media screen and (min-width: 768px) {
-            padding: 0rem;
-        }
-    }
-    ion-row{
-        width: 100%;
-    }
-    p{
-        margin: 0;
-    }
-    @media screen and (max-width: 769px) {
-        ion-col:not(nth-last-child) {
-            padding-top: 0;
-            padding-bottom: 0.7rem;
-            padding-left: 0.25rem;
-            padding-right: 0.25rem;
-        }       
-    }
-}
-.medication-container:not(nth-last-child){
-    margin-bottom: 1rem;
-    
+.medication-container:not(nth-last-child) {
+  margin-bottom: 1rem;
 }

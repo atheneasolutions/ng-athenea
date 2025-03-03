@@ -1,17 +1,43 @@
-import { AlertController, IonicModule, ModalController, RangeCustomEvent } from '@ionic/angular';
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AlertController,
+  IonicModule,
+  ModalController,
+  RangeCustomEvent,
+} from '@ionic/angular';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { HdomComponentsModule } from './hdom/components/hdom-components.module';
+import { InputValidationService } from './hdom/services/input-validation.service';
 
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
 const SKIP_CHECK_TYPE = 'csi_multiple';
 const SHOW_CONTINUE_BUTTON = ['pain', 'text', 'csi_multiple', 'info'];
-const CONSTANT_TYPES = ['blood_glucose', 'blood_pressure', 'heart_rate', 'scale', 'thermometer', 'heart']
+const CONSTANT_TYPES = [
+  'blood_glucose',
+  'blood_pressure',
+  'heart_rate',
+  'scale',
+  'thermometer',
+  'heart',
+];
 
 @Component({
   selector: 'atheneaform',
@@ -24,23 +50,22 @@ const CONSTANT_TYPES = ['blood_glucose', 'blood_pressure', 'heart_rate', 'scale'
     HdomComponentsModule,
   ],
   templateUrl: './form-component/form.component.html',
-  styleUrl: './form-component/form.component.scss'
+  styleUrl: './form-component/form.component.scss',
 })
 export class AtheneaformComponent implements AfterViewChecked {
-
   @Input() questions: Question[] = [];
   @Input() title: string | null = null;
-  @Input() set lang(val: Lang){
+  @Input() set lang(val: Lang) {
     this.checkHasLang(val ?? 'ca');
-  };
-  @Output() sendSurvey:EventEmitter<any> = new EventEmitter<any>();
+  }
+  @Output() sendSurvey: EventEmitter<any> = new EventEmitter<any>();
   //PREVIEW
   @Input() preview: Preview | null = null;
   @Input() end: Multilang | null = null;
   @Input() canAnswer: boolean = true;
   @Input() availableDate: Date | null = null;
   @Input() answersId!: string;
-  @Input() useStorage: boolean = true;
+  @Input() useLocalStorage: boolean = true;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
@@ -59,15 +84,28 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('thermometer') thermometer!: TemplateRef<any>;
   @ViewChild('heart') heart!: TemplateRef<any>;
 
-
-
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
 
   moods = [
-    { value: 'happy',   icon: "./../../../../assets/icons/face-happy-svgrepo-com.svg", label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' }, index : 0},
-    { value: 'neutral', icon: "./../../../../assets/icons/face-neutral-svgrepo-com.svg", label: { en: 'Neutral', es: 'Neutral',  ca: 'Neutral'}, index : 1 },
-    { value: 'sad',     icon: "./../../../../assets/icons/face-sad-svgrepo-com.svg", label: { en: 'Sad', es: 'Triste', ca: 'Trist' }, index : 2,  },
+    {
+      value: 'happy',
+      icon: './../../../../assets/icons/face-happy-svgrepo-com.svg',
+      label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' },
+      index: 0,
+    },
+    {
+      value: 'neutral',
+      icon: './../../../../assets/icons/face-neutral-svgrepo-com.svg',
+      label: { en: 'Neutral', es: 'Neutral', ca: 'Neutral' },
+      index: 1,
+    },
+    {
+      value: 'sad',
+      icon: './../../../../assets/icons/face-sad-svgrepo-com.svg',
+      label: { en: 'Sad', es: 'Triste', ca: 'Trist' },
+      index: 2,
+    },
   ];
 
   config: SwiperOptions = {
@@ -78,14 +116,14 @@ export class AtheneaformComponent implements AfterViewChecked {
       // el: 'form-progressbar',
       enabled: true,
       type: 'progressbar',
-      progressbarOpposite: false
+      progressbarOpposite: false,
     },
     effect: 'slide', // You can use 'fade' for a fade effect
     speed: 600, // Smooth transition speed
     preventInteractionOnTransition: true, // Prevent interaction while sliding
-  }
+  };
 
-  loading:boolean = false;
+  loading: boolean = false;
   hasScroll: any[] = [];
   /**
    * Array that contains questionID(key) and subquestionsIndex(value)
@@ -105,119 +143,210 @@ export class AtheneaformComponent implements AfterViewChecked {
     {
       code: 'general',
       ordinary_name: { ca: 'General', es: 'General', en: 'General' },
-      formal_name:   { ca: 'General', es: 'General', en: 'General' }
+      formal_name: { ca: 'General', es: 'General', en: 'General' },
     },
     {
       code: 'tronc',
       ordinary_name: { ca: 'Tronc', es: 'Tronco', en: 'Trunk' },
-      formal_name:   { ca: 'Torso', es: 'Torso', en: 'Torso' }
+      formal_name: { ca: 'Torso', es: 'Torso', en: 'Torso' },
     },
     {
       code: 'braçd',
       ordinary_name: { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' },
-      formal_name:   { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' }
+      formal_name: { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' },
     },
     {
       code: 'braçe',
-      ordinary_name: { ca: 'Braç esquerre', es: 'Brazo izquierdo', en: 'Left arm' },
-      formal_name:   { ca: 'Braç esquerre', es: 'Brazo izquierdo', en: 'Left arm' }
+      ordinary_name: {
+        ca: 'Braç esquerre',
+        es: 'Brazo izquierdo',
+        en: 'Left arm',
+      },
+      formal_name: {
+        ca: 'Braç esquerre',
+        es: 'Brazo izquierdo',
+        en: 'Left arm',
+      },
     },
     {
       code: 'cap',
       ordinary_name: { ca: 'Cap', es: 'Cabeza', en: 'Head' },
-      formal_name:   { ca: 'Cefàlic', es: 'Cefálico', en: 'Cephalic' }
+      formal_name: { ca: 'Cefàlic', es: 'Cefálico', en: 'Cephalic' },
     },
     {
       code: 'camate',
-      ordinary_name: { ca: 'Cama anterior esquerra', es: 'Pierna anterior izquierda', en: 'Front left leg' },
-      formal_name:   { ca: 'Cama anterior esquerra', es: 'Pierna anterior izquierda', en: 'Front left leg' }
+      ordinary_name: {
+        ca: 'Cama anterior esquerra',
+        es: 'Pierna anterior izquierda',
+        en: 'Front left leg',
+      },
+      formal_name: {
+        ca: 'Cama anterior esquerra',
+        es: 'Pierna anterior izquierda',
+        en: 'Front left leg',
+      },
     },
     {
       code: 'camatd',
-      ordinary_name: { ca: 'Cama anterior dreta', es: 'Pierna anterior derecha', en: 'Front right leg' },
-      formal_name:   { ca: 'Cama anterior dreta', es: 'Pierna anterior derecha', en: 'Front right leg' }
+      ordinary_name: {
+        ca: 'Cama anterior dreta',
+        es: 'Pierna anterior derecha',
+        en: 'Front right leg',
+      },
+      formal_name: {
+        ca: 'Cama anterior dreta',
+        es: 'Pierna anterior derecha',
+        en: 'Front right leg',
+      },
     },
     {
       code: 'camafe',
-      ordinary_name: { ca: 'Cama posterior esquerra', es: 'Pierna posterior izquierda', en: 'Back left leg' },
-      formal_name:   { ca: 'Cama posterior esquerra', es: 'Pierna posterior izquierda', en: 'Back left leg' }
+      ordinary_name: {
+        ca: 'Cama posterior esquerra',
+        es: 'Pierna posterior izquierda',
+        en: 'Back left leg',
+      },
+      formal_name: {
+        ca: 'Cama posterior esquerra',
+        es: 'Pierna posterior izquierda',
+        en: 'Back left leg',
+      },
     },
     {
       code: 'camafd',
-      ordinary_name: { ca: 'Cama posterior dreta', es: 'Pierna posterior derecha', en: 'Back right leg' },
-      formal_name:   { ca: 'Cama posterior dreta', es: 'Pierna posterior derecha', en: 'Back right leg' }
+      ordinary_name: {
+        ca: 'Cama posterior dreta',
+        es: 'Pierna posterior derecha',
+        en: 'Back right leg',
+      },
+      formal_name: {
+        ca: 'Cama posterior dreta',
+        es: 'Pierna posterior derecha',
+        en: 'Back right leg',
+      },
     },
     {
       code: 'genitals',
       ordinary_name: { ca: 'Genitals', es: 'Genitales', en: 'Genitals' },
-      formal_name:   { ca: 'Genitals', es: 'Genitales', en: 'Genitals' }
+      formal_name: { ca: 'Genitals', es: 'Genitales', en: 'Genitals' },
     },
     {
       code: 'mama2',
-      ordinary_name: { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' },
-      formal_name:   { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' }
+      ordinary_name: {
+        ca: 'Mama dreta',
+        es: 'Mama derecha',
+        en: 'Right breast',
+      },
+      formal_name: { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' },
     },
     {
       code: 'mama1',
-      ordinary_name: { ca: 'Mama esquerra', es: 'Mama izquierda', en: 'Left breast' },
-      formal_name:   { ca: 'Mama esquerra', es: 'Mama izquierda', en: 'Left breast' }
+      ordinary_name: {
+        ca: 'Mama esquerra',
+        es: 'Mama izquierda',
+        en: 'Left breast',
+      },
+      formal_name: {
+        ca: 'Mama esquerra',
+        es: 'Mama izquierda',
+        en: 'Left breast',
+      },
     },
     {
       code: 'panxa',
       ordinary_name: { ca: 'Panxa', es: 'Barriga', en: 'Belly' },
-      formal_name:   { ca: 'Abdomen', es: 'Abdomen', en: 'Abdomen' }
+      formal_name: { ca: 'Abdomen', es: 'Abdomen', en: 'Abdomen' },
     },
     {
       code: 'partBaixaEsquena',
-      ordinary_name: { ca: "Part baixa de l'esquena", es: 'Parte baja de la espalda', en: 'Lower back' },
-      formal_name:   { ca: 'Lumbar', es: 'Lumbar', en: 'Lumbar' }
+      ordinary_name: {
+        ca: "Part baixa de l'esquena",
+        es: 'Parte baja de la espalda',
+        en: 'Lower back',
+      },
+      formal_name: { ca: 'Lumbar', es: 'Lumbar', en: 'Lumbar' },
     },
     {
       code: 'pit',
       ordinary_name: { ca: 'Pit', es: 'Pecho', en: 'Chest' },
-      formal_name:   { ca: 'Tòrax', es: 'Tórax', en: 'Thorax' }
+      formal_name: { ca: 'Tòrax', es: 'Tórax', en: 'Thorax' },
     },
     {
       code: 'zonaAnal',
       ordinary_name: { ca: 'Zona anal', es: 'Zona anal', en: 'Anal area' },
-      formal_name:   { ca: 'Periné', es: 'Perineo', en: 'Perineum' }
-    }
+      formal_name: { ca: 'Periné', es: 'Perineo', en: 'Perineum' },
+    },
   ];
 
   isConstantInputValid: boolean = false;
 
   onConstantInputValidChange(index: number, value: string) {
-    console.log("@AtheneaForm - onConstantInputValidChange - ", this.questions[index])
-    this.isConstantInputValid = value !== '' ;
-    if(this.isConstantInputValid) {
-      this.inputChange(index, value ,false)
-      this.showContinueButton()
+    console.log(
+      '@AtheneaForm - onConstantInputValidChange - ',
+      this.questions[index],
+      this.useLocalStorage
+    );
+    this.isConstantInputValid = value !== '';
+    if (this.isConstantInputValid) {
+      this.inputChange(index, value, false);
+      this.showContinueButton();
     } else {
-      this.hideContinueButton()
+      this.hideContinueButton();
     }
   }
 
+  constructor(public validator: InputValidationService) {}
+
   onBloodPressureInputValidChange(index: number, value: BloodPreasure) {
-    console.log("@AtheneaForm - onConstantInputValidChange - ", this.questions[index])
-    this.isConstantInputValid = value.dia_value !==  '' && value.sys_value !== '';
-    if(this.isConstantInputValid) {
-      this.inputChange(index, value ,false)
-      this.showContinueButton()
+    let result = {
+      ...(this.questions[index].value as BloodPreasure),
+      ...value,
+    };
+
+    let checkSystolic: any = {};
+    let checkDiastolic: any = {};
+    let checkBpms: any = {};
+
+    console.log(
+      '@AtheneaForm - onBloodPressureInputValidChange - ',
+      this.questions[index],
+      ' Value: ',
+      value,
+      ' Result: ',
+      result
+    );
+
+    if (value.sys_value !== null && value.sys_value !== '') {
+      checkSystolic = this.validator.isBloodPressure(value.sys_value);
+    }
+
+    if (value.dia_value !== null && value.dia_value !== '') {
+      checkDiastolic = this.validator.isBloodPressure(value.dia_value, true);
+    }
+
+    if (value.bpm_value !== null && value.bpm_value !== '') {
+      checkBpms = this.validator.isHeartRate(value.bpm_value);
+    }
+
+    this.isConstantInputValid =
+      checkBpms.valid && checkDiastolic.valid && checkSystolic.valid;
+    if (this.isConstantInputValid) {
+      this.inputChange(index, result, false);
+      this.showContinueButton();
     } else {
-      this.hideContinueButton()
+      this.hideContinueButton();
     }
   }
-  
-  
+
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
     this.selectedZone = zone_code;
     this.inputChange(index, zone_code, slide);
   }
 
   questionValueIsZero(id: string | null): boolean {
-    if(id == null) return true;
-    let question = this.questions.find(q => q.id === id);
-    return question?.value == 0
+    if (id == null) return true;
+    let question = this.questions.find((q) => q.id === id);
+    return question?.value == 0;
   }
 
   shouldRenderQuestion(question: Question): boolean {
@@ -227,7 +356,9 @@ export class AtheneaformComponent implements AfterViewChecked {
     }
     // If it has a main tag, use the main tag logic.
     if (question?.main_tag) {
-      return question.type === 'mult' ? false : this.isMainPositive(question.main_tag);
+      return question.type === 'mult'
+        ? false
+        : this.isMainPositive(question.main_tag);
     }
     // Otherwise, always render.
     return true;
@@ -245,95 +376,85 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   getBloodPressure(index: number): BloodPreasure {
     const value = this.questions[index].value;
-  
-    if (typeof value === "object" && value !== null) {
+
+    if (typeof value === 'object' && value !== null) {
       return {
-        dia_value: value.dia_value ?? "",
-        sys_value: value.sys_value ?? "",
-        bpm_value: value.bpm_value ?? ""
+        dia_value: value.dia_value ?? '',
+        sys_value: value.sys_value ?? '',
+        bpm_value: value.bpm_value ?? '',
       };
     }
-  
-    return { dia_value: "", sys_value: "", bpm_value: "" };
+
+    return { dia_value: '', sys_value: '', bpm_value: '' };
   }
-  
 
   getString(value: string | number | BloodPreasure | null): string {
-    console.log('Original Value:', value);
-    if (typeof value === "string") {
-      console.log('String Value:' , value)
+    if (typeof value === 'string') {
       return value;
     }
-    
-    if (typeof value === "number") {
-      console.log('Number Value:' , value)
-      return ''+value+'';
+
+    if (typeof value === 'number') {
+      return '' + value + '';
     }
-  
-    console.log('Default Value:' , value)
-    return "";
+
+    return '';
   }
 
-  constructor(
-  ) { }
-
   async ngOnInit() {
-    console.log("Update9 console log strings and localStorage is optional")
+    console.log('Update9 console log strings and localStorage is optional');
     await this.checkSavedAnswers();
 
     let indexI = 0;
     let indexII = 0;
     let indexIII = 0;
-    let mainTag = ''
+    let mainTag = '';
 
     // Iterem sobre les questions, posant el tag corresponent
-    for (let i = 1; i < this.questions.length+1; i++) {
-      if(this.questions[i-1].type === 'info') {
+    for (let i = 1; i < this.questions.length + 1; i++) {
+      if (this.questions[i - 1].type === 'info') {
         indexII = 0;
         indexIII = 0;
-        if(indexI === 0) {
+        if (indexI === 0) {
           indexI = i;
-          this.questions[i-1].tag = `${indexI}`
+          this.questions[i - 1].tag = `${indexI}`;
         } else {
-          indexI = indexI + 1
-          this.questions[i-1].tag = `${indexI}`
+          indexI = indexI + 1;
+          this.questions[i - 1].tag = `${indexI}`;
         }
-      } else if(indexIII !== 0) {
-        if(this.questions[i-1].type === 'mult') {
-          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
-          this.questions[i-1].main_tag = mainTag;
+      } else if (indexIII !== 0) {
+        if (this.questions[i - 1].type === 'mult') {
+          this.questions[i - 1].tag = `${indexI}.${indexII}.${indexIII}`;
+          this.questions[i - 1].main_tag = mainTag;
           indexIII = indexIII + 1;
-        } 
-        else if(this.questions[i-1].depends_on) {
+        } else if (this.questions[i - 1].depends_on) {
           indexIII = indexIII + 1;
-          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
-        }
-        else {
+          this.questions[i - 1].tag = `${indexI}.${indexII}.${indexIII}`;
+        } else {
           indexII = indexII + 1;
-          this.questions[i-1].tag = `${indexI}.${indexII}`;
-          indexIII = 0
+          this.questions[i - 1].tag = `${indexI}.${indexII}`;
+          indexIII = 0;
         }
-      } else if(indexI !== 0) {
+      } else if (indexI !== 0) {
         indexII = indexII + 1;
-        this.questions[i-1].tag = `${indexI}.${indexII}`;
-        if(this.questions[i-1].type === 'csi_multiple') {
+        this.questions[i - 1].tag = `${indexI}.${indexII}`;
+        if (this.questions[i - 1].type === 'csi_multiple') {
           indexIII = 1;
           mainTag = `${indexI}.${indexII}`;
-        } else if(this.questions[i-1].depends_on) {
+        } else if (this.questions[i - 1].depends_on) {
           indexII = indexII - 1;
           indexIII = 1;
-          this.questions[i-1].tag = `${indexI}.${indexII}.${indexIII}`;
+          this.questions[i - 1].tag = `${indexI}.${indexII}.${indexIII}`;
         }
       } else {
-        this.questions[i-1].tag = `${i}`
-      } 
+        this.questions[i - 1].tag = `${i}`;
+      }
     }
 
     // Iterem sobre les questions per posar quina és la capçalera
-    let headform = ''
+    let headform = '';
     for (let i = 0; i < this.questions.length; i++) {
-      if(this.questions[i].type === 'info') {
-        headform = this.questions[i].info?.subtitle[this.selectedLang] ?? ''
+      if (this.questions[i].type === 'info') {
+        headform = this.questions[i].info?.subtitle[this.selectedLang] ?? '';
       } else {
         if (headform != '') {
           this.questions[i].headform = headform;
@@ -344,38 +465,38 @@ export class AtheneaformComponent implements AfterViewChecked {
     // Iterem sobre les questions per posar el contador de preguntes sobre la pantalla info
     let max_questions = 0;
     let min_questions = 0;
-    for (let i = this.questions.length-1; i >= 0; i--) {
-      if(this.questions[i].type === 'info') {
+    for (let i = this.questions.length - 1; i >= 0; i--) {
+      if (this.questions[i].type === 'info') {
         this.questions[i].max_questions = max_questions;
         this.questions[i].min_questions = min_questions;
         max_questions = 0;
         min_questions = 0;
       } else {
         max_questions = max_questions + 1;
-        if(!this.questions[i].depends_on) min_questions = min_questions + 1;
+        if (!this.questions[i].depends_on) min_questions = min_questions + 1;
       }
     }
 
-
-
     this.questions.forEach((question, index) => {
-      if (question.type == SKIP_CHECK_TYPE) this.multMap[question.tag as any] = [];
+      if (question.type == SKIP_CHECK_TYPE)
+        this.multMap[question.tag as any] = [];
       else if (question.type == 'mult') {
-        if (question.main_tag) this.multMap[question.main_tag as any].push(index);
+        if (question.main_tag)
+          this.multMap[question.main_tag as any].push(index);
       }
     });
   }
 
-
-
   ngAfterViewChecked(): void {
     this.scrollContainers.changes.subscribe(() => {
       setTimeout(() => {
-        this.scrollContainers.forEach((scrollContainer: ElementRef, index: number) => {
-          const element = scrollContainer.nativeElement;
-          const isScrollable = element.scrollHeight > element.clientHeight;
-          if (isScrollable) this.hasScroll.push(index);
-        });
+        this.scrollContainers.forEach(
+          (scrollContainer: ElementRef, index: number) => {
+            const element = scrollContainer.nativeElement;
+            const isScrollable = element.scrollHeight > element.clientHeight;
+            if (isScrollable) this.hasScroll.push(index);
+          }
+        );
       }, 500);
     });
   }
@@ -393,14 +514,18 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     let questRet = [];
     for (let index = 0; index < this.questions.length; index++) {
-      if (this.questions[index].type == 'text' && this.questions[index].value == '-') this.questions[index].value = ''; 
+      if (
+        this.questions[index].type == 'text' &&
+        this.questions[index].value == '-'
+      )
+        this.questions[index].value = '';
       const element = this.questions[index];
       if (element.type != SKIP_CHECK_TYPE) questRet.push(element);
     }
 
     this.sendSurvey.emit({
-      "questions": questRet,
-      "role": 'send'
+      questions: questRet,
+      role: 'send',
     });
   }
 
@@ -414,8 +539,7 @@ export class AtheneaformComponent implements AfterViewChecked {
             if (slide) this.slideTo(index);
             return true;
           }
-        }
-        else {
+        } else {
           if (slide) this.slideTo(index);
           return true;
         }
@@ -426,39 +550,38 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   cancel() {
     this.sendSurvey.emit({
-      "role": 'close'
+      role: 'close',
     });
   }
-
 
   getType(type: string) {
     switch (type) {
       case 'number':
-        return this.numberSelector;   
+        return this.numberSelector;
       case 'select':
-        return this.select;   
+        return this.select;
       case 'pain':
-        return this.pain;  
+        return this.pain;
       case 'info':
         return this.info;
       case 'select_mood':
         return this.selectMood;
       case 'input_num':
-        return this.inputNum
+        return this.inputNum;
       case 'pain_location':
-        return this.painLocation; 
+        return this.painLocation;
       case 'blood_glucose':
-        return this.bloodGlucose
+        return this.bloodGlucose;
       case 'blood_pressure':
-        return this.bloodPressure
+        return this.bloodPressure;
       case 'heart_rate':
-        return this.heartRate
+        return this.heartRate;
       case 'scale':
-        return this.scale
+        return this.scale;
       case 'thermometer':
-        return this.thermometer
-        case 'heart':
-          return this.heart
+        return this.thermometer;
+      case 'heart':
+        return this.heart;
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -473,12 +596,12 @@ export class AtheneaformComponent implements AfterViewChecked {
       if (question && question.type == SKIP_CHECK_TYPE) return true;
       if (question && question.value == SI_VAL) return true;
     }
-    
+
     return false;
   }
 
   getQuestion(tag: string) {
-    return this.questions.find(obj => {
+    return this.questions.find((obj) => {
       return obj.id === tag;
     });
   }
@@ -486,28 +609,30 @@ export class AtheneaformComponent implements AfterViewChecked {
   slideNext(save: boolean = false) {
     if (save) this.saveAnswers();
 
-      // Trigger the slide animation.
-  this.swiper.swiperRef.slideNext(250);
+    // Trigger the slide animation.
+    this.swiper.swiperRef.slideNext(250);
 
-  // Get the visible questions mapping.
-  const visibleIndices = this.visibleQuestionIndices;
+    // Get the visible questions mapping.
+    const visibleIndices = this.visibleQuestionIndices;
 
-  // Adjust the index if you're using a preview slide.
-  const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
-  
-  // Make sure we have a valid mapping.
-  if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
-    const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
-    let question = this.questions[actualQuestionIndex];
+    // Adjust the index if you're using a preview slide.
+    const adjustedSlideIndex = this.preview
+      ? this.slideIndex - 1
+      : this.slideIndex;
 
-    if (question.optional) {
-      this.showContinueButton();
-    } else {
-      this.hideContinueButton();
+    // Make sure we have a valid mapping.
+    if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
+      const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
+      let question = this.questions[actualQuestionIndex];
+
+      if (question.optional) {
+        this.showContinueButton();
+      } else {
+        this.hideContinueButton();
+      }
+
+      console.log(question, this.slideIndex, this.questions);
     }
-
-    console.log(question, this.slideIndex, this.questions);
-  }
 
     // let question = this.questions[(this.preview ? this.slideIndex-1 : this.slideIndex)];
     // if (question.optional) this.showContinueButton();
@@ -515,25 +640,27 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     // console.log(question, this.slideIndex, this.questions)
 
-    if (this.isEnd) 
-      setTimeout(() => { 
+    if (this.isEnd)
+      setTimeout(() => {
         this.hasReachedEnd = true;
       }, 250);
   }
 
   slidePrevious() {
     this.swiper.swiperRef.slidePrev(250);
-    
+
     // Get the current mapping of visible question indices
     const visibleIndices = this.visibleQuestionIndices;
-    
+
     // Adjust slideIndex for preview (if applicable)
-    const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
-    
+    const adjustedSlideIndex = this.preview
+      ? this.slideIndex - 1
+      : this.slideIndex;
+
     if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
       const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
       const question = this.questions[actualQuestionIndex];
-      
+
       if (question.optional) {
         this.showContinueButton();
       } else {
@@ -541,10 +668,9 @@ export class AtheneaformComponent implements AfterViewChecked {
       }
     }
   }
-  
 
   slideTo(index: number, speed: number = 100) {
-    this.swiper.swiperRef.slideTo(this.preview ? index+1 : index, speed);
+    this.swiper.swiperRef.slideTo(this.preview ? index + 1 : index, speed);
   }
 
   onSlideChange(e: any) {
@@ -563,26 +689,35 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (this.swiper?.swiperRef.isEnd) return false;
     if (!this.canAnswer) return true;
     //Si pregunta contestada pot continuar, sinó no
-    let question = this.questions[this.preview ? this.slideIndex-1 : this.slideIndex]
-        // Get the visible questions mapping.
+    let question =
+      this.questions[this.preview ? this.slideIndex - 1 : this.slideIndex];
+    // Get the visible questions mapping.
     const visibleIndices = this.visibleQuestionIndices;
 
     // Adjust the index if you're using a preview slide.
-    const adjustedSlideIndex = this.preview ? this.slideIndex - 1 : this.slideIndex;
-    
+    const adjustedSlideIndex = this.preview
+      ? this.slideIndex - 1
+      : this.slideIndex;
+
     // Make sure we have a valid mapping.
     if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
       const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
       question = this.questions[actualQuestionIndex];
     }
     if (this.preview && this.slideIndex == 0) return true;
-    else if (question.type in CONSTANT_TYPES) return this.isConstantInputValid
+    else if (question.type in CONSTANT_TYPES) return this.isConstantInputValid;
     else if (question.optional || question.value != null) return true;
-    else if (question.type == 'csi_multiple') return this.multValue(question.id);
+    else if (question.type == 'csi_multiple')
+      return this.multValue(question.id);
     return false;
   }
 
-  inputChange(index: number, e: any = null, slide: boolean = true, valNul: boolean = false) {
+  inputChange(
+    index: number,
+    e: any = null,
+    slide: boolean = true,
+    valNul: boolean = false
+  ) {
     //Assignem valor
     if (e && !valNul) this.questions[index].value = e;
     else if (valNul) {
@@ -593,14 +728,14 @@ export class AtheneaformComponent implements AfterViewChecked {
     this.saveAnswers();
 
     if (slide)
-    setTimeout(() => {
-      this.slideNext();
-    }, TIMEOUT_TIME);
+      setTimeout(() => {
+        this.slideNext();
+      }, TIMEOUT_TIME);
     else {
       if (this.questions[index].type == 'mult') {
-        if (this.multValue(this.questions[index].main_tag)) this.showContinueButton();
-      }
-      else if (!valNul) this.showContinueButton();
+        if (this.multValue(this.questions[index].main_tag))
+          this.showContinueButton();
+      } else if (!valNul) this.showContinueButton();
     }
 
     if (!this.formHasErrors()) this.isCompleted = true;
@@ -621,24 +756,26 @@ export class AtheneaformComponent implements AfterViewChecked {
     // const elem = (this.scrollContainers.get(index))?.nativeElement;
     elem.scrollTo({
       top: elem.scrollHeight, // Scroll to the bottom of the element
-      behavior: 'smooth' // Enable smooth scrolling
+      behavior: 'smooth', // Enable smooth scrolling
     });
   }
 
   checkScroll(index: number) {
     const element = this.scrollContainers.get(index)?.nativeElement;
     if (element) {
-      const isScrolledToBottom = element.scrollTop + element.clientHeight >= element.scrollHeight -1;
-      if (isScrolledToBottom) this.hasScroll.splice(this.hasScroll.indexOf(index), 1);
+      const isScrolledToBottom =
+        element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+      if (isScrolledToBottom)
+        this.hasScroll.splice(this.hasScroll.indexOf(index), 1);
     }
   }
 
   getNativeElem(index: number) {
-    return (this.scrollContainers.get(index))?.nativeElement;
+    return this.scrollContainers.get(index)?.nativeElement;
   }
 
   divideOption(option: any, index: 0 | 1) {
-    if (option) return (option.split(':'))[index];
+    if (option) return option.split(':')[index];
     return null;
   }
 
@@ -651,13 +788,13 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   checkHasLang(lang: Lang, toCheck: Array<string> = ['ca', 'es', 'en']) {
     let label = this.questions[0].label[lang];
-    if (label && label.trim() != "") this.selectedLang = lang;
+    if (label && label.trim() != '') this.selectedLang = lang;
     else {
       toCheck.splice(toCheck.indexOf(lang), 1);
-      if (toCheck.length == 0) 
+      if (toCheck.length == 0)
         this.sendSurvey.emit({
-          "questions": null,
-          "role": 'error'
+          questions: null,
+          role: 'error',
         });
 
       this.checkHasLang(toCheck[0] as Lang, toCheck);
@@ -665,58 +802,102 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   async saveAnswers() {
+    if (!this.useLocalStorage) return;
 
-    if(!this.useStorage) return;
-
-    let answers = await this.questions.filter(function(obj) {
-      return obj.value != null && obj.value != '';
-    }).map(elem => ({
-      ID: elem?.id,
-      VALOR: elem?.value
-    }));
+    let answers = await this.questions
+      .filter(function (obj) {
+        return obj.value != null && obj.value != '';
+      })
+      .map((elem) => ({
+        ID: elem?.id,
+        VALOR: elem?.value,
+      }));
 
     let possibleAnswers = await this.questions.filter((q) => {
-      if(q.type === 'info') return false;
-      return this.shouldRenderQuestion(q)
-    })
+      if (q.type === 'info') return false;
+      return this.shouldRenderQuestion(q);
+    });
 
-    console.log("POSSIBLE ANSWERS", possibleAnswers, "ANSWERS", answers, "PROGRESS", Math.round((answers.length*100)/possibleAnswers.length));
+    let progress = Math.round((answers.length * 100) / possibleAnswers.length);
 
-    let progress = Math.round((answers.length*100)/possibleAnswers.length);
+    console.log(
+      '@AtheneaFormComponent:',
+      'POSSIBLE ANSWERS',
+      possibleAnswers,
+      'ANSWERS',
+      answers,
+      'PROGRESS',
+      progress
+    );
 
-    Preferences.set({key: this.answersId, value: JSON.stringify({
-      "answers": answers,
-      "progress": progress
-    })});
+    Preferences.set({
+      key: this.answersId,
+      value: JSON.stringify({
+        answers: answers,
+        progress: progress,
+      }),
+    });
   }
 
   async checkSavedAnswers() {
-    if (!this.useStorage) return;
+    if (!this.useLocalStorage) return;
     if (!this.answersId) return;
-    let preference = (await Preferences.get({key: this.answersId})).value;
+    let preference = (await Preferences.get({ key: this.answersId })).value;
     if (!preference) return;
     let answers = JSON.parse(preference);
 
     if (answers)
-    await answers.answers.forEach((answer: any) => {
-      const index = this.questions.findIndex(question => {
-        return question.id == answer.ID
-      })
-      if (index >= 0) {
-        this.questions[index].value = answer.VALOR;
-        this.lastIndex = index;
-      }
-    });
+      await answers.answers.forEach((answer: any) => {
+        const index = this.questions.findIndex((question) => {
+          return question.id == answer.ID;
+        });
+        if (index >= 0) {
+          this.questions[index].value = answer.VALOR;
+          this.lastIndex = index;
+        }
+      });
   }
 
   slideLastAnswered() {
-    this.slideTo(this.lastIndex??0+1, 500);
+    this.slideTo(this.lastIndex ?? 0 + 1, 500);
     this.lastIndex = null;
   }
 
+  ngAfterViewInit() {
+    this.disableTabNavigation();
+  }
+
+  disableTabNavigation() {
+    document.addEventListener('keydown', this.handleTabKeydown);
+  }
+
+  handleTabKeydown(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+    }
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.handleTabKeydown);
+  }
 }
 
-type Type = 'number' | 'select' | 'text' | 'pain' | 'csi_multiple' | 'mult' | 'info' | 'select_mood' | 'input_num' | 'pain_location' | 'blood_glucose' | 'blood_pressure' | 'heart_rate' | 'scale' | 'thermometer';
+type Type =
+  | 'number'
+  | 'select'
+  | 'text'
+  | 'pain'
+  | 'csi_multiple'
+  | 'mult'
+  | 'info'
+  | 'select_mood'
+  | 'input_num'
+  | 'pain_location'
+  | 'blood_glucose'
+  | 'blood_pressure'
+  | 'heart_rate'
+  | 'scale'
+  | 'thermometer';
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id: string;
@@ -736,13 +917,13 @@ export interface Question {
   min_questions: number | null;
   headform: string | null;
   depends_on: string | null;
-};
+}
 
 export interface BloodPreasure {
   sys_value: string;
   dia_value: string;
   bpm_value: string;
-} 
+}
 
 export interface Info {
   subtitle: Multilang;
