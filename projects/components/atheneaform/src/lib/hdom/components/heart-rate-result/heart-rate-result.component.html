@@ -26,11 +26,6 @@
       </div>
     </div>
     <div class="alert-box danger" *ngIf="temp_value && !check?.valid">
-      <strong>
-        <!-- GENERAL -->
-        @switch (selectedLang) { @case ('ca') { Error de lectura } @case ('es')
-        { Error de lectura } @case ('en') { Reading error } }
-      </strong>
       <p *ngIf="check?.error === 'invalid_unit'">
         <!-- 'emc.hdom.scan.bloodGlucoseObservation.invalid_unit_error'| translate}} -->
         <!-- ESPECIFIC -->

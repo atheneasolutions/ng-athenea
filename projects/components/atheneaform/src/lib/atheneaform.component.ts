@@ -295,6 +295,13 @@ export class AtheneaformComponent implements AfterViewChecked {
     }
   }
 
+  getTagWithDot(tag: string): string {
+    if (!tag.includes('.')) {
+      return tag + '.';
+    }
+    return tag;
+  }
+
   constructor(public validator: InputValidationService) {}
 
   onBloodPressureInputValidChange(index: number, value: BloodPreasure) {
@@ -787,18 +794,28 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   checkHasLang(lang: Lang, toCheck: Array<string> = ['ca', 'es', 'en']) {
-    let label = this.questions[0].label[lang];
-    if (label && label.trim() != '') this.selectedLang = lang;
-    else {
-      toCheck.splice(toCheck.indexOf(lang), 1);
-      if (toCheck.length == 0)
-        this.sendSurvey.emit({
-          questions: null,
-          role: 'error',
-        });
+    // Use info.subtitle if the question is of type 'info', otherwise use label.
+    let label =
+      this.questions[0].type === 'info'
+        ? this.questions[0].info?.subtitle?.[lang] ?? ''
+        : this.questions[0].label[lang];
 
-      this.checkHasLang(toCheck[0] as Lang, toCheck);
+    if (label && label.trim() !== '') {
+      this.selectedLang = lang;
+      return; // Exit the function if a valid language is found.
     }
+
+    // If not, remove the current lang from fallback options.
+    toCheck.splice(toCheck.indexOf(lang), 1);
+    if (toCheck.length === 0) {
+      this.sendSurvey.emit({
+        questions: null,
+        role: 'error',
+      });
+      return;
+    }
+    // Try the next language in the fallback array.
+    this.checkHasLang(toCheck[0] as Lang, toCheck);
   }
 
   async saveAnswers() {

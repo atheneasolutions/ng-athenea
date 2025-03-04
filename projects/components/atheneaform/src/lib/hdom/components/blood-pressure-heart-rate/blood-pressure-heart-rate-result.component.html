@@ -38,11 +38,6 @@
         class="alert-box danger round mt-1"
         *ngIf="temp_sys_value && !checkSystolic?.valid"
       >
-        <strong>
-          <!-- GENERAL -->
-          @switch (selectedLang) { @case ('ca') { Error de lectura } @case
-          ('es') { Error de lectura } @case ('en') { Reading error } }
-        </strong>
         <p *ngIf="checkSystolic?.error === 'invalid_unit'">
           <!-- 'emc.hdom.scan.bloodGlucoseObservation.invalid_unit_error'| translate}} -->
           <!-- ESPECIFIC -->
@@ -102,11 +97,6 @@
         class="alert-box danger round mt-1"
         *ngIf="temp_dia_value && !checkDiastolic?.valid"
       >
-        <strong>
-          <!-- GENERAL -->
-          @switch (selectedLang) { @case ('ca') { Error de lectura } @case
-          ('es') { Error de lectura } @case ('en') { Reading error } }
-        </strong>
         <p *ngIf="checkDiastolic?.error === 'invalid_unit'">
           <!-- 'emc.hdom.scan.bloodGlucoseObservation.invalid_unit_error'| translate}} -->
           <!-- ESPECIFIC -->
@@ -165,11 +155,6 @@
         class="alert-box danger round mt-1"
         *ngIf="temp_bpm_value && !checkBpms?.valid"
       >
-        <strong>
-          <!-- GENERAL -->
-          @switch (selectedLang) { @case ('ca') { Error de lectura } @case
-          ('es') { Error de lectura } @case ('en') { Reading error } }
-        </strong>
         <p *ngIf="checkSystolic?.error === 'invalid_unit'">
           <!-- 'emc.hdom.scan.bloodGlucoseObservation.invalid_unit_error'| translate}} -->
           <!-- ESPECIFIC -->

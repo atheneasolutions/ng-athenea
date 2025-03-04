@@ -48,7 +48,8 @@
           </h2>
           <h3 *ngIf="question.type !== 'info'">
             <span *ngIf="question.tag"
-              >{{ question.tag }} {{ question.label[selectedLang] }}</span
+              >{{ getTagWithDot(question.tag) }}
+              {{ question.label[selectedLang] }}</span
             >
           </h3>
           <ng-template
