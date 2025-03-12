@@ -32,7 +32,10 @@ export class BloodGlucoseResultComponent implements OnInit, OnChanges {
     }
   }
 
-  @Output() inputValid = new EventEmitter<string>(); // Language
+  @Output() inputValid = new EventEmitter<{
+    value: string;
+    valid: boolean;
+  }>();
 
   @Input() selectedLang: Lang = 'ca';
   // Value que tindra la questio
@@ -51,9 +54,9 @@ export class BloodGlucoseResultComponent implements OnInit, OnChanges {
     this.check = this.validator.isBloodGlucose(this.temp_value);
     if (this.check.valid) {
       this.value = this.temp_value;
-      this.inputValid.emit(this.value);
+      this.inputValid.emit({ value: this.value, valid: true });
     } else {
-      this.inputValid.emit('');
+      this.inputValid.emit({ value: '', valid: false });
     }
   }
 }

@@ -1,13 +1,23 @@
 .value-register-cards-container .value-register-container {
-    border: 0px solid var(--ion-color-neutro400); 
+  border: 0px solid var(--ion-color-neutro400);
 }
 
 .value-register-cards-container.list .value-register-container {
-    padding: 0rem;
+  padding: 0rem;
 }
 
 @media screen and (max-width: 425px) {
-    .custom_input ion-input {
-        padding: 0;
-    }
+  .custom_input ion-input {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .custom_input {
+    margin-top: 0 !important;
+  }
+
+  .value-register-cards-container {
+    gap: 0 !important;
+  }
 }

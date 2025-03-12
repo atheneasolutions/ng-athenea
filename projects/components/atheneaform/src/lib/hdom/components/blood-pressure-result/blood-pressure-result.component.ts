@@ -57,15 +57,16 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    if (this.temp_sys_value !== null && this.temp_sys_value !== '') {
-      this.checkSystolic = this.validator.isBloodPressure(this.temp_sys_value);
-    }
-
-    if (this.temp_dia_value !== null && this.temp_dia_value !== '') {
-      this.checkDiastolic = this.validator.isBloodPressure(
-        this.temp_dia_value,
-        true
+    if (
+      (this.temp_sys_value !== null && this.temp_sys_value !== '') ||
+      (this.temp_dia_value !== null && this.temp_dia_value !== '')
+    ) {
+      let res = this.validator.isBloodPressure(
+        this.temp_sys_value,
+        this.temp_dia_value
       );
+      this.checkSystolic = res.checkSystolic;
+      this.checkDiastolic = res.checkDiastolic;
     }
 
     if (this.temp_bpm_value !== null && this.temp_bpm_value !== '') {

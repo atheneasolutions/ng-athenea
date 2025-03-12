@@ -47,12 +47,6 @@ export class HeartRateResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    console.log(
-      'Twmp_Value equals: ',
-      this.temp_value,
-      'and this.value equals: ',
-      this.value
-    );
     this.check = this.validator.isHeartRate(this.temp_value);
     if (this.check.valid) {
       this.value = this.temp_value;

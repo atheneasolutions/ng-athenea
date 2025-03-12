@@ -7,8 +7,8 @@
         [(ngModel)]="temp_value"
         (ionChange)="checkValid()"
         placeholder="---"
-        min="1"
-        max="999"
+        min="30"
+        max="500"
         [class.danger]="!check?.valid && check?.error != 'invalid_unit'"
       ></ion-input>
       <p
@@ -33,9 +33,9 @@
         <!--  'emc.hdom.scan.bloodGlucoseObservation.invalid_value_error') | translate}} -->
         <!-- ESPECIFIC -->
         @switch (selectedLang) { @case ('ca') { El valor ha de ser numèric enter
-        entre 1 i 999 } @case ('es') { El valor tiene que ser un número entero
-        entre 1 y 999 } @case ('en') { The value must be an integer between 1
-        and 999 } }
+        entre 30 i 500 } @case ('es') { El valor tiene que ser un número entero
+        entre 30 y 500 } @case ('en') { The value must be an integer between 30
+        and 500 } }
       </p>
     </div>
   </div>

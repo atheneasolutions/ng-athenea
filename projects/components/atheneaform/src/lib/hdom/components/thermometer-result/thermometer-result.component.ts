@@ -27,12 +27,15 @@ export class ThermometerResultComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) {
-      this.temp_value = changes['value'].currentValue;
+      this.temp_value = changes['value'].currentValue || this.temp_value;
       this.checkValid();
     }
   }
 
-  @Output() inputValid = new EventEmitter<string>();
+  @Output() inputValid = new EventEmitter<{
+    value: string;
+    valid: boolean;
+  }>();
   // Language
   @Input() selectedLang: Lang = 'ca';
   // Value que tindra la questio
@@ -48,12 +51,20 @@ export class ThermometerResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    this.check = this.validator.isTemperature(this.temp_value);
-    if (this.check.valid) {
-      this.value = this.temp_value;
-      this.inputValid.emit(this.value);
+    // Only perform temperature validation if there is a non-empty value
+    if (this.temp_value !== null && this.temp_value !== '') {
+      this.check = this.validator.isTemperature(this.temp_value);
     } else {
-      this.inputValid.emit('');
+      // Treat empty value as invalid
+      this.check = { valid: false };
+    }
+
+    if (this.check.valid) {
+      // If valid, propagate the actual value
+      this.inputValid.emit({ value: this.temp_value, valid: true });
+    } else {
+      // Emit an empty value and false for validity
+      this.inputValid.emit({ value: '', valid: false });
     }
   }
 }

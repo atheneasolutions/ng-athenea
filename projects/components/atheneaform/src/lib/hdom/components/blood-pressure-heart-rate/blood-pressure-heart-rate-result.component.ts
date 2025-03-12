@@ -40,7 +40,10 @@ export class BloodPressureHeartRateResultComponent
     }
   }
 
-  @Output() inputValid = new EventEmitter<BloodPreasure>(); // Language
+  @Output() inputValid = new EventEmitter<{
+    BloodPreasure: BloodPreasure;
+    valid: boolean;
+  }>(); // Language
   @Input() selectedLang: Lang = 'ca';
 
   // Value que tindra la questio
@@ -64,15 +67,16 @@ export class BloodPressureHeartRateResultComponent
   ) {}
 
   checkValid() {
-    if (this.temp_sys_value !== null && this.temp_sys_value !== '') {
-      this.checkSystolic = this.validator.isBloodPressure(this.temp_sys_value);
-    }
-
-    if (this.temp_dia_value !== null && this.temp_dia_value !== '') {
-      this.checkDiastolic = this.validator.isBloodPressure(
-        this.temp_dia_value,
-        true
+    if (
+      (this.temp_sys_value !== null && this.temp_sys_value !== '') ||
+      (this.temp_dia_value !== null && this.temp_dia_value !== '')
+    ) {
+      let res = this.validator.isBloodPressure(
+        this.temp_sys_value,
+        this.temp_dia_value
       );
+      this.checkSystolic = res.checkSystolic;
+      this.checkDiastolic = res.checkDiastolic;
     }
 
     if (this.temp_bpm_value !== null && this.temp_bpm_value !== '') {
@@ -85,7 +89,12 @@ export class BloodPressureHeartRateResultComponent
       bpm_value: this.temp_bpm_value,
     };
 
-    this.inputValid.emit(updatedValue);
+    const valid =
+      this.checkSystolic.valid &&
+      this.checkDiastolic.valid &&
+      this.checkBpms.valid;
+
+    this.inputValid.emit({ BloodPreasure: updatedValue, valid: valid });
   }
 }
 

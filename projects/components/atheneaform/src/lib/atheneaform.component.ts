@@ -280,13 +280,11 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   isConstantInputValid: boolean = false;
 
-  onConstantInputValidChange(index: number, value: string) {
-    console.log(
-      '@AtheneaForm - onConstantInputValidChange - ',
-      this.questions[index],
-      this.useLocalStorage
-    );
-    this.isConstantInputValid = value !== '';
+  onConstantInputValidChange(
+    index: number,
+    { value, valid }: { value: string; valid: boolean }
+  ) {
+    this.isConstantInputValid = valid;
     if (this.isConstantInputValid) {
       this.inputChange(index, value, false);
       this.showContinueButton();
@@ -304,41 +302,13 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   constructor(public validator: InputValidationService) {}
 
-  onBloodPressureInputValidChange(index: number, value: BloodPreasure) {
-    let result = {
-      ...(this.questions[index].value as BloodPreasure),
-      ...value,
-    };
-
-    let checkSystolic: any = {};
-    let checkDiastolic: any = {};
-    let checkBpms: any = {};
-
-    console.log(
-      '@AtheneaForm - onBloodPressureInputValidChange - ',
-      this.questions[index],
-      ' Value: ',
-      value,
-      ' Result: ',
-      result
-    );
-
-    if (value.sys_value !== null && value.sys_value !== '') {
-      checkSystolic = this.validator.isBloodPressure(value.sys_value);
-    }
-
-    if (value.dia_value !== null && value.dia_value !== '') {
-      checkDiastolic = this.validator.isBloodPressure(value.dia_value, true);
-    }
-
-    if (value.bpm_value !== null && value.bpm_value !== '') {
-      checkBpms = this.validator.isHeartRate(value.bpm_value);
-    }
-
-    this.isConstantInputValid =
-      checkBpms.valid && checkDiastolic.valid && checkSystolic.valid;
+  onBloodPressureInputValidChange(
+    index: number,
+    { BloodPreasure, valid }: { BloodPreasure: BloodPreasure; valid: boolean }
+  ) {
+    this.isConstantInputValid = valid;
     if (this.isConstantInputValid) {
-      this.inputChange(index, result, false);
+      this.inputChange(index, BloodPreasure, false);
       this.showContinueButton();
     } else {
       this.hideContinueButton();
@@ -408,7 +378,6 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   async ngOnInit() {
-    console.log('Update9 console log strings and localStorage is optional');
     await this.checkSavedAnswers();
 
     let indexI = 0;
@@ -637,15 +606,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       } else {
         this.hideContinueButton();
       }
-
-      console.log(question, this.slideIndex, this.questions);
     }
-
-    // let question = this.questions[(this.preview ? this.slideIndex-1 : this.slideIndex)];
-    // if (question.optional) this.showContinueButton();
-    // else this.hideContinueButton();
-
-    // console.log(question, this.slideIndex, this.questions)
 
     if (this.isEnd)
       setTimeout(() => {
@@ -712,8 +673,15 @@ export class AtheneaformComponent implements AfterViewChecked {
       question = this.questions[actualQuestionIndex];
     }
     if (this.preview && this.slideIndex == 0) return true;
-    else if (question.type in CONSTANT_TYPES) return this.isConstantInputValid;
-    else if (question.optional || question.value != null) return true;
+    else if (CONSTANT_TYPES.includes(question.type)) {
+      if (question.value !== '' && question.value !== null) {
+        return this.isConstantInputValid;
+      } else return false;
+    } else if (
+      question.optional ||
+      (question.value != null && question.value != '')
+    )
+      return true;
     else if (question.type == 'csi_multiple')
       return this.multValue(question.id);
     return false;
@@ -836,16 +804,6 @@ export class AtheneaformComponent implements AfterViewChecked {
     });
 
     let progress = Math.round((answers.length * 100) / possibleAnswers.length);
-
-    console.log(
-      '@AtheneaFormComponent:',
-      'POSSIBLE ANSWERS',
-      possibleAnswers,
-      'ANSWERS',
-      answers,
-      'PROGRESS',
-      progress
-    );
 
     Preferences.set({
       key: this.answersId,

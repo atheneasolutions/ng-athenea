@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { HdomService } from './hdom.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InputValidationService {
-
-  constructor(public hdom: HdomService) { }
-
+  constructor(public hdom: HdomService) {}
 
   /**
    * Funció per validar si l'input és només numéric
-   * 
+   *
    * @param val Valor a validar
    * @returns boolean
    */
@@ -23,7 +21,7 @@ export class InputValidationService {
 
   /**
    * Funció per validar si l'input és només número enter
-   * 
+   *
    * @param val Valor a validar
    * @returns boolean
    */
@@ -35,7 +33,7 @@ export class InputValidationService {
 
   /**
    * Funció per validar si l'input és només numéric acceptant decimals
-   * 
+   *
    * @param val Valor a validar
    * @returns boolean
    */
@@ -47,104 +45,154 @@ export class InputValidationService {
 
   /**
    * Funció per validar si el valor de la temperatura és correcte
-   * 
+   *
    * @param val Valor a validar
    * @returns boolean
    */
   isTemperature(val: any) {
     let number = this.isNumberDecimal(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 44) return { valid: false, error: "invalid_range" };
-    if (val < 16) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 44) return { valid: false, error: 'invalid_range' };
+    if (val < 34) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
 
   /**
    * Funció per validar si el valor de la bàscula és correcte
-   * 
+   *
    * @param val Valor a validar
    * @returns boolean
    */
   isWeight(val: any) {
     let number = this.isNumberDecimal(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 299) return { valid: false, error: "invalid_range" };
-    if (val < 0) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 299) return { valid: false, error: 'invalid_range' };
+    if (val < 0) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
 
   /**
-    * Funció per validar si el valor de la bàscula és correcte
-    * 
-    * @param val Valor a validar
-    * @returns boolean
-    */
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
   isRespiratoryRate(val: any, unit: any) {
-    if (unit != this.hdom.UNITS_LABELS.rpm) return { valid: false, error: "invalid_unit" };
+    if (unit != this.hdom.UNITS_LABELS.rpm)
+      return { valid: false, error: 'invalid_unit' };
     let number = this.isInteger(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 45) return { valid: false, error: "invalid_range" };
-    if (val < 0) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 45) return { valid: false, error: 'invalid_range' };
+    if (val < 0) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
 
   /**
-    * Funció per validar si el valor de la bàscula és correcte
-    * 
-    * @param val Valor a validar
-    * @returns boolean
-    */
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
   isOxygenSat(val: any, unit: any) {
-    if (unit != this.hdom.UNITS_LABELS.percentage) return { valid: false, error: "invalid_unit" };
+    if (unit != this.hdom.UNITS_LABELS.percentage)
+      return { valid: false, error: 'invalid_unit' };
     let number = this.isInteger(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 100) return { valid: false, error: "invalid_range" };
-    if (val < 0) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 100) return { valid: false, error: 'invalid_range' };
+    if (val < 0) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
 
   /**
-  * Funció per validar si el valor de la bàscula és correcte
-  * 
-  * @param val Valor a validar
-  * @returns boolean
-  */
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
   isHeartRate(val: any) {
     let number = this.isInteger(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 199) return { valid: false, error: "invalid_range" };
-    if (val < 0) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 199) return { valid: false, error: 'invalid_range' };
+    if (val < 30) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
+  }
+
+  // if (this.temp_sys_value !== null && this.temp_sys_value !== '') {
+  //   this.checkSystolic = this.validator.isSistolicPressure(
+  //     this.temp_sys_value
+  //   );
+  // }
+
+  // if (this.temp_dia_value !== null && this.temp_dia_value !== '') {
+  //   this.checkDiastolic = this.validator.isDisatolicPressure(
+  //     this.temp_dia_value
+  //   );
+  // }
+
+  isBloodPressure(sys_value: any, dia_value: any) {
+    // First check if the values are within valid ranges
+    let checkSystolic = this.isSistolicPressure(sys_value);
+    let checkDiastolic = this.isDisatolicPressure(dia_value);
+
+    // Only check systolic vs diastolic if both values are valid
+    if (checkSystolic.valid || checkDiastolic.valid) {
+      // Convert to numbers for comparison
+      const systolic = Number(sys_value);
+      const diastolic = Number(dia_value);
+
+      if (systolic <= diastolic) {
+        if (checkSystolic.valid)
+          checkSystolic = { valid: false, error: 'sys_lower_than_dia' };
+        if (checkDiastolic.valid)
+          checkDiastolic = { valid: false, error: 'sys_lower_than_dia' };
+      }
+    }
+
+    return {
+      checkDiastolic: checkDiastolic,
+      checkSystolic: checkSystolic,
+    };
   }
 
   /**
-  * Funció per validar si el valor de la bàscula és correcte
-  * 
-  * @param val Valor a validar
-  * @returns boolean
-  */
-  isBloodPressure(val: any, diastolic = false) {
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
+  isSistolicPressure(val: any) {
     let number = this.isInteger(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 299) return { valid: false, error: "invalid_range" };
-    if(diastolic && val > 149) return {valid: false, error: 'invalid_range'};
-    if (val < 0) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 299) return { valid: false, error: 'invalid_range' };
+    if (val < 60) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
-
 
   /**
-  * Funció per validar si el valor de la bàscula és correcte
-  * 
-  * @param val Valor a validar
-  * @returns boolean
-  */
-   isBloodGlucose(val: any) {
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
+  isDisatolicPressure(val: any) {
     let number = this.isInteger(val, false);
-    if (!number) return { valid: false, error: "not_number" };
-    if (val > 999) return { valid: false, error: "invalid_range" };
-    if (val < 1) return { valid: false, error: "invalid_range" };
-    return { valid: true }
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 149) return { valid: false, error: 'invalid_range' };
+    if (val < 40) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
   }
-  
+
+  /**
+   * Funció per validar si el valor de la bàscula és correcte
+   *
+   * @param val Valor a validar
+   * @returns boolean
+   */
+  isBloodGlucose(val: any) {
+    let number = this.isInteger(val, false);
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > 500) return { valid: false, error: 'invalid_range' };
+    if (val < 30) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
+  }
 }
