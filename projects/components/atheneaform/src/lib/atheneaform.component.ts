@@ -509,6 +509,8 @@ export class AtheneaformComponent implements AfterViewChecked {
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
       if (elem.optional) continue;
+      if (elem.depends_on && this.questionValueIsZero(elem.depends_on))
+        continue;
       if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
