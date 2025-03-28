@@ -134,7 +134,7 @@
         fill="solid"
         class="send"
         mode="ios"
-        [class.v-hidden]="!hasReachedEnd"
+        [class.v-hidden]="!hasReachedEnd || !canAnswer"
       >
         @switch (selectedLang) { @case ('ca') { Enviar } @case ('es') { Enviar }
         @case ('en') { Send } }

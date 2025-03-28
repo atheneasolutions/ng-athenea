@@ -51,7 +51,7 @@ export class ScaleResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    this.check = this.validator.isHeartRate(this.temp_value);
+    this.check = this.validator.isWeight(this.temp_value);
     if (this.check.valid) {
       this.value = this.temp_value;
       this.inputValid.emit({ value: this.value, valid: true });

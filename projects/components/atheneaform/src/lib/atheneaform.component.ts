@@ -496,7 +496,8 @@ export class AtheneaformComponent implements AfterViewChecked {
       )
         this.questions[index].value = '';
       const element = this.questions[index];
-      if (element.type != SKIP_CHECK_TYPE) questRet.push(element);
+      if (element.type != SKIP_CHECK_TYPE && element.type != 'info')
+        questRet.push(element);
     }
 
     this.sendSurvey.emit({
@@ -894,6 +895,7 @@ export interface Question {
   min_questions: number | null;
   headform: string | null;
   depends_on: string | null;
+  group_name: string | null;
 }
 
 export interface BloodPreasure {
