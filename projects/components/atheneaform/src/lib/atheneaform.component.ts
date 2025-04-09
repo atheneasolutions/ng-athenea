@@ -65,6 +65,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() canAnswer: boolean = true;
   @Input() availableDate: Date | null = null;
   @Input() answersId!: string;
+  @Input() id!: string;
   @Input() useLocalStorage: boolean = true;
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
@@ -501,6 +502,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     }
 
     this.sendSurvey.emit({
+      id: this.id,
       questions: questRet,
       role: 'send',
     });
