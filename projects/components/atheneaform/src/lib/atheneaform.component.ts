@@ -152,12 +152,12 @@ export class AtheneaformComponent implements AfterViewChecked {
       formal_name: { ca: 'Torso', es: 'Torso', en: 'Torso' },
     },
     {
-      code: 'braçd',
+      code: 'braçDret',
       ordinary_name: { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' },
       formal_name: { ca: 'Braç dret', es: 'Brazo derecho', en: 'Right arm' },
     },
     {
-      code: 'braçe',
+      code: 'braçEsquerra',
       ordinary_name: {
         ca: 'Braç esquerre',
         es: 'Brazo izquierdo',
@@ -175,7 +175,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       formal_name: { ca: 'Cefàlic', es: 'Cefálico', en: 'Cephalic' },
     },
     {
-      code: 'camate',
+      code: 'camaAnteriorEsquerra',
       ordinary_name: {
         ca: 'Cama anterior esquerra',
         es: 'Pierna anterior izquierda',
@@ -188,7 +188,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       },
     },
     {
-      code: 'camatd',
+      code: 'camaAnteriorDreta',
       ordinary_name: {
         ca: 'Cama anterior dreta',
         es: 'Pierna anterior derecha',
@@ -201,7 +201,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       },
     },
     {
-      code: 'camafe',
+      code: 'camaPosteriorEsquerra',
       ordinary_name: {
         ca: 'Cama posterior esquerra',
         es: 'Pierna posterior izquierda',
@@ -214,7 +214,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       },
     },
     {
-      code: 'camafd',
+      code: 'camaPosteriorDreta',
       ordinary_name: {
         ca: 'Cama posterior dreta',
         es: 'Pierna posterior derecha',
@@ -232,7 +232,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       formal_name: { ca: 'Genitals', es: 'Genitales', en: 'Genitals' },
     },
     {
-      code: 'mama2',
+      code: 'mamaDreta',
       ordinary_name: {
         ca: 'Mama dreta',
         es: 'Mama derecha',
@@ -241,7 +241,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       formal_name: { ca: 'Mama dreta', es: 'Mama derecha', en: 'Right breast' },
     },
     {
-      code: 'mama1',
+      code: 'mamaEsquerra',
       ordinary_name: {
         ca: 'Mama esquerra',
         es: 'Mama izquierda',

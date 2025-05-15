@@ -35,6 +35,7 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
 
   @Output() inputValid = new EventEmitter<BloodPreasure>(); // Language
   @Input() selectedLang: Lang = 'ca';
+  @Input() canAnswer: boolean = true;
 
   // Value que tindra la questio
   @Input() value: BloodPreasure = {

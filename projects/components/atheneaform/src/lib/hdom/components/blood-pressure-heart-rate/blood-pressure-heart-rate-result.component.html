@@ -13,6 +13,7 @@
             <ion-input
               #obsInput
               type="number"
+              [disabled]="!canAnswer"
               [(ngModel)]="temp_sys_value"
               (ionChange)="checkValid()"
               placeholder="---"
@@ -79,6 +80,7 @@
             <ion-input
               #obsInput2
               type="number"
+              [disabled]="!canAnswer"
               [(ngModel)]="temp_dia_value"
               (ionChange)="checkValid()"
               placeholder="---"
@@ -146,6 +148,7 @@
             <ion-input
               #obsInput
               type="number"
+              [disabled]="!canAnswer"
               [(ngModel)]="temp_bpm_value"
               (ionChange)="checkValid()"
               placeholder="--"

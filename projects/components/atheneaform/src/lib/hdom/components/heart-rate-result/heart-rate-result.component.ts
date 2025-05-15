@@ -34,6 +34,7 @@ export class HeartRateResultComponent implements OnInit, OnChanges {
 
   @Output() inputValid = new EventEmitter<string>(); // Language
   @Input() selectedLang: Lang = 'ca';
+  @Input() canAnswer: boolean = true;
   // Value que tindra la questio
   @Input() value: string = '';
   // Value que sortira en el display en cas que possi un valor erroni per aixi no trencar

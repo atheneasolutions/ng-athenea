@@ -13,6 +13,7 @@
             <ion-input
               #obsInput
               type="number"
+              [disabled]="!canAnswer"
               [(ngModel)]="temp_sys_value"
               (ionChange)="checkValid()"
               placeholder="---"

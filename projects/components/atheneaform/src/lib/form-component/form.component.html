@@ -280,6 +280,7 @@
             class="clickable-zone {{ zone.code }}"
             [class.selected]="this.questions[index].value === zone.code"
             (click)="onZoneClick(index, zone.code, false)"
+            [style.pointer-events]="!canAnswer ? 'none' : 'auto'"
           >
             <div class="dot dot-{{ zone.code }}"></div>
           </div>
@@ -294,6 +295,7 @@
           <ion-item fill="outline" class="mt-2 ion-item-select-padding">
             <ion-select
               class="justify-space-between"
+              [disabled]="!canAnswer"
               aria-label="zone"
               placeholder=""
               [(ngModel)]="this.questions[index].value"
@@ -420,6 +422,7 @@
 
 <ng-template #bloodGlucose let-index="index">
   <app-blood-glucose-result
+    [canAnswer]="canAnswer"
     [value]="getString(this.questions[index].value)"
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"
@@ -428,6 +431,7 @@
 
 <ng-template #bloodPressure let-index="index">
   <app-blood-pressure-result
+    [canAnswer]="canAnswer"
     [value]="getBloodPressure(index)"
     [selectedLang]="selectedLang"
     (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
@@ -436,6 +440,7 @@
 
 <ng-template #heart let-index="index">
   <app-blood-pressure-heart-rate-result
+    [canAnswer]="canAnswer"
     [value]="getBloodPressure(index)"
     [selectedLang]="selectedLang"
     (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
@@ -444,6 +449,7 @@
 
 <ng-template #heartRate let-index="index">
   <app-heart-rate-result
+    [canAnswer]="canAnswer"
     [value]="getString(this.questions[index].value)"
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"
@@ -452,6 +458,7 @@
 
 <ng-template #thermometer let-index="index">
   <app-thermometer-result
+    [canAnswer]="canAnswer"
     [value]="getString(this.questions[index].value)"
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"
@@ -460,6 +467,7 @@
 
 <ng-template #scale let-index="index">
   <app-scale-result
+    [canAnswer]="canAnswer"
     [value]="getString(this.questions[index].value)"
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"

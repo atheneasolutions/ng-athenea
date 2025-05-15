@@ -4,6 +4,7 @@
       <ion-input
         #obsInput
         type="number"
+        [disabled]="!canAnswer"
         [(ngModel)]="temp_value"
         (ionChange)="checkValid()"
         placeholder="--.-"

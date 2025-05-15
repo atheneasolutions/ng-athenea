@@ -45,6 +45,7 @@ export class BloodPressureHeartRateResultComponent
     valid: boolean;
   }>(); // Language
   @Input() selectedLang: Lang = 'ca';
+  @Input() canAnswer: boolean = true;
 
   // Value que tindra la questio
   @Input() value: BloodPreasure = {
