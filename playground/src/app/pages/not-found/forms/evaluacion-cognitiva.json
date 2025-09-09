@@ -1,0 +1,166 @@
+{
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Evaluación Cognitiva", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Instrucciones", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Selecciona la respuesta más apropiada basándote en tu <em>rendimiento cognitivo</em> durante la última semana. Las preguntas describen situaciones con posibles problemas de memoria, concentración u organización. Responde con la frecuencia que mejor se ajusta.</p><p><strong>En la última semana, ¿con qué frecuencia...?</strong></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    },
+
+    {
+      "id": "82e2de60-8ec9-4999-8a3d-54907e14801f",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Has tenido problemas para organizarte?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "" },
+        "2": { "es": "Raramente", "ca": "", "en": "" },
+        "3": { "es": "A veces", "ca": "", "en": "" },
+        "4": { "es": "A menudo", "ca": "", "en": "" },
+        "5": { "es": "Casi siempre", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    },
+
+    {
+      "id": "d0582d98-5c28-49fc-9a21-adc23582fd48",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "¿Tuviste problemas concentrándote al mirar un programa de televisión o al leer un libro?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "" },
+        "2": { "es": "Raramente", "ca": "", "en": "" },
+        "3": { "es": "A veces", "ca": "", "en": "" },
+        "4": { "es": "A menudo", "ca": "", "en": "" },
+        "5": { "es": "Casi siempre", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    },
+
+    {
+      "id": "d7c717f1-83fc-4e99-95a6-dd5f436f6e78",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "¿No has sabido qué día era a menos que lo hayas consultado?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "" },
+        "2": { "es": "Raramente", "ca": "", "en": "" },
+        "3": { "es": "A veces", "ca": "", "en": "" },
+        "4": { "es": "A menudo", "ca": "", "en": "" },
+        "5": { "es": "Casi siempre", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    },
+
+    {
+      "id": "d5f4ef3f-fa22-48b8-aa4c-3bade8587ef9",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": { "es": "¿Olvidaste de qué habías estado hablando después de una conversación telefónica?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "" },
+        "2": { "es": "Raramente", "ca": "", "en": "" },
+        "3": { "es": "A veces", "ca": "", "en": "" },
+        "4": { "es": "A menudo", "ca": "", "en": "" },
+        "5": { "es": "Casi siempre", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    },
+
+    {
+      "id": "5b642988-c85f-4b25-91bc-acf84b39242e",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": { "es": "¿Has sentido que tu mente estaba totalmente en blanco?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "" },
+        "2": { "es": "Raramente", "ca": "", "en": "" },
+        "3": { "es": "A veces", "ca": "", "en": "" },
+        "4": { "es": "A menudo", "ca": "", "en": "" },
+        "5": { "es": "Casi siempre", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva",
+      "depends_on": null,
+      "group_name": "Evaluación cognitiva"
+    }
+  ]
+}

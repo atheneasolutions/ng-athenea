@@ -1,0 +1,106 @@
+@if (!loading) {
+  <app-header [hospital]="hospital"></app-header>
+}
+
+@if (errorLink == false) {
+<ion-content class="ion-padding">
+  <div class="main-content">
+    <div class="u-wrapper u-wrapper-content">
+      @if(errorLink == false) {
+        <form (ngSubmit)="login()" [formGroup]="credentials">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col class="ion-text-center">
+                @if (hospital == Hospital.PARC_TAULI) {
+                  <img src="assets/img/logoParcTauli2023.svg" style="width: 40%; max-width: 250px; margin-top: 2rem; margin-right: 2rem;">
+                  <img src="assets/img/I3PT.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+                } 
+                @if (hospital == Hospital.SON_ESPASES) {
+                  <img src="assets/img/image.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+                  <img src="assets/img/UIB.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+                } 
+                
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <p class="inici">{{ 'home.title' | translate }}</p>
+              </ion-col>
+            </ion-row>
+            <ion-row class="mw-350-desktop">
+              <ion-col>
+                <div class="input-group">
+                  <ion-list>
+                    <ion-row class="justify-desktop">
+                      <p class="label align-left">{{ 'home.input_nie' | translate }}</p>
+                      <ion-icon id="password-help" class="help-icon" name="help-circle-outline"></ion-icon>
+                    </ion-row>
+                    <ion-popover trigger="password-help" triggerAction="click">
+                      <ng-template>
+                        <ion-content class="ion-padding">{{'home.help' | translate}}</ion-content>
+                      </ng-template>
+                    </ion-popover>
+                    <ion-item>                    
+                      <ion-input placeholder="{{ 'home.placeholder' | translate }}" formControlName="dninie" clear-input='true'></ion-input>
+                    </ion-item>
+                    @if (errorLogin) {
+                      <div class="errors">
+                        <span>{{ 'home.generalError' | translate }}</span>
+                      </div>
+                    } 
+                    @if (incorrectCredentials) {
+                      <div class="errors">
+                        <span>{{ 'home.error_subtitle' | translate }}</span>
+                      </div>
+                    } 
+                    @if (expirated) {
+                      <div class="errors">
+                        <span>{{ 'home.expired_enviament' | translate }}</span>
+                      </div>
+                    } 
+                    @if (expiratedLink) {
+                      <div class="errors">
+                        <span>{{ 'home.expired_link' | translate }}</span>
+                      </div>
+                    }                
+                  </ion-list>
+                </div>
+              </ion-col>
+            </ion-row>
+            <div class="normal-content-div-start center mb-3-important">
+              <ion-button class="custom-submit-button" type="submit" expand="block" size="small" [disabled]="!credentials.valid || expirated">{{
+                'home.btn_accedir' | translate }}</ion-button>
+            </div>
+          </ion-grid>
+        </form>
+      } 
+      
+    </div>
+  </div>
+</ion-content>
+}
+
+@if (errorLink == true) {
+  <ion-content class="ion-padding">
+    <div class="main-content" style="display: grid; place-content: center; height: 100%;">
+      <div class="u-wrapper u-wrapper-content">
+        <div class="not-found-background" style="display: grid; place-content: center;">
+          <div class="not-found-container">
+            <div class="not-found-box">
+              <h2>404</h2>
+              <p>{{ 'home.error_link' | translate }}</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </ion-content>
+}
+
+@if (errorLink == null) {
+  <div class="error-link">
+    <ion-spinner name="dots" class="m-2"></ion-spinner>        
+  </div>
+
+}

@@ -1,0 +1,382 @@
+{
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Fatiga", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Instrucciones", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>A continuación, aparecerán unas preguntas sobre su estado físico-funcional. No es necesario que piense mucho tiempo cada respuesta; en este cuestionario las respuestas espontáneas tienen más valor que las que se piensan mucho.</p><p>A continuación, encontrará una lista de situaciones relacionadas con la fatiga. Marque una sola respuesta por línea para indicar como se ha sentido en la última semana.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "f139a6d1-d458-4bc5-bbb7-56990137a870",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "Me siento agotado/a", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "083cda94-86e7-4eca-a39b-547cd50daea2",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "Siento debilidad en todo el cuerpo", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "66f19110-1628-4442-b838-f8460de206c8",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "Me siento decaído/a", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "a3f6886e-a190-4b4f-9958-a3e8da97c146",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": { "es": "Me siento cansado/a", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "d2e18d43-1617-4ac5-aa81-1da6ba5d6292",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": { "es": "Tengo dificultad para comenzar las cosas porque estoy cansado/a", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "e90bd10d-c889-44c4-8f8f-6b34e14f2846",
+      "type": "select",
+      "order": 7,
+      "tag": "7",
+      "label": { "es": "Tengo dificultad para terminar las cosas porque estoy cansado/a", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "ed45d4d6-ebd2-469f-b0a7-d149d0aacb56",
+      "type": "select",
+      "order": 8,
+      "tag": "8",
+      "label": { "es": "Tengo energía", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "b962c7ad-1d15-4965-a215-85a5383f7756",
+      "type": "select",
+      "order": 9,
+      "tag": "9",
+      "label": { "es": "Soy capaz de hacer mis actividades habituales (trabajar, ir a la escuela, hacer las compras)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "41caa28c-1d38-4e02-a98b-6e2fd27f591f",
+      "type": "select",
+      "order": 10,
+      "tag": "10",
+      "label": { "es": "Necesito dormir durante el día", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "0e4006e3-a4b8-4319-ae42-ea05c72e90a6",
+      "type": "select",
+      "order": 11,
+      "tag": "11",
+      "label": { "es": "Estoy demasiado cansado/a para comer", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "edc5c011-e375-4d0c-bc56-de4059b38f2f",
+      "type": "select",
+      "order": 12,
+      "tag": "12",
+      "label": { "es": "Necesito ayuda para hacer mis actividades habituales", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "980fcf5e-6284-46f0-a0c1-b9bc57f9e8f5",
+      "type": "select",
+      "order": 13,
+      "tag": "13",
+      "label": { "es": "Estoy frustrado/a porque estoy demasiado cansado/a para hacer las cosas que quiero hacer", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    },
+
+    {
+      "id": "46aa6699-cd09-436b-8ee6-f4ba9c367496",
+      "type": "select",
+      "order": 14,
+      "tag": "14",
+      "label": { "es": "Tengo que limitar mis actividades sociales debido al cansancio", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco", "ca": "", "en": "" },
+        "3": { "es": "Algo", "ca": "", "en": "" },
+        "4": { "es": "Bastante", "ca": "", "en": "" },
+        "5": { "es": "Mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fatiga",
+      "depends_on": null,
+      "group_name": "Fatiga"
+    }
+  ]
+}

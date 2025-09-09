@@ -1,0 +1,7 @@
+{
+  "name": "PT-ICURA-Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

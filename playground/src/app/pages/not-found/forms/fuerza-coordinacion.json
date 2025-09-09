@@ -1,0 +1,51 @@
+{
+  "questions": [
+    {
+      "id": "46aa6699-cd09-436b-8ee6-f4ba9c367496",
+      "type": "select",
+      "order": 1,
+      "tag": "1",
+      "label": { "es": "Actualmente, para levantarse de la silla:", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Lo hago sólo, sin apoyar los brazos", "ca": "", "en": "" },
+        "2": { "es": "Lo hago sólo, pero necesito apoyar los brazos", "ca": "", "en": "" },
+        "3": { "es": "Necesito que me ayude alguien", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fuerza y Coordinación",
+      "depends_on": null,
+      "group_name": "Fuerza y Coordinación"
+    },
+    {
+      "id": "40c559c2-72b1-4649-939d-467174ca4d59",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Puedo coger una botella con agua y llenar un vaso con la mano dominante y sin ayuda de la otra mano o de otra persona?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sí", "ca": "", "en": "Yes" },
+        "2": { "es": "No", "ca": "", "en": "No" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Fuerza y Coordinación",
+      "depends_on": null,
+      "group_name": "Fuerza y Coordinación"
+    }
+  ]
+}

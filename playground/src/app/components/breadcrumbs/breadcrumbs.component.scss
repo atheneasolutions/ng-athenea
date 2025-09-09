@@ -1,0 +1,20 @@
+span{
+    @media screen and (max-width: 600px) {
+        max-width: 200px
+    }
+    @media screen and (max-width: 500px) {
+        max-width: 150px
+    }
+    @media screen and (max-width:400px) {
+        max-width: 100px;
+    }
+    max-width: 300px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    display:inline-block;
+}
+
+ion-icon {
+    color: var(--ion-color-step-400, #92a0b3);
+}

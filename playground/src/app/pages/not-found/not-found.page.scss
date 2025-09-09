@@ -1,0 +1,49 @@
+
+.not-found-container {
+    text-align: center;
+    max-width: 400px;
+    max-height: 400px;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .not-found-box {
+    padding: 2rem;
+  }
+  
+  .not-found-box h2 {
+    font-size: 4rem;
+    color: var(--ion-color-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .not-found-box p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+  }
+  
+  ion-button {
+    --background: #3b3b98;
+    --background-hover: #575fcf;
+  }
+  
+
+.max-form {
+  height: 60vh;
+  border: 1px solid black;
+  //overflow: hidden;
+}
+  .not-found-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    background-color: #e2e2e4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }

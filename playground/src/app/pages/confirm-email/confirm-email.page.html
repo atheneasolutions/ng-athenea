@@ -1,0 +1,55 @@
+<!--app-header [title]=titol></!--app-header-->
+
+<ion-content class="ion-padding">
+  <div class="main-content">
+    <div class="u-wrapper u-wrapper-content">
+      <ion-row>
+        <ion-col class="ion-text-center">
+          @if (hospital == Hospital.PARC_TAULI) {
+            <img src="assets/img/logoParcTauli2023.svg" style="width: 40%; max-width: 250px; margin-top: 2rem; margin-right: 2rem;">
+            <img src="assets/img/I3PT.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+          } 
+          @if (hospital == Hospital.SON_ESPASES) {
+            <img src="assets/img/image.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+            <img src="assets/img/UIB.png" style="width: 40%; max-width: 250px; margin-top: 2rem;">
+          } 
+        </ion-col>
+      </ion-row>
+      @if (!isValidated && !alreadyValidated) {
+        <ion-row>
+          <ion-col>
+            <p class="inici">{{ 'confirm_email.title' | translate }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="justify-desktop">
+          <p class="label align-left">{{ 'confirm_email.subtitle' | translate }}</p>
+        </ion-row>
+        @if (errorConfirmEmail) {
+          <div class="errors">
+            <span>{{ 'confirm_email.error' | translate }}</span>
+          </div>
+        }   
+        <div class="normal-content-div-start center mb-3-important">
+          <ion-button class="custom-submit-button" type="submit" expand="block" size="small" (click)="confirm()">{{
+            'confirm_email.confirm' | translate }}</ion-button>
+        </div>
+      }
+      @if (isValidated) {
+        <ion-row>
+          <ion-col>
+            <p class="inici">{{ 'confirm_email.success' | translate }}</p>
+          </ion-col>
+        </ion-row>
+      }
+      @if (alreadyValidated) {
+        <ion-row>
+          <ion-col>
+            <p class="inici">{{ 'confirm_email.already_validated' | translate }}</p>
+          </ion-col>
+        </ion-row>
+      }
+    </div>
+    
+    
+  </div>
+</ion-content>

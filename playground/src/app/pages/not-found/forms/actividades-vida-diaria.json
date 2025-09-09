@@ -1,0 +1,281 @@
+{
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": "1",
+      "label": { "es": "Cuestionario Actividades de la Vida Diaria", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Instrucciones", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Preguntas sobre su <em>estado físico-funcional</em>. Se le preguntará cómo realiza actualmente las <strong>actividades básicas</strong> de la vida diaria.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "82e2de60-8ec9-4999-8a3d-54907e14801f",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Necesitas que te ayuden a la hora de comer?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo comer sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito un poco de ayuda (p. ej., cortar carne o pan)", "ca": "", "en": "" },
+        "3": { "es": "Sí, sin ayuda no puedo comer", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "3e1bdda4-cd73-4f37-9864-72ca96a66fff",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "¿Necesitas ayuda para ducharte?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo ducharme sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Sí, sin ayuda no puedo ducharme", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "2b6fdbc1-ff5c-4352-b637-b398a80dae8b",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "¿Necesitas ayuda para vestirte?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo vestirme íntegramente sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito un poco de ayuda (botones, cordones, etc.)", "ca": "", "en": "" },
+        "3": { "es": "Sí, sin ayuda no puedo vestirme", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "6c382964-d2a7-4431-9c65-18924605427f",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": { "es": "¿Necesitas ayuda para lavarte manos, peinarte, maquillarte o afeitarte?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, me arreglo sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Sí, necesito que me ayuden", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "3d9fcffb-0980-4d3b-8649-cc6cb19e059c",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": { "es": "En la última semana, ¿has tenido algún episodio de incontinencia fecal?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, no he tenido ningún episodio", "ca": "", "en": "" },
+        "2": { "es": "Algún episodio puntual o ayuda para supositorio", "ca": "", "en": "" },
+        "3": { "es": "He tenido incontinencia todos los días", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "5564d3b6-4487-49f0-a26d-afed130add5d",
+      "type": "select",
+      "order": 7,
+      "tag": "7",
+      "label": { "es": "En la última semana, ¿has tenido algún episodio de incontinencia urinaria?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, no he tenido ningún episodio", "ca": "", "en": "" },
+        "2": { "es": "Uno o dos episodios puntuales o ayuda con la sonda", "ca": "", "en": "" },
+        "3": { "es": "He tenido incontinencia todos los días", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "05ad4cb5-6c2f-4947-90d7-7c4b7219dabd",
+      "type": "select",
+      "order": 8,
+      "tag": "8",
+      "label": { "es": "¿Necesitas ayuda para utilizar el retrete?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo utilizarlo sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito un poco de ayuda, pero me limpio yo", "ca": "", "en": "" },
+        "3": { "es": "Sí, sin ayuda no puedo utilizar el retrete", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "b5140b42-6176-4bde-8e46-7b677c9987af",
+      "type": "select",
+      "order": 9,
+      "tag": "9",
+      "label": { "es": "¿Necesitas ayuda para trasladarte del sillón a la cama?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo trasladarme sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito muy poca ayuda o supervisión", "ca": "", "en": "" },
+        "3": { "es": "Necesito mucha ayuda, pero puedo mantenerme sentado", "ca": "", "en": "" },
+        "4": { "es": "Necesito que me saquen del sillón y me tumben en la cama", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "c012c197-848e-4580-9f30-e4238842ea14",
+      "type": "select",
+      "order": 10,
+      "tag": "10",
+      "label": { "es": "¿Necesitas ayuda para caminar 50 metros?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo caminar sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito ayuda física (bastón) o supervisión", "ca": "", "en": "" },
+        "3": { "es": "Necesito una silla de ruedas, pero la uso sin ayuda", "ca": "", "en": "" },
+        "4": { "es": "Necesito que otra persona me desplace", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    },
+
+    {
+      "id": "57d7e775-979d-4a83-9267-cc78d3593eab",
+      "type": "select",
+      "order": 11,
+      "tag": "11",
+      "label": { "es": "¿Necesitas ayuda para subir y bajar escaleras?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No, puedo subir y bajar escaleras sin ayuda", "ca": "", "en": "" },
+        "2": { "es": "Necesito ayuda física (bastón) o supervisión", "ca": "", "en": "" },
+        "3": { "es": "Necesito que otra persona me ayude mucho", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Actividades de la Vida Diaria",
+      "depends_on": null,
+      "group_name": "Actividades de la Vida Diaria"
+    }
+  ]
+}

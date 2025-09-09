@@ -1,0 +1,119 @@
+{
+  "title": "Sensación de ahogo",
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Sensación de Ahogo", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Cuestionario de Sensación de Ahogo", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Sensación de Ahogo",
+      "depends_on": null,
+      "group_name": "Sensación de ahogo"
+    },
+     {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Cuestionario de Sensación de Ahogo", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>En base a esta escala, ¿actualmente cuál es tu nivel de <strong>sensación de ahogo</strong> para las siguientes actividades?</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Sensación de Ahogo",
+      "depends_on": null,
+      "group_name": "Sensación de ahogo"
+    },
+    {
+      "id": "cde60812-e0c1-40e9-86ff-3a50b139bcce",
+      "type": "number",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Cuál es tu nivel de sensación de ahogo para hablar?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Sensación de Ahogo",
+      "depends_on": null,
+      "group_name": "Sensación de ahogo"
+    },
+    {
+      "id": "e13babbd-5524-42d6-a41b-50abcbd0e1f7",
+      "type": "number",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "¿Cuál es tu nivel de sensación de ahogo para vestirte?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Sensación de Ahogo",
+      "depends_on": null,
+      "group_name": "Sensación de ahogo"
+    },
+    {
+      "id": "1d63a0ff-a21b-4bf0-bfa9-4c61f7b1d172",
+      "type": "number",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "¿Cuál es tu nivel de sensación de ahogo para subir un piso de escaleras?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Sensación de Ahogo",
+      "depends_on": null,
+      "group_name": "Sensación de ahogo"
+    }
+  ]
+}

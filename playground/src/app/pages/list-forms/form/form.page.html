@@ -1,0 +1,8 @@
+<app-header [hospital]="userService.lastPatientHospital!"></app-header>
+<link rel="stylesheet" href="https://embed.typeform.com/next/css/widget.css" />
+<ion-content>
+  <div class="u-wrapper u-wrapper-content">
+    <app-breadcrumbs [breadcrumbs]="[{locale: 'list_forms.list', route: '/list-forms/' + envimentService.idEnviament}, {locale: typeform.title}]"></app-breadcrumbs>
+  </div>
+  <ion-col id="form" class="form"></ion-col>
+</ion-content>

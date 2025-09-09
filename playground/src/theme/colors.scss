@@ -1,0 +1,48 @@
+:root {
+    --c-white: #fff;
+    $c-black: #000;
+
+    $c-neutro200: #f5f7fa;
+    $c-neutro300: #ebf0f5;
+    $c-neutro400: #d9e2ed;
+    $c-neutro500: #8299b1;
+    $c-neutro600: #486481;
+    $c-neutro700: #243b53;
+    $c-neutro800: #102a43;
+
+    $c-primary300: #e4f7ee;
+    $c-primary400: #c5f7e2;
+    $c-primary500: #147d64;
+    $c-primary600: #096452;
+    $c-primary700: #014d40;
+
+    $c-accent300: #fff3c4;
+    $c-accent400: #fce588;
+    $c-accent500: #fadb5f;
+    $c-accent600: #f7c948;
+    $c-accent700: #f0b429;
+
+    $c-error: #c02;
+    $c-errorLight: #ffebeb;
+    $c-success: #147d64;
+
+    --e-global-color-primary: #6ec1e4;
+    --e-global-color-secondary: #54595f;
+    --e-global-color-text: #7a7a7a;
+    --e-global-color-accent: #61ce70;
+    --e-global-color-6c197628: #4054b2;
+    --e-global-color-286269ca: #23a455;
+    --e-global-color-7104172f: #000;
+    --e-global-color-25a9aaed: #fff;
+    --e-global-color-b38a6fc: #0191ad;
+    --e-global-color-7449e2b: #bbdfe6;
+    --e-global-color-47f7a59: #bef083;
+    --e-global-color-c70a908: #e8f5f7;
+
+
+    $colors: (
+        ("--e-global-color-primary", --e-global-color-primary),
+        ("--e-global-color-b38a6fc", --e-global-color-b38a6fc),
+        ("white", $c-white)
+    );
+}

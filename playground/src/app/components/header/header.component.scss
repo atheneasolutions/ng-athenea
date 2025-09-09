@@ -1,0 +1,105 @@
+.usuari {
+    font-family: var(--ion-font-montserrat-regular);
+    color: white;
+    width: 100%;
+    font-size: 0.8em;
+    @media screen and (max-width: 768px) {
+      position: absolute;
+      top:4px;
+      z-index: 100;
+      font-size: 1.1em;
+    }
+    @media screen and (min-width: 769px) {
+      margin: 0;
+    }
+}
+  
+.header-ios ion-toolbar:last-of-type{
+    --border-width:0!important;
+    margin-top: -6px;
+}
+
+ion-header {
+    @media screen and (min-width: 769px) {
+        box-shadow: none !important; 
+    }
+    /*@media screen and (max-width: 768px) {
+        overflow: hidden;
+        position: relative;
+        height: 18vw;
+        min-height: 75px;
+        max-height: 85px;
+        margin-bottom: -6.4vw;
+        border-radius: 50vw / 7vw !important;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 50vw / 7vw !important;
+        border-bottom-left-radius:50vw / 7vw !important;
+        -moz-border-radius:  50vw / 7vw !important;
+        -moz-border-radius-topleft:0!important;
+        -moz-border-radius-topright:0!important;
+        -moz-border-radius-bottomright: 50vw / 7vw;
+        -moz-border-radius-bottomleft: 50vw / 7vw;
+        
+        -webkit-border-radius:  50vw / 7vw !important;
+        -webkit-border-top-left-radius:0!important;
+        -webkit-border-top-right-radius:0!important;
+        -webkit-border-bottom-right-radius: 50vw / 7vw !important;
+        -webkit-border-bottom-left-radius: 50vw / 7vw !important;
+        &.ios{
+            height: calc(env(safe-area-inset-top) + 20vw);
+            max-height: none;
+        }
+    }*/
+}
+
+ion-back-button {
+    color: white;
+}
+
+ion-title {
+    @media screen and (max-width: 768px) {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        top: 16px;
+        font-family: var(--ion-font-montserrat-bold);
+        &.ios{
+        top: 11px;
+        font-weight: inherit;
+        padding-inline: 65px;
+        font-size: 3.7vw;
+        }
+    }
+}
+
+ion-buttons {
+    @media screen and (max-width: 768px) {
+        margin-top:12px!important;
+    }
+}
+
+.subtitle {
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+ion-icon {
+    color: white;
+}
+
+.arrow-back-button {
+    margin-left: 2%;
+    z-index: 100;
+}
+
+#header-logo {
+    //position: absolute;
+    height: 56px;
+    top: 0px;
+    padding: .75rem;
+    @media screen and (min-width: 769px) {
+        display: block;
+    }
+}

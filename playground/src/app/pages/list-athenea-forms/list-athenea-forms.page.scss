@@ -1,0 +1,184 @@
+/*ion-content {
+  --ion-background-color: white;
+}*/
+
+ion-footer {
+    //--ion-background-color: white !important;
+      ion-buttons.actions {
+        ion-button {
+          width:auto!important;
+        }
+      }
+  }
+  
+  /*ion-button {
+    font-family: var(--ion-font-montserrat-regular);
+    font-size: 0.8em;
+    text-align: left !important;
+    text-transform: none;
+  }*/
+  
+  ion-item {
+    font-family: var(--ion-font-montserrat-regular);
+  
+    ion-icon {
+      color: var(--ion-color-button-action);
+    }
+  }
+  
+  #aespecial {
+    margin: 20px;
+  
+    p {
+      font-family: var(--ion-font-montserrat-regular);
+      font-size: 1.1em;
+      color: var(--ion-color-personal);
+      border-bottom: 1px solid;
+      border-color: var(--ion-color-personal);
+    }
+  
+  }
+  
+  .margin-top {
+    padding: 0.5rem;
+  }
+  
+  .content-img {
+     // overflow:hidden;
+      position: relative;
+    
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height:32vh;
+      min-height:250px;
+    
+      border-radius: 50vw / 7vw !important;
+      border-top-left-radius: 0!important;
+      border-top-right-radius: 0!important;
+      border-bottom-right-radius: 50vw / 7vw !important;
+      border-bottom-left-radius:50vw / 7vw !important;
+    
+      -moz-border-radius:  50vw / 7vw !important;
+      -moz-border-radius-topleft:0!important;
+      -moz-border-radius-topright:0!important;
+      -moz-border-radius-bottomright: 50vw / 7vw;
+      -moz-border-radius-bottomleft: 50vw / 7vw;
+    
+      -webkit-border-radius:  50vw / 7vw !important;
+      -webkit-border-top-left-radius:0!important;
+      -webkit-border-top-right-radius:0!important;
+      -webkit-border-bottom-right-radius: 50vw / 7vw !important;
+      -webkit-border-bottom-left-radius: 50vw / 7vw !important;
+  
+    .custom-title {
+      font-family: var(--ion-font-montserrat-bold);
+      font-size: 1.3em;
+      color: white;
+      z-index: 100;
+      position: absolute;
+      bottom: 2rem;
+      padding: 0 25px;
+    }
+  }
+  
+  .content-img:before {
+    content:"";
+      display:block;
+      position: absolute;
+      width:100%;
+      height:100%;
+      background-image:linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.8) 100%);
+      bottom:0;
+  }
+  
+  .custom-title-detail-campanya {
+    font-family: var(--ion-font-montserrat-regular);
+    font-size: 0.8em;
+    color: black;
+    line-height: 1.5rem;
+    text-decoration:none!important;
+    a {
+      text-decoration:none;
+    }
+  }
+  
+  /*.recuadro {
+    border: 1px solid #4599E2;
+    width: 23rem;
+    display: flex;
+    justify-content: space-around;
+    height: 3rem;
+    align-items: center;
+    border-radius: 8px;
+  }*/
+  
+  .recuadro {
+    background-color:#f4f4f4;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    border-radius: 15px;
+    margin: 15px 10px;
+    box-shadow: 1px 2px 6px rgba(0,0,0,0.1);
+    .cita-usuari {
+      display:flex;
+    }
+  
+    ion-icon[slot="start"] {
+        margin-right: unset;
+        margin-inline-end: 14px;
+    }
+  
+    ion-label {
+      font-family: var(--ion-font-montserrat-medium);
+      color: black;
+      margin: 8px 0;
+      @media screen and (max-width: 769px) {
+        font-size: 12px;
+        margin-right: 10px;
+      }
+    }
+  
+      &::part(native) {
+        background-color:#f4f4f4;
+        --border-color:#f4f4f4;
+      }
+  
+    .visita-sub-title {
+      font-family: var(--ion-font-montserrat-regular);
+      color: black;
+      margin: 5px 0;
+      letter-spacing: 1px;
+    }
+  }
+  
+  .custom-date {position: absolute;
+    bottom: 14px;
+    margin-left: 3rem;
+    font-size: 2rem;
+    color: white;
+    z-index: 1;
+  }
+  
+  iframe {
+    width: 100%;
+    height: inherit;
+  }
+  
+  
+  @media screen and (max-width: 376px) {
+  
+    .content-img {
+      min-height:180px;
+    }
+  }
+
+.ion-padding:hover {
+  cursor: pointer;
+}
+
+span {
+  @media screen and (max-width: 769px) {
+    font-size: 12px;
+  }
+}

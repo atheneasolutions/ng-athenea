@@ -1,0 +1,30 @@
+<app-header [hospital]="userService.lastPatientHospital!"></app-header>
+
+<ion-content>
+  <div class="u-wrapper u-wrapper-content">
+    <app-breadcrumbs [breadcrumbs]="[{locale: 'list_forms.list'}]"></app-breadcrumbs>
+
+    @if (!loading) {
+      <ion-list class="ion-padding">
+        <ion-item *ngFor="let form of finalForms; let i = index"
+                  class="recuadro"
+                  (click)="openForm(form)">
+          <ion-icon name="reader-outline" slot="start"></ion-icon>
+          <ion-label>{{ form.title }}</ion-label>
+
+          <span *ngIf="hasResponses(form.id!)" style="color: green;">
+            {{ 'list_forms.completed' | translate }}
+          </span>
+
+          <span *ngIf="!hasResponses(form.id!)" style="color: orange;">
+            {{ 'list_forms.pending' | translate }} 
+          </span>
+        </ion-item>
+      </ion-list>
+    } @else {
+      <div class="justify-center">
+        <ion-spinner name="dots" class="m-2"></ion-spinner>
+      </div>
+    }
+  </div>
+</ion-content>

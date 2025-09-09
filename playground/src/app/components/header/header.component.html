@@ -1,0 +1,21 @@
+
+
+<ion-header [ngStyle]="{'background-color': 'var(--ion-color-primary)','box-shadow': '0 2px 0 var(--ion-color-primary-shade), 0 2px 8px rgba(0,0,0,0.3)'}">
+  <ion-toolbar class="ion-text-center" color="{var(--ion-color-primary)}">
+    <div style="display: flex;">
+      <ng-container *ngFor="let logo of logos">
+        <img [src]="logo" class="show-desktop" id="header-logo" style="margin-right: 10px;">
+      </ng-container>
+    </div>
+    
+  
+    <p *ngIf="userService.lastPatientName != null && displayPerfil" class="usuari ion-text-center hide-desktop">{{'general.hello' | translate}} {{userService.lastPatientName }}!</p>
+    <ion-title color="light" class="hide-desktop">{{title}}</ion-title>
+    <div *ngIf="subtitle" class="hide-desktop" color="light">{{subtitle}}</div>
+
+    <ion-buttons slot="end"> 
+      <p *ngIf="displayPerfil && userService.lastPatientName != null" class="usuari show-desktop">{{'general.hello' | translate}} {{userService.lastPatientName }}!</p>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>

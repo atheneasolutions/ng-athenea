@@ -1,0 +1,33 @@
+.mw-350-desktop {
+    @media screen and (min-width: 769px){
+        max-width: 350px;
+    }
+}
+.u-wrapper {
+    ion-breadcrumbs {
+        margin-bottom: 1.5rem;
+    }
+    &.u-wrapper-content {
+        @media screen and (min-width: 769px){
+            max-width: 1000px;
+            margin: 0 auto;
+            &.u-wrapper-small{
+                max-width: 600px;
+            }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        display: contents;
+    }
+}
+
+.hide-desktop {
+    @media screen and (min-width: 769px) {
+        display: none !important;
+    }
+}
+.show-desktop {
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}

@@ -1,0 +1,9 @@
+<ion-breadcrumbs color="medium" class="show-desktop" mode="ios">
+  <ion-breadcrumb routerLink="/home" routerDirection="back">
+    <ion-icon slot="start" name="home"></ion-icon>
+    <span>{{'home.inici' | translate}}</span>
+  </ion-breadcrumb>
+  <ion-breadcrumb *ngFor="let breadcrumb of breadcrumbs" [routerLink]="breadcrumb?.route" routerDirection="back">
+    <span>{{breadcrumb?.locale | translate}}</span>
+  </ion-breadcrumb>
+</ion-breadcrumbs>

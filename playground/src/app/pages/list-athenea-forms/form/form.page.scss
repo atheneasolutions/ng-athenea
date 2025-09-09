@@ -1,0 +1,52 @@
+atheneaform {
+  display: block;
+  height: 100%;
+  --atheneaform-max-height: 85vh;
+  --ion-color-primary-contrast: white !important;
+  --background: white;
+}
+
+atheneaform ::ng-deep .swiper-buttons-container {   
+  border: 1px solid whitesmoke;
+  border-radius: 6px;                         
+ }
+
+atheneaform ::ng-deep .swiper-container {   
+  overflow: hidden;                      
+ }
+
+.form-wrapper {
+  aspect-ratio: 16/9;
+
+}
+
+.swiper-container {
+    max-height: 95% !important;
+}
+
+atheneaform ::ng-deep ion-toolbar.nav-buttons {
+  --background: #fff;
+  --padding-top: 1vh;
+  --padding-bottom: 2vh;
+  border-radius: 6px;  
+}
+
+:host ::ng-deep atheneaform .question-container ion-range.range-has-pin::part(pin) {
+  padding-top: 0;
+  padding-bottom: 100px; 
+}
+
+:host ::ng-deep atheneaform .question-container ion-range {
+  width: 90%;
+  margin-inline: auto;  
+}
+
+
+:host ::ng-deep atheneaform .question-container h2{
+  padding-bottom: .5rem !important;
+}
+
+:host ::ng-deep atheneaform .question-container h3 {
+  font-size: 1rem !important;
+  margin-bottom: 15px !important;
+}

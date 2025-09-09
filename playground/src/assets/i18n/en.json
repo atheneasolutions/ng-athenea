@@ -1,0 +1,35 @@
+{
+    "general": {
+        "title_toast_error": "Error! Cannot complete request.",
+        "hello": "Hello"
+    },
+    "home": {
+        "inici": "Home",
+        "title": "Your personal ICURA area",
+        "input_nie": "Document number",
+        "help": "Enter the DNI/NIE with which you were registered",
+        "placeholder": "DNI/NIE",
+        "btn_accedir": "Access",
+        "generalError": "Oops... There was a problem. Please try again or try later",
+        "error_title": "Error! The request could not be completed",
+        "error_subtitle": "The DNI / NIE entered does not match the user of this link",
+        "expirated_enviament": "This submission is expired because a new one has already been sent.",
+        "expired_link": "This link is expired.",
+        "error_link": "This link is incorrect.",
+        "page_not_found": "This page was not found."
+    },
+    "confirm_email": {
+        "title": "Confirm your communication method",
+        "subtitle": "Please click the button below to confirm your communication method.",
+        "confirm": "Confirm",
+        "success": "Your user has been successfully validated.",
+        "subtitle_toast_success": "We will shortly send you the corresponding emails to answer the forms.",
+        "error": "An error occurred, please try again later.",
+        "already_validated": "Your user has already been validated."
+    },
+    "list_forms": {
+        "list": "Forms list",
+        "completed": "Completed",
+        "pending": "Pending"
+    }
+}

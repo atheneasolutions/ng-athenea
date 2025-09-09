@@ -391,7 +391,8 @@
       [disabled]="loading || !canAnswer"
       [class.item-selected]="questions[index].value == option.key"
     >
-      <ion-label>{{ $any(option.value)[selectedLang] }}</ion-label>
+      <ion-label>Texto de prueba</ion-label>
+      <!-- <ion-label>{{ $any(option.value)[selectedLang] }}</ion-label> -->
       <ion-radio slot="start" [value]="option.key"></ion-radio>
     </ion-item>
   </ion-radio-group>
@@ -553,7 +554,7 @@
         [class.muyleve]="questions[index].value == 1"
         [class.muyleve2]="questions[index].value == 2"
       >
-        <td>1 - 2</td>
+        <td>1 - 20 prueba </td>
         <td>
           @switch (selectedLang) { @case ('ca') { Dolor molt lleu } @case ('es')
           { Dolor muy leve } @case ('en') { Very mild pain } }

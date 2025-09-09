@@ -1,0 +1,170 @@
+{
+  "title": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+  "questions": [
+    {
+      "id": "c339d80b-7801-4e3b-8b7d-c103de8cd38a",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    },
+     {
+      "id": "c339d80b-7801-4e3b-8b7d-c103de8cd38a",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>A continuación aparecerán tres preguntas de respuesta Sí/No sobre las necesidades que has tenido como familiar en los últimos 6 meses</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    },
+    {
+      "id": "8f673ebf-506d-45e3-b647-5dcf387b25f1",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": {
+        "es": "¿Has necesitado contratar ayuda externa (por ejemplo, contratar a alguien que os ayude con las tareas de limpieza de casa, que busque a los niños en el colegio, etc.) en los últimos 6 meses?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Sí", "ca": "", "en": "" },
+        "2": { "es": "No", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    },
+
+    {
+      "id": "b9d8629e-90b9-4fbc-879e-2cc73d45be05",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": {
+        "es": "¿Has necesitado tratamiento farmacológico para dormir en los últimos 6 meses?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Sí", "ca": "", "en": "" },
+        "2": { "es": "No", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    },
+
+    {
+      "id": "94494069-e587-4881-beb3-2d43a56fd240",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": {
+        "es": "¿Has necesitado tratamiento farmacológico para mejorar tu estado de ánimo en los últimos 6 meses?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Sí", "ca": "", "en": "" },
+        "2": { "es": "No", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    },
+
+    {
+      "id": "f5488745-e504-4a18-9241-84971216fac0",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": {
+        "es": "¿Has necesitado tratamiento psicológico para mejorar tu estado de ánimo en los últimos 6 meses?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Sí", "ca": "", "en": "" },
+        "2": { "es": "No", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ayudas externas (6 y 12 meses post-alta)",
+      "depends_on": null,
+      "group_name": "Ayudas externas"
+    }
+  ]
+}

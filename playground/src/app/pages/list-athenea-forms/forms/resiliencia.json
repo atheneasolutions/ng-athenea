@@ -1,0 +1,181 @@
+{
+  "title": "Cuestionario de Resiliencia para familias",
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Resiliencia para familias", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": {
+          "es": "Cuestionario de Resiliencia para familias",
+          "ca": "",
+          "en": ""
+        },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "re_info",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Instrucciones", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": {
+          "es": "",
+          "ca": "",
+          "en": ""
+        },
+        "desc_html": {
+          "es": "<p>¿Hasta qué punto las siguientes 4 afirmaciones describen su manera de reaccionar ante las dificultades?</p><br><p>Conteste, en una escala de 1 a 5, marcando 1 si la afirmación no refleja en absoluto una reacción típica en usted y 5 cuando la afirmación refleja su forma habitual de responder.</p><p>Gradúe igualmente las respuestas intermedias (2, 3 o 4) según reflejen sus reacciones habituales.</p><p>No existen respuestas correctas o incorrectas.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Resiliencia para familias",
+      "depends_on": null,
+      "group_name": "resiliencia"
+    },
+    {
+      "id": "82e2de60-8ec9-4999-8a3d-54907e14801f",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": {
+        "es": "Busco formas creativas de enfrentarme a las situaciones difíciles",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "1 (No refleja en absoluto mi reacción típica)", "ca": "", "en": "" },
+        "2": { "es": "2", "ca": "", "en": "" },
+        "3": { "es": "3", "ca": "", "en": "" },
+        "4": { "es": "4", "ca": "", "en": "" },
+        "5": { "es": "5 (Refleja mi forma habitual de responder)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Resiliencia para familias",
+      "depends_on": null,
+      "group_name": "resiliencia"
+    },
+    {
+      "id": "ca6d6474-d605-4f20-9fb4-2ee19634c4b0",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": {
+        "es": "No importa lo que me ocurra, confío en que puedo controlar mi reacción",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "1 (No refleja en absoluto mi reacción típica)", "ca": "", "en": "" },
+        "2": { "es": "2", "ca": "", "en": "" },
+        "3": { "es": "3", "ca": "", "en": "" },
+        "4": { "es": "4", "ca": "", "en": "" },
+        "5": { "es": "5 (Refleja mi forma habitual de responder)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Resiliencia para familias",
+      "depends_on": null,
+      "group_name": "resiliencia"
+    },
+    {
+      "id": "40f0035a-002b-4c39-ae16-07953111651a",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": {
+        "es": "Creo que puedo aprender cosas positivas cuando afronto situaciones difíciles",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "1 (No refleja en absoluto mi reacción típica)", "ca": "", "en": "" },
+        "2": { "es": "2", "ca": "", "en": "" },
+        "3": { "es": "3", "ca": "", "en": "" },
+        "4": { "es": "4", "ca": "", "en": "" },
+        "5": { "es": "5 (Refleja mi forma habitual de responder)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Resiliencia para familias",
+      "depends_on": null,
+      "group_name": "resiliencia"
+    },
+    {
+      "id": "bdb20cc6-3ae6-446e-bb1b-5ea3cc6be81c",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": {
+        "es": "Busco de forma activa la forma de reemplazar las pérdidas que encuentro en la vida",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "1 (No refleja en absoluto mi reacción típica)", "ca": "", "en": "" },
+        "2": { "es": "2", "ca": "", "en": "" },
+        "3": { "es": "3", "ca": "", "en": "" },
+        "4": { "es": "4", "ca": "", "en": "" },
+        "5": { "es": "5 (Refleja mi forma habitual de responder)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Resiliencia para familias",
+      "depends_on": null,
+      "group_name": "resiliencia"
+    }
+  ]
+}

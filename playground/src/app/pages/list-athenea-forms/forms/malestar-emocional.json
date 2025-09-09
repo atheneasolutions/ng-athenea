@@ -1,0 +1,145 @@
+{
+  "title": "Cuestionario de Malestar Emocional",
+  "questions": [
+     {
+      "id": "c339d81b-7801-4e3b-8b7d-c103de8cd38z",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Malestar Emocional para familias", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": {
+          "es": "Cuestionario de Malestar Emocional",
+          "ca": "",
+          "en": ""
+        },
+        "desc_html": {
+          "es": "<p>Evaluación Emocional para Familias</p>",
+          "ca": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "c339d80b-7801-4e3b-8b7d-c103de8cd38a",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Cuestionario de Malestar Emocional para familias", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": {
+          "es": "Instrucciones",
+          "ca": "",
+          "en": ""
+        },
+        "desc_html": {
+          "es": "<p>A continuación aparecen tres preguntas sobre su estado emocional. Responda puntuando su respuesta en una escala de 0 a 10.</p><p>No existen respuestas correctas o incorrectas.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Malestar Emocional para familias",
+      "depends_on": null,
+      "group_name": "Malestar emocional"
+    },
+
+    {
+      "id": "f8dbd9b8-0d76-403e-a7f4-bea2d6c4dfbd",
+      "type": "number",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Cómo se encuentra de ánimo?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Malestar Emocional para familias",
+      "depends_on": null,
+      "group_name": "Malestar emocional"
+    },
+
+    {
+      "id": "0ca63857-d8c2-4a4b-9776-a910357b1899",
+      "type": "number",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "¿Cómo lleva la situación de recuperación de su familiar ingresado en la UCI?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Malestar Emocional para familias",
+      "depends_on": null,
+      "group_name": "Malestar emocional"
+    },
+
+    {
+      "id": "222bb7fe-4309-4408-b7e4-975c98277535",
+      "type": "text",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "¿Qué es lo que más le preocupa en este momento de la situación de recuperación de su familiar ingresado en la UCI? *Falta añadir type text*", "ca": "", "en": "" },
+      "value": "",
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Malestar Emocional para familias",
+      "depends_on": null,
+      "group_name": "Malestar emocional"
+    },
+
+    {
+      "id": "a465cac7-db35-4b38-a071-ee12d97c5fc7",
+      "type": "number",
+      "order": 5,
+      "tag": "5",
+      "label": { "es": "¿Hasta qué punto le preocupa la situación de recuperación de su familiar ingresado en la UCI?", "ca": "", "en": "" },
+      "value": null,
+      "options": "0:10",
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Malestar Emocional para familias",
+      "depends_on": null,
+      "group_name": "Malestar emocional"
+    }
+  ]
+}

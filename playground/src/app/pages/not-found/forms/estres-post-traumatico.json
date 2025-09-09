@@ -1,0 +1,273 @@
+{
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Estrés Post-Traumático", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Cuestionario Estrés Post-Traumático ", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+      {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Cuestionario de Estrés Post-Traumático", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Instrucciones", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>A continuación, aparecerán unas preguntas sobre su <em>estado de ánimo</em>. No es necesario que piense mucho tiempo cada respuesta; en este cuestionario las <em>respuestas espontáneas</em> tienen más valor que las que se piensan mucho.</p><p>Durante la <em>última semana</em>, ¿con qué frecuencia le han molestado las siguientes situaciones?</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+    {
+      "id": "82e2de60-8ec9-4999-8a3d-54907e14801f",
+      "type": "select",
+      "order": 2,
+      "tag": "2",
+      "label": { "es": "¿Ha experimentado imágenes dolorosas, pensamientos o recuerdos de su estancia en UCI que no ha podido apartar de su mente aunque quisiera?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Leve: raramente y/o molestos", "ca": "", "en": "" },
+        "3": { "es": "Moderado: por lo menos una vez a la semana y/o producen algo de estrés", "ca": "", "en": "" },
+        "4": { "es": "Grave: por lo menos 4 veces por semana o moderadamente estresante", "ca": "", "en": "" },
+        "5": { "es": "Extremadamente grave: diariamente o producen tanto estrés que el paciente no puede trabajar o funcionar socialmente", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "d8dea1c5-8ee5-4466-b9cd-dc554c0b2872",
+      "type": "select",
+      "order": 3,
+      "tag": "3",
+      "label": { "es": "¿Exponerse a un suceso que le recuerda, o se parece a la estancia en la UCI, le provoca alguna respuesta física (p. ej. sudoración, temblor, palpitaciones, náuseas, hiperventilación, mareos, etc.)?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Nada", "ca": "", "en": "" },
+        "2": { "es": "Un poco: infrecuente o dudoso", "ca": "", "en": "" },
+        "3": { "es": "Algo: levemente estresante", "ca": "", "en": "" },
+        "4": { "es": "Significativo: causa mucho estrés", "ca": "", "en": "" },
+        "5": { "es": "Marcado: muy estresante; puede hacerle buscar ayuda debido a la respuesta física (p. ej. dolor torácico tan grave que el paciente esté seguro de tener un ataque de corazón)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "b6a7fa6c-89fc-4e29-8b9e-0e5c309795ce",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "¿Ha evitado lugares, gente, conversaciones o actividades que le recuerdan a su estancia en la UCI (p. ej. películas, TV, ciertos lugares, reuniones, funerales)?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "No evita", "ca": "", "en": "" },
+        "2": { "es": "Leve: de dudosa significación", "ca": "", "en": "" },
+        "3": { "es": "Moderado: evitación clara de las situaciones", "ca": "", "en": "" },
+        "4": { "es": "Grave: muy incómoda y la evitación afecta su vida de alguna manera", "ca": "", "en": "" },
+        "5": { "es": "Extremadamente grave: encerrado en casa, no va a tiendas o restaurantes, restricciones funcionales mayores", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "a27c098a-06ce-4c4f-8864-eceead613dc4",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": { "es": "¿Ha experimentado menos interés (placer) en cosas de las que antes habitualmente disfrutaba?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sin pérdida de interés", "ca": "", "en": "" },
+        "2": { "es": "Una o dos actividades menos placenteras", "ca": "", "en": "" },
+        "3": { "es": "Varias actividades menos placenteras", "ca": "", "en": "" },
+        "4": { "es": "La mayoría de las actividades menos placenteras", "ca": "", "en": "" },
+        "5": { "es": "Casi todas las actividades menos placenteras", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "c96dca99-97c8-43bd-ab57-002594c6b5b9",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": { "es": "¿Tiene menos contacto con la gente que el que solía tener? ¿Se siente distanciado de la gente?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sin problema", "ca": "", "en": "" },
+        "2": { "es": "Sentimientos de distanciamiento/alejamiento, pero aún mantiene un grado de contacto normal con otros", "ca": "", "en": "" },
+        "3": { "es": "Algunas veces evita contactos en los que normalmente participaría", "ca": "", "en": "" },
+        "4": { "es": "Claramente y usualmente evita a la gente con la que previamente se asociaba", "ca": "", "en": "" },
+        "5": { "es": "Rechaza absolutamente o evita activamente todo contacto social", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "f390c05a-feb1-448d-b093-d5843e3fb0fe",
+      "type": "select",
+      "order": 7,
+      "tag": "7",
+      "label": { "es": "¿Puede tener sentimientos cariñosos/sentirse cerca de otros? ¿Se siente insensible?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sin problema", "ca": "", "en": "" },
+        "2": { "es": "Leve: o dudosa significación", "ca": "", "en": "" },
+        "3": { "es": "Moderado: alguna dificultad expresando sentimientos", "ca": "", "en": "" },
+        "4": { "es": "Grave: problemas claros expresando sentimientos", "ca": "", "en": "" },
+        "5": { "es": "Muy grave: no tiene sentimientos, insensible la mayor parte del tiempo", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "6fba7c86-42b0-4a27-acbf-e34394dc13d5",
+      "type": "select",
+      "order": 8,
+      "tag": "8",
+      "label": { "es": "¿Se mantiene en estado de alerta? ¿Está usted vigilante? ¿Se siente con los nervios de punta? ¿Se sienta protegiendo su espalda con la pared?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sin problema", "ca": "", "en": "" },
+        "2": { "es": "Leve: ocasional/no interfiere", "ca": "", "en": "" },
+        "3": { "es": "Moderado: causa molestias/se siente nervioso o vigilante en algunas situaciones", "ca": "", "en": "" },
+        "4": { "es": "Grave: causa molestias/se siente nervioso o vigilante en la mayoría de las situaciones", "ca": "", "en": "" },
+        "5": { "es": "Extremadamente grave: causa extrema de molestias y/o altera la vida (sentimientos constantes de alerta/socialmente incapacitado por hipervigilancia)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    },
+
+    {
+      "id": "829fb82a-8f0a-40cd-aac2-02a601d2cca2",
+      "type": "select",
+      "order": 9,
+      "tag": "9",
+      "label": { "es": "¿Se asusta fácilmente? ¿Tiene tendencia a asustarse? ¿Es esto un problema después de un ruido inesperado, o si usted oye o ve algo que le recuerda su estancia en la UCI?", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Sin problema", "ca": "", "en": "" },
+        "2": { "es": "Leve: ocasional pero no interfiere", "ca": "", "en": "" },
+        "3": { "es": "Moderado: causa claras molestias o respuesta exagerada de susto por lo menos cada 2 semanas", "ca": "", "en": "" },
+        "4": { "es": "Grave: ocurre más de una vez por semana", "ca": "", "en": "" },
+        "5": { "es": "Extremadamente grave: tan mal que el paciente no puede funcionar, ni en el trabajo, ni socialmente", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Estrés Post-Traumático",
+      "depends_on": null,
+      "group_name": "Estrés postraumático"
+    }
+  ]
+}

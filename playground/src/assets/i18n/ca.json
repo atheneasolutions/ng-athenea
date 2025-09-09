@@ -1,0 +1,34 @@
+{
+    "general": {
+        "title_toast_error": "Error! No s'ha pogut completar la petició.",
+        "hello": "Hola"
+    },
+    "home": {
+        "inici": "Inici",
+        "title": "La teva àrea personal de ICURA",
+        "input_nie": "Número de document",
+        "help": "Introdueix el DNI/NIE amb el que et vas donar d'alta",
+        "placeholder": "DNI/NIE",
+        "btn_accedir": "Accedir",
+        "generalError": "Ups... Hi ha hagut algun problema. Si us plau, torni a provar o intenti-ho més tard",
+        "error_subtitle": "El DNI / NIE introduïts no coincideix amb l'usuari d'aquest enllaç",
+        "expired_enviament": "Aquest enviament està caducat perqué ja s'ha enviat un nou.",
+        "expired_link": "Aquest link està caducat.",
+        "error_link": "Aquest link és incorrecte.",
+        "page_not_found": "No s'ha trobat aquesta pàgina."
+    },
+    "confirm_email": {
+        "title": "Confirma el teu mètode de comunicació",
+        "subtitle": "Si us plau, fes click en el següent botó per confirmar el teu mètode de comunicació.",
+        "confirm": "Confirmar",
+        "success": "El teu usuari s'ha validat correctament.",
+        "subtitle_toast_success": "En breus t'enviarem els emails corresponents per respondre els formularis.",
+        "error": "S'ha produït un error, torna-ho a intentar més tard.",
+        "already_validated": "El teu usuari ja ha estat validat."
+    },
+    "list_forms": {
+        "list": "Llista formularis",
+        "completed": "Completat",
+        "pending": "Pendent"
+    }
+}

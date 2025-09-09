@@ -1,0 +1,34 @@
+<ion-content class="ion-padding">
+  <div class="max-form">
+    <atheneaform
+    [id]="id"
+    [questions]="questions"
+    [title]="'Hola'"
+    [lang]="'ca'"
+    (sendSurvey)="send($event)"
+    [preview]="preview"
+    [canAnswer]="true"
+    [end]="end"
+    [availableDate]="availableDate"
+    [answersId]="answersId"
+    [useLocalStorage]="true"
+  >
+  
+  </atheneaform>
+  </div>
+
+<!--   
+  <div class="main-content" style="display: grid; place-content: center; height: 100%;">
+    <div class="u-wrapper u-wrapper-content">
+      <div class="not-found-background" style="display: grid; place-content: center;">
+        <div class="not-found-container">
+          <div class="not-found-box">
+            <h2>404</h2>
+            <p>{{ 'home.page_not_found' | translate }}</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div> -->
+</ion-content>

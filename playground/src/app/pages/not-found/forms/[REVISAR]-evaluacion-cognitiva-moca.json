@@ -1,0 +1,665 @@
+{
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Evaluación Cognitiva (MoCA test)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Instrucciones generales", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Ahora vamos a hacer unas pruebas para ver cómo está a nivel cognitivo. Son pruebas de atención y memoria. Intente responder lo mejor posible pero no se preocupe si comete algún error.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "a76f5349-ac08-498e-b363-5e108e8aea03",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Memoria: lista de palabras (2 intentos)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Memoria inmediata", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Leer y recordar: ROSTRO, SEDA, TEMPLO, CLAVEL ROJO (1º y 2º intento). Se preguntará al final.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "85649442-df69-45ba-b3ea-97e94fee9b51",
+      "type": "info",
+      "order": 3,
+      "tag": null,
+      "label": { "es": "Dígitos hacia delante", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Atención", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Repita en el mismo orden cuando se le lean los números.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "0c72bb9a-fe5b-4b03-a9c2-c398a361ec9f",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": { "es": "2 1 8 5 4 (repetición hacia delante)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "fa3f243d-7845-4472-aaeb-ce80dac15302",
+      "type": "info",
+      "order": 5,
+      "tag": null,
+      "label": { "es": "Dígitos hacia atrás", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Atención/ejecutiva", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Repita la serie de números en orden inverso.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "2cf6fa0a-da18-4bc3-ac61-7b7daf4c8cd6",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": { "es": "7 4 2 (repetición hacia atrás)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "5e49fe9b-c7ed-48fe-9dde-42096abaeafc",
+      "type": "info",
+      "order": 7,
+      "tag": null,
+      "label": { "es": "Atención a letras (golpe en 'A')", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Atención sostenida", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Golpee cuando escuche la letra 'A'.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "75f7d120-3eeb-4727-9b46-6ec87fa17ed0",
+      "type": "select",
+      "order": 8,
+      "tag": "8",
+      "label": { "es": "Secuencia de letras (FBACMNA...)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "16ae5441-dff9-43dc-93f6-73a5b07176b9",
+      "type": "info",
+      "order": 9,
+      "tag": null,
+      "label": { "es": "Restas seriadas de 7", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Cálculo", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Restar 7 desde 100 sucesivamente hasta indicación.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "37f06695-8081-4123-8a82-fa1bfba9b395",
+      "type": "select",
+      "order": 10,
+      "tag": "10",
+      "label": { "es": "Resultado de restas (93, 86, 79, 72, 65)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "4 o 5 restas correctas", "ca": "", "en": "" },
+        "2": { "es": "2 o 3 restas correctas", "ca": "", "en": "" },
+        "3": { "es": "1 resta correcta", "ca": "", "en": "" },
+        "4": { "es": "0 restas correctas", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "42150f36-572c-409e-8675-f41981cb88cd",
+      "type": "info",
+      "order": 11,
+      "tag": null,
+      "label": { "es": "Repetición de frase 1", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Lenguaje", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>“Solo sé que le toca a Juan ayudar hoy”. Repítala exactamente.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "eb9a8bee-a86c-4189-b02a-5f88738da876",
+      "type": "select",
+      "order": 12,
+      "tag": "12",
+      "label": { "es": "Repetición: “Solo sé que le toca a Juan ayudar hoy”", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "18d9d30a-b4ef-441a-acbd-198b09a8b3b9",
+      "type": "info",
+      "order": 13,
+      "tag": null,
+      "label": { "es": "Repetición de frase 2", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Lenguaje", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>“El gato siempre se esconde debajo del sofá cuando hay perros en la habitación”. Repítala exactamente.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "cff788a8-5862-4f77-985f-e2d9f5213e71",
+      "type": "select",
+      "order": 14,
+      "tag": "14",
+      "label": { "es": "Repetición: “El gato siempre se esconde…”", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "6c3eeff3-ecfb-46f0-9ce3-9c6aea1cc2d1",
+      "type": "info",
+      "order": 15,
+      "tag": null,
+      "label": { "es": "Fluidez verbal (letra F)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Función ejecutiva", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Decir el mayor número de palabras que comiencen por la letra F en 1 minuto (sin nombres, números ni formas conjugadas).</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "74496dd6-909e-461e-b176-995c23998e39",
+      "type": "select",
+      "order": 16,
+      "tag": "16",
+      "label": { "es": "Fluidez verbal: número de palabras (≥11)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "ef28eaaa-b4e0-48c6-a23f-2699d9234646",
+      "type": "info",
+      "order": 17,
+      "tag": null,
+      "label": { "es": "Categorías (fruta, transporte, útiles)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Abstracción / clasificación", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Indique la categoría a la que pertenecen los pares: naranja/plátano; tren/bicicleta; regla/reloj.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "49902181-9349-499b-bee4-1ce64052dc86",
+      "type": "select",
+      "order": 18,
+      "tag": "18",
+      "label": { "es": "Categoría: tren y bicicleta", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "c272f751-de70-4458-b236-006b53cbeee7",
+      "type": "select",
+      "order": 19,
+      "tag": "19",
+      "label": { "es": "Categoría: regla y reloj", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Correcto", "ca": "", "en": "" },
+        "2": { "es": "Incorrecto", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "eac5a412-6fb5-4c2f-bcf8-deb318c94def",
+      "type": "info",
+      "order": 20,
+      "tag": null,
+      "label": { "es": "Memoria diferida: recuerdo de palabras", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Recuerdo libre", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Diga cuántas palabras recuerda (ROSTRO, SEDA, TEMPLO, CLAVEL ROJO).</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "54f40ced-1eaa-4231-8fad-b49a3ca5f53e",
+      "type": "select",
+      "order": 21,
+      "tag": "21",
+      "label": { "es": "Palabras recordadas espontáneamente (número)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "1 palabra recordada", "ca": "", "en": "" },
+        "2": { "es": "2 palabras recordadas", "ca": "", "en": "" },
+        "3": { "es": "3 palabras recordadas", "ca": "", "en": "" },
+        "4": { "es": "4 palabras recordadas", "ca": "", "en": "" },
+        "5": { "es": "5 palabras recordadas", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "0fce0533-47af-43ef-972c-3bfee05e1c19",
+      "type": "select",
+      "order": 22,
+      "tag": "22",
+      "label": { "es": "Pistas de categoría (si no recuerda alguna palabra)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Una parte del cuerpo (Rostro)", "ca": "", "en": "" },
+        "2": { "es": "Un tipo de tela (Seda)", "ca": "", "en": "" },
+        "3": { "es": "Un tipo de edificio (Templo)", "ca": "", "en": "" },
+        "4": { "es": "Un tipo de flor (Clavel)", "ca": "", "en": "" },
+        "5": { "es": "Un color (Rojo)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "527f359c-39d9-4da5-a89e-f6831b789c12",
+      "type": "select",
+      "order": 23,
+      "tag": "23",
+      "label": { "es": "Reconocimiento con opciones (si no recuerda con categoría)", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "nariz, rostro, mano (hombro, pierna)", "ca": "", "en": "" },
+        "2": { "es": "tela vaquera, seda, algodón (nylon, terciopelo)", "ca": "", "en": "" },
+        "3": { "es": "templo, escuela, hospital (biblioteca, tienda)", "ca": "", "en": "" },
+        "4": { "es": "rosa, clavel, tulipán (azucena, margarita)", "ca": "", "en": "" },
+        "5": { "es": "rojo, azul, verde (amarillo, morado)", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "483b89eb-e47e-4d6b-8a96-cc1d30e06134",
+      "type": "info",
+      "order": 24,
+      "tag": null,
+      "label": { "es": "Orientación: tiempo y lugar (instrucciones)", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Orientación", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Decir fecha (día, mes, año, día de la semana), lugar e institución. Luego abrir los ojos.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "ba68abee-105a-4b28-8043-14c66dab4adb",
+      "type": "select",
+      "order": 25,
+      "tag": "25",
+      "label": { "es": "Orientación: elementos correctos", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "Fecha correcta", "ca": "", "en": "" },
+        "2": { "es": "Mes correcto", "ca": "", "en": "" },
+        "3": { "es": "Año correcto", "ca": "", "en": "" },
+        "4": { "es": "Día de la semana correcto", "ca": "", "en": "" },
+        "5": { "es": "Lugar correcto", "ca": "", "en": "" },
+        "6": { "es": "Localidad correcta", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    },
+    {
+      "id": "7d7b2e3c-256e-46f1-a4a3-a7d5f03fa490",
+      "type": "select",
+      "order": 26,
+      "tag": "26",
+      "label": { "es": "Nivel de estudios del participante", "ca": "", "en": "" },
+      "value": null,
+      "options": {
+        "1": { "es": "12 años o menos", "ca": "", "en": "" },
+        "2": { "es": "13 años o más", "ca": "", "en": "" }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Evaluación Cognitiva (MoCA test)",
+      "depends_on": null,
+      "group_name": "MoCA"
+    }
+  ]
+}

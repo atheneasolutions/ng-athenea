@@ -1,0 +1,269 @@
+{
+  "title": "Cuestionario de Ansiedad",
+  "questions": [
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": { "es": "Cuestionario de Ansiedad", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "Cuestionario de Ansiedad", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+    {
+      "id": "bbef7bd8-6876-4dab-b546-a24b20acb448",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Cuestionario de Ansiedad", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>A continuación, aparecerán unas preguntas sobre su <em>estado de ánimo</em>. No es necesario que piense mucho tiempo cada respuesta; en este cuestionario las <em>respuestas espontáneas</em> tienen más valor que las que se piensan mucho.</p><p>Señale con qué frecuencia ha sufrido los siguientes problemas en los <em>últimos 15 días</em>.</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "82e2de60-8ec9-4999-8a3d-54907e14801f",
+      "type": "select",
+      "order": 3,
+      "tag": "1",
+      "label": {
+        "es": "Se ha sentido nervioso/a, ansioso/a o muy alterado/a",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "d8dea1c5-8ee5-4466-b9cd-dc554c0b2872",
+      "type": "select",
+      "order": 4,
+      "tag": "2",
+      "label": {
+        "es": "No ha podido dejar de preocuparse",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "b6a7fa6c-89fc-4e29-8b9e-0e5c309795ce",
+      "type": "select",
+      "order": 5,
+      "tag": "3",
+      "label": {
+        "es": "Se ha preocupado excesivamente por diferentes cosas",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "a27c098a-06ce-4c4f-8864-eceead613dc4",
+      "type": "select",
+      "order": 6,
+      "tag": "4",
+      "label": {
+        "es": "Ha tenido dificultad para relajarse",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "c96dca99-97c8-43bd-ab57-002594c6b5b9",
+      "type": "select",
+      "order": 7,
+      "tag": "5",
+      "label": {
+        "es": "Se ha sentido tan intranquilo/a que no podía estarse quieto",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "f390c05a-feb1-448d-b093-d5843e3fb0fe",
+      "type": "select",
+      "order": 8,
+      "tag": "6",
+      "label": {
+        "es": "Se ha irritado o enfadado con facilidad",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    },
+
+    {
+      "id": "6fba7c86-42b0-4a27-acbf-e34394dc13d5",
+      "type": "select",
+      "order": 9,
+      "tag": "7",
+      "label": {
+        "es": "Ha sentido miedo, como si fuera a suceder algo terrible",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": { "es": "Nunca", "ca": "", "en": "", "score": 0 },
+        "2": { "es": "Menos de la mitad de los días", "ca": "", "en": "", "score": 1 },
+        "3": { "es": "Más de la mitad de los días", "ca": "", "en": "", "score": 2 },
+        "4": { "es": "Casi todos los días", "ca": "", "en": "", "score": 3 }
+      },
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario de Ansiedad",
+      "depends_on": null,
+      "group_name": "Ansiedad"
+    }
+  ]
+}

@@ -1,0 +1,647 @@
+{
+  "title": "Cuestionario Salud y Calidad de Vida",
+  "questions": [
+    {
+      "id": "nf2_info",
+      "type": "info",
+      "order": 1,
+      "tag": null,
+      "label": {
+        "es": "Cuestionario Salud y Calidad de Vida",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": {
+          "es": "Evaluación Emocional para Familias",
+          "ca": "",
+          "en": ""
+        },
+        "desc_html": {
+          "es": "<p></p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "nf2_info_2",
+      "type": "info",
+      "order": 2,
+      "tag": null,
+      "label": { "es": "Instrucciones", "ca": "", "en": "" },
+      "value": null,
+      "options": null,
+      "main_tag": null,
+      "escala": null,
+      "caract_form": null,
+      "optional": true,
+      "info": {
+        "subtitle": { "es": "", "ca": "", "en": "" },
+        "desc_html": {
+          "es": "<p>Las preguntas que siguen se refieren a lo que usted piensa sobre su salud. Sus respuestas permitirán saber cómo se encuentra usted y hasta qué punto es capaz de hacer sus actividades habituales.</p><br><p>Al contestar, piense en como ha sido su salud física y emocional durante las últimas 4 semanas.</p><br><p>Recuerde pulsar el botón Enviar al acabar el cuestionario</p>",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q1",
+      "type": "select",
+      "order": 4,
+      "tag": "4",
+      "label": {
+        "es": "¿En general, usted diria que su salud es:?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Excelente",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Muy buena",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Buena",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Regular",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Mala",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q3",
+      "type": "select",
+      "order": 5,
+      "tag": "5",
+      "label": {
+        "es": "Su salud actual ¿le limita para hacer esfuerzos moderados, como mover una mesa, pasar la aspiradora, jugar a los bolos, o caminar más de una hora?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Sí, me limita mucho",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Sí, me limita un poco",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "No, no me limita",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q4",
+      "type": "select",
+      "order": 6,
+      "tag": "6",
+      "label": {
+        "es": "Su salud actual ¿le limita para subir varios pisos por la escalera?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Sí, me limita mucho",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Sí, me limita un poco",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "No, no me limita",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q5",
+      "type": "select",
+      "order": 7,
+      "tag": "7",
+      "label": {
+        "es": "Durante las 4 últimas semanas, ¿hizo menos de lo que hubiera querido hacer, a causa de su salud física?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q6",
+      "type": "select",
+      "order": 8,
+      "tag": "8",
+      "label": {
+        "es": "Durante las 4 últimas semanas, ¿tuvo que dejar de hacer algunas tareas en su trabajo o en sus actividades cotidianas, a causa de su salud física?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q7",
+      "type": "select",
+      "order": 9,
+      "tag": "9",
+      "label": {
+        "es": "Durante las 4 últimas semanas, ¿hizo menos de lo que hubiera querido hacer por algún problema emocional (como estar triste, deprimido o nervioso)?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q8",
+      "type": "select",
+      "order": 10,
+      "tag": "10",
+      "label": {
+        "es": "Durante las 4 últimas semanas, ¿hizo su trabajo o sus actividades cotidianas menos cuidadosamente que de costumbre, por algún problema emocional (como estar triste, deprimido o nervioso)?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+   {
+      "id": "NF2_Q9",
+      "type": "select",
+      "order": 11,
+      "tag": "11",
+      "label": {
+        "es": "Durante las 4 últimas semanas ¿hasta qué punto el dolor le ha dificultado su trabajo habitual (incluido el trabajo fuera de casa y las tareas domésticas)?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Nada",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Un poco",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Regular",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Bastante",
+          "ca": "",
+          "en": ""
+        },
+         "5": {
+          "es": "Mucho",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q10",
+      "type": "select",
+      "order": 12,
+      "tag": "12",
+      "label": {
+        "es": "Se sintié calmado y tranquilo?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q11",
+      "type": "select",
+      "order": 13,
+      "tag": "13",
+      "label": {
+        "es": "¿Tuvo mucha energia?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q12",
+      "type": "select",
+      "order": 14,
+      "tag": "14",
+      "label": {
+        "es": "¿Se sintió desanimado y deprimido?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    },
+    {
+      "id": "NF2_Q13",
+      "type": "select",
+      "order": 15,
+      "tag": "15",
+      "label": {
+        "es": "Durante las 4 últimas semanas ¿Con qué frecuencia la salud física o los problemas emocionales le han dificultado sus actividades sociales (como visitar a los amigos o familiares)?",
+        "ca": "",
+        "en": ""
+      },
+      "value": null,
+      "options": {
+        "1": {
+          "es": "Siempre",
+          "ca": "",
+          "en": ""
+        },
+        "2": {
+          "es": "Casi siempre",
+          "ca": "",
+          "en": ""
+        },
+        "3": {
+          "es": "Algunas veces",
+          "ca": "",
+          "en": ""
+        },
+        "4": {
+          "es": "Solo alguna vez",
+          "ca": "",
+          "en": ""
+        },
+        "5": {
+          "es": "Nunca",
+          "ca": "",
+          "en": ""
+        }
+      },
+      "main_tag": null,
+      "escala": "SF",
+      "caract_form": "ESC_SF",
+      "optional": false,
+      "info": null,
+      "units": null,
+      "min_questions": null,
+      "max_questions": null,
+      "headform": "Cuestionario Salud y Calidad de Vida",
+      "depends_on": null,
+      "group_name": "SF-like"
+    }
+  ]
+}
