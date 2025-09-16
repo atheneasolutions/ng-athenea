@@ -67,11 +67,13 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() answersId!: string;
   @Input() id!: string;
   @Input() useLocalStorage: boolean = true;
+  @Input() assetBase = 'assets/swiper-form'; // valor por defecto que coincide con el glob
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
   @ViewChild('txtSelector') txtSelector!: TemplateRef<any>;
   @ViewChild('select') select!: TemplateRef<any>;
   @ViewChild('painSelector') pain!: TemplateRef<any>;
+  @ViewChild('painPati') painPati!: TemplateRef<any>;
   @ViewChild('diagnosisMultiple') multiple!: TemplateRef<any>;
   @ViewChild('info') info!: TemplateRef<any>;
   @ViewChild('selectMood') selectMood!: TemplateRef<any>;
@@ -87,27 +89,71 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
+  private icon(name: string) { return `${this.assetBase}/${name}`; }
+
 
   moods = [
     {
       value: 'happy',
-      icon: './../../../../assets/icons/face-happy-svgrepo-com.svg',
+      icon: this.icon('face-happy-svgrepo-com.svg'),
       label: { en: 'Happy', es: 'Feliz', ca: 'Feliç' },
       index: 0,
     },
     {
       value: 'neutral',
-      icon: './../../../../assets/icons/face-neutral-svgrepo-com.svg',
+      icon: this.icon('face-neutral-svgrepo-com.svg'),
       label: { en: 'Neutral', es: 'Neutral', ca: 'Neutral' },
       index: 1,
     },
     {
       value: 'sad',
-      icon: './../../../../assets/icons/face-sad-svgrepo-com.svg',
+      icon: this.icon('face-sad-svgrepo-com.svg'),
       label: { en: 'Sad', es: 'Triste', ca: 'Trist' },
       index: 2,
     },
   ];
+
+  colors = ["sin","muyleve","muyleve2","leve","leve2","moderado","moderado2","severo","severo2","insoportable","insoportable2"];
+
+
+  painIcons = [
+    { 
+      icon: this.icon('face-happy-svgrepo-com.svg'),
+      index: 0,
+      colorClass: "sin"
+    },
+    {  
+      icon: this.icon('face-happy-svgrepo-com.svg'),
+      index: 1,
+      colorClass: "muyleve"
+    },
+    {
+      icon: this.icon('face-neutral-svgrepo-com.svg'),
+      index: 2,
+      colorClass: "leve2"
+    },
+    { 
+      icon: this.icon('face-neutral-svgrepo-com.svg'),
+      index: 0,
+      colorClass: "moderado"
+    },
+    {  
+      icon: this.icon('face-sad-svgrepo-com.svg'),
+      index: 1,
+      colorClass: "severo"
+    },
+    {
+      icon: this.icon('face-sad-svgrepo-com.svg'),
+      index: 2,
+      colorClass: "insoportable"
+    },
+     {
+      icon: this.icon('face-sad-svgrepo-com.svg'),
+      index: 2,
+      colorClass: "insoportable2"
+    },
+  ];
+
 
   config: SwiperOptions = {
     direction: 'vertical',
@@ -543,6 +589,8 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.select;
       case 'pain':
         return this.pain;
+      case 'pain_pati':
+        return this.painPati;
       case 'info':
         return this.info;
       case 'select_mood':
@@ -698,8 +746,11 @@ export class AtheneaformComponent implements AfterViewChecked {
     slide: boolean = true,
     valNul: boolean = false
   ) {
+
+    console.log("Index: ", index);
+    console.log("Valor: ", e);
     //Assignem valor
-    if (e && !valNul) this.questions[index].value = e;
+    if (e !== null && e !== undefined && !valNul) this.questions[index].value = e;
     else if (valNul) {
       this.questions[index].value = null;
       this.hideContinueButton();
@@ -867,6 +918,7 @@ type Type =
   | 'select'
   | 'text'
   | 'pain'
+  | 'pain_pati'
   | 'csi_multiple'
   | 'mult'
   | 'info'

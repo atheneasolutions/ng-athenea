@@ -363,6 +363,42 @@ ion-range::part(pin) {
   --bar-background-active: transparent;
   --bar-border-radius: 5px;
 }
+
+.sin {
+  background-color: #e3ffc1;
+}
+.muyleve {
+  background-color: #e6ffe3;
+}
+.muyleve2 {
+  background-color: #e0ff9c;
+}
+.leve {
+  background-color: #ebff9d;
+}
+.leve2 {
+  background-color: #f8fd9c;
+}
+.moderado {
+  background-color: #fde799;
+}
+.moderado2 {
+  background-color: #ffd195;
+}
+.severo {
+  background-color: #ffc392;
+}
+.severo2 {
+  background-color: #ffb290;
+}
+.insoportable {
+  background-color: #ffa38e;
+}
+.insoportable2 {
+  background-color: #ff958d;
+}
+
+  
 .pain-legend {
   border-collapse: collapse;
   border-spacing: 0;
@@ -393,7 +429,6 @@ ion-range::part(pin) {
       text-align: center;
     }
   }
-
   .sin {
     background-color: #e3ffc1;
   }
@@ -501,6 +536,26 @@ ion-item .input-wrapper {
   align-items: center;
   justify-content: start;
 }
+.painpati{
+  max-width: 650px;   
+  margin: 0 auto;     
+}
+
+
+.pain-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 10px; 
+  justify-content: center;  
+}
+
+.pain-container > * {
+  width: 100%; 
+}
+
+.pain-container:last-child {
+  margin-bottom: 2rem; 
+}
 
 .container {
   gap: 1em;
@@ -508,6 +563,14 @@ ion-item .input-wrapper {
   justify-content: space-between;
   width: 100%;
   padding-top: 1em;
+}
+
+.num-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 45px); 
+  gap: 6px;
+  justify-content: center;
+  margin-top: 1.75rem;
 }
 
 .card-button {
@@ -529,9 +592,30 @@ ion-item .input-wrapper {
   border: 2px solid var(--ion-color-primary);
 }
 
+.card-pain-button {
+  display: grid;
+  place-items: center;     
+  aspect-ratio: 1;         
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.card-pain-button.selected { 
+  border: 1px solid #999; 
+}
+
+.card-pain-icon {
+  display: flex;
+  justify-content: center;
+}
+.card-pain-icon img {
+  max-width: 1.75rem;
+}
+
+
 @media screen and (max-width: 768px) {
-  .card-button ion-icon {
-    font-size: 3rem;
+  .card-button ion-icon, .card-pain-icon img {
+    font-size: 1rem;
   }
 }
 .info_tag {
@@ -627,7 +711,6 @@ h2 {
   width: 25%;
   height: 20%;
 }
-
 .panxa {
   top: 37%;
   left: 11.5%;

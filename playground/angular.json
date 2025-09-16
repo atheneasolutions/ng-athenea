@@ -25,6 +25,11 @@
                 "input": "src/assets",
                 "output": "assets"
               },
+               {
+                "glob": "**/*",
+                "input": "node_modules/@atheneasolutions/swiper-form-component/assets",
+                "output": "assets/swiper-form"
+              },
               {
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
