@@ -68,6 +68,9 @@
   overflow: scroll;
   width: 100%;
   height: 100%;
+  ion-list {
+    background: transparent !important;
+  }
 
   &.with-image {
     display: grid;
@@ -208,11 +211,9 @@ ion-radio-group {
   }
 }
 ion-textarea {
-  border: 1px solid #bfbfbf;
-  border-radius: 5px;
+  //border: 1px solid #bfbfbf;
   resize: none;
   max-height: 90%;
-  overflow: scroll;
 }
 
 //SCROLLABLE QUESTION ANIMATION

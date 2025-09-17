@@ -378,14 +378,17 @@
 </ng-template>
 
 <ng-template #inputText let-index="index">
-   <ion-textarea
-    placeholder="Escriu aquí la teva resposta"
-    [autoGrow]="false"
-    [(ngModel)]="questions[index].value"
-    [disabled]="loading || !canAnswer"
-    (ionInput)="showContinueButton()"
-    rows="5"
-  ></ion-textarea>
+  <ion-list>
+    <ion-item>
+      <ion-textarea
+        placeholder="Escriu aquí la teva resposta"
+        [autoGrow]="false"
+        [(ngModel)]="questions[index].value"
+        [disabled]="loading || !canAnswer"
+        (ionInput)="showContinueButton()"
+      ></ion-textarea>
+    </ion-item>
+  </ion-list>
 </ng-template>
 
 <ng-template #inputNum let-index="index">
