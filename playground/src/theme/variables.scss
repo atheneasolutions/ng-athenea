@@ -5,10 +5,10 @@
 :root {
 
   /** Dot sizes **/
-  --dot-size-big: 16px;
+  --dot-size-big: 13px;
   --dot-size: 12px;
   --selected-dot-size: calc(var(--dot-size) + 4px);
-  --selected-dot-size-big: calc(var(--dot-size-big) + 4px);
+  --selected-dot-size-big: calc(var(--dot-size-big) + .5px);
 
   /** Primary **/
   --ion-color-primary: #4A8BA5;

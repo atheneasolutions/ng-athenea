@@ -37,6 +37,52 @@
             : true
         "
       >
+      <!-- IMAGE GRID DISPLAY (only for type pain_location_pati) -->
+      <div
+        *ngIf="question.type === 'pain_location_pati'; else normalQuestion"
+        class="question-container with-image"
+      >
+        <div class="img-side">
+          <ng-template
+            [ngTemplateOutlet]="painLocationPati"
+            [ngTemplateOutletContext]="{
+              index: index,
+              options: question?.options,
+              id: question.id
+            }"
+          ></ng-template>
+        </div>
+
+        <div class="text-side">
+          <h2 class="headform" *ngIf="question.headform">
+            <span>{{ question.headform }}</span>
+          </h2>
+          <h3>
+            <span *ngIf="question.tag">
+              {{ getTagWithDot(question.tag) }}
+              {{ question.label[selectedLang] }}
+            </span>
+          </h3>
+          <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
+            <div class="pain-location-num-grid">
+              <button
+                type="button"
+                *ngFor="let n of (questions[index].escala === 'front' ? painLocationNumbersFront : painLocationNumbersBack)"
+                class="card-pain-button"
+                (click)="inputChange(index, n.code, false)"
+                [ngClass]="painColors[n.index]"
+                [class.selected]="isZoneSelected(index, n.code)"
+                [disabled]="loading || !canAnswer"
+              >
+                {{ n.index }}
+              </button>
+            </div>
+          </ion-radio-group>
+        </div>
+      </div>
+
+      <!-- NORMAL SLIDE DISPLAY -->
+      <ng-template #normalQuestion>
         <div
           class="question-container"
           #scrollContainer
@@ -46,12 +92,14 @@
           <h2 class="headform" *ngIf="question.headform">
             <span>{{ question.headform }}</span>
           </h2>
+
           <h3 *ngIf="question.type !== 'info'">
-            <span *ngIf="question.tag"
-              >{{ getTagWithDot(question.tag) }}
-              {{ question.label[selectedLang] }}</span
-            >
+            <span *ngIf="question.tag">
+              {{ getTagWithDot(question.tag) }}
+              {{ question.label[selectedLang] }}
+            </span>
           </h3>
+
           <ng-template
             [ngTemplateOutlet]="getType(question.type)"
             [ngTemplateOutletContext]="{
@@ -76,6 +124,7 @@
           </div>
         </div>
       </ng-template>
+    </ng-template>
     </ng-container>
 
     <ng-template swiperSlide>
@@ -272,7 +321,7 @@
     <ion-row>
       <ion-col size="11" size-md="8" offset="0.5" offset-md="2">
         <div class="img-container">
-          <img src="./../../../../assets/icons/human-body-outline.svg" />
+          <img [src]="humanBodyFrontImage" />
 
           <div
             *ngFor="let zone of zones"
@@ -312,6 +361,31 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</ng-template>
+
+
+
+<ng-template #painLocationPati let-index="index">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="11" size-md="8" offset="0.5" offset-md="2">
+        <div class="img-container">
+          <img [src]="questions[index].escala === 'front' ? humanBodyFrontImage : humanBodyBackImage"/>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-template>
+
+<ng-template #inputText let-index="index">
+   <ion-textarea
+    placeholder="Escriu aquí la teva resposta"
+    [autoGrow]="false"
+    [(ngModel)]="questions[index].value"
+    [disabled]="loading || !canAnswer"
+    (ionInput)="showContinueButton()"
+    rows="5"
+  ></ion-textarea>
 </ng-template>
 
 <ng-template #inputNum let-index="index">
@@ -667,7 +741,7 @@
         </td>
       </tr>
     </tbody>
-  </table>   
+      </table>   
       <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
         <div class="num-grid">
           <div class="card-pain-icon">
@@ -678,7 +752,7 @@
             *ngFor="let n of [0,1,2,3,4,5,6,7,8,9,10]"
             class="card-pain-button"
             (click)="inputChange(index, n, false)"
-            [ngClass]="colors[n]"
+            [ngClass]="painColors[n]"
             [class.selected]="questions[index].value === n"
             [disabled]="loading || !canAnswer"
           >

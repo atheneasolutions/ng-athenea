@@ -69,6 +69,38 @@
   width: 100%;
   height: 100%;
 
+  &.with-image {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: start;
+    gap: 1.5rem;
+
+    .img-side {
+      grid-column: 1;
+    }
+
+    .text-side {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      h2, h3 {
+        margin: 0 0 1rem 0;
+      }
+
+      ion-list {
+        background: transparent !important;
+      }
+
+      ion-item.ion-item-select-padding {
+        padding-left: 0 !important;
+      }
+    }
+  }
+
+  
+
   &.preview {
     text-align: justify;
     line-height: 1.4;
@@ -573,6 +605,32 @@ ion-item .input-wrapper {
   margin-top: 1.75rem;
 }
 
+.pain-location-num-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); 
+  gap: 8px;
+  width: 100%;
+  margin-right: .75rem;
+  
+  .card-pain-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    width: 100%;
+    font-weight: 500;
+    border: 1px solid #999;
+    background: #D9D9D9;
+    cursor: pointer;
+  }
+
+  .card-pain-button.selected { 
+    border: 1px solid black; 
+    background: #B3B3B3;
+  }
+  
+}
+
 .card-button {
   flex: 1;
 }
@@ -658,13 +716,13 @@ h2 {
 .headform {
   padding-bottom: 0rem;
 }
-
 /* responsive-image */
 
 /* Container for the image */
 .img-container {
   position: relative;
-  width: 100%;
+  margin: 0 auto;
+  
   /* Option 1: Let the image define its height naturally */
   /* Option 2: If you want to force a specific aspect ratio, use the padding-top trick:
      padding-top: 56.25%;  // For a 16:9 aspect ratio */
@@ -672,7 +730,8 @@ h2 {
 
 /* Responsive image */
 .img-container img {
-  width: 100%;
+  width: 120%;
+  max-width: 120% !important;
   display: block;
 }
 

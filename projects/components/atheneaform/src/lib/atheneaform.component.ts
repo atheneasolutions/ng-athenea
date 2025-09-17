@@ -78,7 +78,9 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('info') info!: TemplateRef<any>;
   @ViewChild('selectMood') selectMood!: TemplateRef<any>;
   @ViewChild('inputNum') inputNum!: TemplateRef<any>;
+  @ViewChild('inputText') inputText!: TemplateRef<any>;
   @ViewChild('painLocation') painLocation!: TemplateRef<any>;
+  @ViewChild('painLocationPati') painLocationPati!: TemplateRef<any>;
 
   @ViewChild('bloodGlucose') bloodGlucose!: TemplateRef<any>;
   @ViewChild('bloodPressure') bloodPressure!: TemplateRef<any>;
@@ -90,6 +92,57 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
   private icon(name: string) { return `${this.assetBase}/${name}`; }
+
+
+  painLocationNumbersFront = [
+      { index: 1, code: 'frontDalt' },
+      { index: 2, code: 'frontBaix' },
+      { index: 3, code: 'collEsquerra' },
+      { index: 4, code: 'collDret' },
+      { index: 5, code: 'espatllaDreta' },
+      { index: 6, code: 'pectoralDret' },
+      { index: 7, code: 'pectoralEsquerre' },
+      { index: 8, code: 'espatllaEsquerra' },
+      { index: 9, code: 'braçDret' },
+      { index: 10, code: 'abdomenSuperiorDret' },
+      { index: 11, code: 'abdomenSuperiorEsquerre' },
+      { index: 12, code: 'braçEsquerre' },
+      { index: 13, code: 'maDreta' },
+      { index: 14, code: 'abdomenInferiorDret' },
+      { index: 15, code: 'abdomenInferiorEsquerre' },
+      { index: 16, code: 'maEsquerra' },
+      { index: 17, code: 'cuixaDreta' },
+      { index: 18, code: 'cuixaEsquerra' },
+      { index: 19, code: 'camaDreta' },
+      { index: 20, code: 'camaEsquerra' },
+      { index: 21, code: 'peuDret' },
+      { index: 22, code: 'peuEsquerra' }
+    ];
+painLocationNumbersBack = [
+    { index: 1, code: 'capDretPosterior' },
+    { index: 2, code: 'capEsquerrePosterior' },
+    { index: 3, code: 'clatell' },
+    { index: 4, code: 'collPosterior' },
+    { index: 5, code: 'espatllaDretaPosterior' },
+    { index: 6, code: 'esquenaAltaDreta' },
+    { index: 7, code: 'esquenaAltaEsquerra' },
+    { index: 8, code: 'espatllaEsquerraPosterior' },
+    { index: 9, code: 'braçDretPosterior' },
+    { index: 10, code: 'esquenaMitjaDreta' },
+    { index: 11, code: 'esquenaMitjaEsquerra' },
+    { index: 12, code: 'braçEsquerrePosterior' },
+    { index: 13, code: 'maDretaPosterior' },
+    { index: 14, code: 'llomDret' },
+    { index: 15, code: 'llomEsquerre' },
+    { index: 16, code: 'maEsquerraPosterior' },
+    { index: 17, code: 'gluti' },
+    { index: 18, code: 'cuixaPosterior' },
+    { index: 19, code: 'camaEsquerraPosterior' },
+    { index: 20, code: 'camaDretaPosterior' },
+    { index: 21, code: 'talóDret' },
+    { index: 22, code: 'talóEsquerre' }
+  ];
+  
 
 
   moods = [
@@ -113,7 +166,11 @@ export class AtheneaformComponent implements AfterViewChecked {
     },
   ];
 
-  colors = ["sin","muyleve","muyleve2","leve","leve2","moderado","moderado2","severo","severo2","insoportable","insoportable2"];
+  humanBodyFrontImage = this.icon('human-body-front.png');
+  humanBodyBackImage = this.icon('human-body-back.png');
+
+
+  painColors = ["sin","muyleve","muyleve2","leve","leve2","moderado","moderado2","severo","severo2","insoportable","insoportable2"];
 
 
   painIcons = [
@@ -361,6 +418,7 @@ export class AtheneaformComponent implements AfterViewChecked {
       this.hideContinueButton();
     }
   }
+  
 
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
     this.selectedZone = zone_code;
@@ -399,28 +457,35 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   getBloodPressure(index: number): BloodPreasure {
-    const value = this.questions[index].value;
+  const question = this.questions[index];
 
-    if (typeof value === 'object' && value !== null) {
-      return {
-        dia_value: value.dia_value ?? '',
-        sys_value: value.sys_value ?? '',
-        bpm_value: value.bpm_value ?? '',
-      };
-    }
+  if (question.type !== 'pain_location_pati' && question.value && typeof question.value === 'object' && 'dia_value' in question.value) {
+    return {
+      dia_value: question.value.dia_value ?? '',
+      sys_value: question.value.sys_value ?? '',
+      bpm_value: question.value.bpm_value ?? '',
+    };
+  }
 
     return { dia_value: '', sys_value: '', bpm_value: '' };
   }
 
-  getString(value: string | number | BloodPreasure | null): string {
+  isZoneSelected(index: number, code: string): boolean {
+    const val =  this.questions[index].value;  
+
+    if (Array.isArray(val)) {
+      return val.includes(code);
+    }
+    return val === code;
+  }
+
+  getString(value: string | number | string[]| BloodPreasure | null ): string {
     if (typeof value === 'string') {
       return value;
     }
-
     if (typeof value === 'number') {
       return '' + value + '';
     }
-
     return '';
   }
 
@@ -597,8 +662,12 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.selectMood;
       case 'input_num':
         return this.inputNum;
+      case 'input_text':
+        return this.inputText;
       case 'pain_location':
         return this.painLocation;
+      case 'pain_location_pati':
+        return this.painLocationPati;
       case 'blood_glucose':
         return this.bloodGlucose;
       case 'blood_pressure':
@@ -741,37 +810,53 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   inputChange(
-    index: number,
-    e: any = null,
-    slide: boolean = true,
-    valNul: boolean = false
-  ) {
-
-    console.log("Index: ", index);
-    console.log("Valor: ", e);
-    //Assignem valor
-    if (e !== null && e !== undefined && !valNul) this.questions[index].value = e;
-    else if (valNul) {
-      this.questions[index].value = null;
+  index: number,
+  e: any = null,
+  slide: boolean = true,
+  valNul: boolean = false
+) {
+  const question = this.questions[index];
+  if (question.type === 'pain_location_pati') {
+    if (!Array.isArray(question.value)) {
+      question.value = [];
+    }
+  
+    if (valNul) {
+      question.value = [];
+    } else if (question.value.includes(e)) {
+      question.value = question.value.filter(v => v !== e);
+    } else {
+      question.value = [...question.value, e];
+    }
+  } else {
+    if (e != null && !valNul) {
+      question.value = e;
+    } else if (valNul) {
+      question.value = null;
       this.hideContinueButton();
     }
-
-    this.saveAnswers();
-
-    if (slide)
-      setTimeout(() => {
-        this.slideNext();
-      }, TIMEOUT_TIME);
-    else {
-      if (this.questions[index].type == 'mult') {
-        if (this.multValue(this.questions[index].main_tag))
-          this.showContinueButton();
-      } else if (!valNul) this.showContinueButton();
-    }
-
-    if (!this.formHasErrors()) this.isCompleted = true;
-    else this.isCompleted = false;
   }
+
+  this.saveAnswers();
+  console.log(question.value);
+
+  if (slide) {
+    setTimeout(() => {
+      this.slideNext();
+    }, TIMEOUT_TIME);
+  } else {
+    if (question.type == 'mult') {
+      if (this.multValue(question.main_tag)) {
+        this.showContinueButton();
+      }
+    } else if (!valNul) {
+      this.showContinueButton();
+    }
+  }
+
+  this.isCompleted = !this.formHasErrors();
+}
+
 
   multValue(tag: any): boolean {
     let map = this.multMap[tag];
@@ -924,33 +1009,57 @@ type Type =
   | 'info'
   | 'select_mood'
   | 'input_num'
+  | 'input_text'
   | 'pain_location'
+  | 'pain_location_pati'
   | 'blood_glucose'
   | 'blood_pressure'
   | 'heart_rate'
   | 'scale'
   | 'thermometer';
 type Lang = 'ca' | 'es' | 'en';
-export interface Question {
-  id: string;
-  tag: string | null;
-  order: number | string;
-  label: Multilang;
-  value: string | number | BloodPreasure | null;
-  type: Type;
-  options: Record<string, Multilang> | null | string | Array<any>;
-  main_tag: string | null;
-  escala: string | null;
-  caract_form: string | null;
-  optional: boolean;
-  info: Info | null;
-  units: string | null;
-  max_questions: number | null;
-  min_questions: number | null;
-  headform: string | null;
-  depends_on: string | null;
-  group_name: string | null;
-}
+export type Question =
+  | {
+      id: string;
+      tag: string | null;
+      order: number | string;
+      label: Multilang;
+      value: string[];
+      type: 'pain_location_pati';
+      options: Record<string, Multilang> | null | string | Array<any>;
+      main_tag: string | null;
+      escala: string | null;
+      caract_form: string | null;
+      optional: boolean;
+      info: Info | null;
+      units: string | null;
+      max_questions: number | null;
+      min_questions: number | null;
+      headform: string | null;
+      depends_on: string | null;
+      group_name: string | null;
+    }
+  | {
+      id: string;
+      tag: string | null;
+      order: number | string;
+      label: Multilang;
+      value: string | number | BloodPreasure | null;
+      type: Exclude<Type, 'pain_location_pati'>;
+      options: Record<string, Multilang> | null | string | Array<any>;
+      main_tag: string | null;
+      escala: string | null;
+      caract_form: string | null;
+      optional: boolean;
+      info: Info | null;
+      units: string | null;
+      max_questions: number | null;
+      min_questions: number | null;
+      headform: string | null;
+      depends_on: string | null;
+      group_name: string | null;
+    };
+
 
 export interface BloodPreasure {
   sys_value: string;
