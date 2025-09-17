@@ -67,6 +67,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() answersId!: string;
   @Input() id!: string;
   @Input() useLocalStorage: boolean = true;
+  @Input() useBackgroundImage: boolean = false;
   @Input() assetBase = 'assets/swiper-form'; // valor por defecto que coincide con el glob
 
   @ViewChild('numberSelector') numberSelector!: TemplateRef<any>;
@@ -93,6 +94,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
   private icon(name: string) { return `${this.assetBase}/${name}`; }
 
+  backgroundImageUrl = this.icon('background-tauli.png');
 
   painLocationNumbersFront = [
       { index: 1, code: 'frontDalt' },
@@ -423,6 +425,16 @@ painLocationNumbersBack = [
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
     this.selectedZone = zone_code;
     this.inputChange(index, zone_code, slide);
+  }
+
+  setBackgroundImage(url: string) {
+    this.backgroundImageUrl = url;
+    this.useBackgroundImage = true;
+  }
+
+  clearBackgroundImage() {
+    this.backgroundImageUrl = '';
+    this.useBackgroundImage = false;
   }
 
   questionValueIsZero(id: string | null): boolean {

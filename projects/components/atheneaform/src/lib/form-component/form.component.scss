@@ -1,8 +1,17 @@
+:host {
+  --background: white;
+}
+
+:host ::ng-deep ion-toolbar.nav-buttons {
+  --background: #fff;
+}
+
 :root {
   --dot-size-big: 16px;
   --dot-size: 12px;
   --selected-dot-size: calc(var(--dot-size) + 4px);
   --selected-dot-size-big: calc(var(--dot-size-big) + 4px);
+
 }
 
 .swiper-container {
@@ -155,6 +164,16 @@
   max-height: 100vh;
   display: flex;
   flex-direction: column;
+  &.has-bg-image {
+    background-color: transparent; 
+    background-repeat: no-repeat;
+    background-size: cover;  
+    background-position: center;
+    ::ng-deep ion-toolbar.nav-buttons {
+      --background: transparent !important; 
+      background: transparent !important;   
+    }
+  }
 }
 
 .no-padding {
@@ -210,10 +229,12 @@ ion-radio-group {
     margin-top: 0;
   }
 }
-ion-textarea {
-  //border: 1px solid #bfbfbf;
-  resize: none;
-  max-height: 90%;
+
+.text-area-container{
+  max-height: 70%;
+  ion-textarea {
+    max-height: 20%;
+  }
 }
 
 //SCROLLABLE QUESTION ANIMATION
@@ -582,10 +603,6 @@ ion-item .input-wrapper {
   justify-content: center;  
 }
 
-.pain-container > * {
-  width: 100%; 
-}
-
 .pain-container:last-child {
   margin-bottom: 2rem; 
 }
@@ -621,13 +638,14 @@ ion-item .input-wrapper {
     width: 100%;
     font-weight: 500;
     border: 1px solid #999;
-    background: #D9D9D9;
+    background: #bdbdbd4d;
     cursor: pointer;
+    transition: all .25s ease;
   }
 
   .card-pain-button.selected { 
-    border: 1px solid black; 
-    background: #B3B3B3;
+    background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
   }
   
 }
@@ -657,10 +675,11 @@ ion-item .input-wrapper {
   aspect-ratio: 1;         
   font-weight: 500;
   cursor: pointer;
+  border: 1px solid #ccc;
 }
 
 .card-pain-button.selected { 
-  border: 1px solid #999; 
+  border: 2px solid var(--ion-color-primary); 
 }
 
 .card-pain-icon {

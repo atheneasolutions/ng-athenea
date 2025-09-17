@@ -27,6 +27,7 @@ export class FormPage implements OnInit {
   availableDate: Date = new Date();
   answersId: string = 'id';
   useLocalStorage = true;
+  useBackgroundImage = true;
 
   constructor(
     private router: Router,

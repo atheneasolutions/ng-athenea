@@ -3,7 +3,6 @@ atheneaform {
   height: 100%;
   --atheneaform-max-height: 85vh;
   --ion-color-primary-contrast: white !important;
-  --background: white;
 }
 
 atheneaform ::ng-deep .swiper-buttons-container {   
@@ -25,7 +24,6 @@ atheneaform ::ng-deep .swiper-container {
 }
 
 atheneaform ::ng-deep ion-toolbar.nav-buttons {
-  --background: #fff;
   --padding-top: 1vh;
   --padding-bottom: 2vh;
   border-radius: 6px;  

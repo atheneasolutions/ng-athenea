@@ -1,4 +1,7 @@
-<div class="swiper-buttons-container">
+<div class="swiper-buttons-container"
+  [class.has-bg-image]="useBackgroundImage"
+  [style.background-image]="useBackgroundImage ? 'url(' + backgroundImageUrl + ')' : 'none'"
+  >
   <div class="warning-box" *ngIf="!canAnswer && availableDate">
     @switch (selectedLang) { @case ('ca') { Podràs contestar a partir del dia }
     @case ('es') { Podrás contestar a partir del día } @case ('en') { You will
@@ -378,17 +381,15 @@
 </ng-template>
 
 <ng-template #inputText let-index="index">
-  <ion-list>
-    <ion-item>
-      <ion-textarea
-        placeholder="Escriu aquí la teva resposta"
-        [autoGrow]="false"
-        [(ngModel)]="questions[index].value"
-        [disabled]="loading || !canAnswer"
-        (ionInput)="showContinueButton()"
-      ></ion-textarea>
-    </ion-item>
-  </ion-list>
+  <ion-item class="text-area-container">
+    <ion-textarea
+      placeholder="Escriu aquí la teva resposta"
+      [autoGrow]="true"
+      [(ngModel)]="questions[index].value"
+      [disabled]="loading || !canAnswer"
+      (ionInput)="showContinueButton()"
+    ></ion-textarea>
+  </ion-item>
 </ng-template>
 
 <ng-template #inputNum let-index="index">
@@ -684,6 +685,27 @@
   <div class="painpati">
 
     <div class="pain-container">
+       <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
+        <div class="num-grid">
+          <div class="card-pain-icon">
+            <img [src]="painIcons[0].icon"/>
+        </div>
+          <button
+            type="button"
+            *ngFor="let n of [0,1,2,3,4,5,6,7,8,9,10]"
+            class="card-pain-button"
+            (click)="inputChange(index, n, false)"
+            [ngClass]="painColors[n]"
+            [class.selected]="questions[index].value === n"
+            [disabled]="loading || !canAnswer"
+          >
+            {{ n }}
+          </button>
+           <div class="card-pain-icon">
+            <img [src]="painIcons[4].icon"/>
+           </div>
+        </div>
+      </ion-radio-group>
        <table cellpadding="10" cellspacing="0" class="pain-legend">
     <tbody>
       <tr [class.sin]="questions[index].value == 0">
@@ -745,27 +767,7 @@
       </tr>
     </tbody>
       </table>   
-      <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
-        <div class="num-grid">
-          <div class="card-pain-icon">
-            <img [src]="painIcons[0].icon"/>
-        </div>
-          <button
-            type="button"
-            *ngFor="let n of [0,1,2,3,4,5,6,7,8,9,10]"
-            class="card-pain-button"
-            (click)="inputChange(index, n, false)"
-            [ngClass]="painColors[n]"
-            [class.selected]="questions[index].value === n"
-            [disabled]="loading || !canAnswer"
-          >
-            {{ n }}
-          </button>
-           <div class="card-pain-icon">
-            <img [src]="painIcons[4].icon"/>
-           </div>
-        </div>
-      </ion-radio-group>
+     
 
     </div>
   </div>
