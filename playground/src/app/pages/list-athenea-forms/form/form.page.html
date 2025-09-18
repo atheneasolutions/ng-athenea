@@ -3,19 +3,20 @@
 <ion-content class="ion-padding" [scrollY]="false">
   <div class="form-wrapper u-wrapper u-wrapper-content">
     <app-breadcrumbs [breadcrumbs]="[{locale: 'list_forms.list', route: '/list-athenea-forms/' + enviamentId}, {locale: title}]"></app-breadcrumbs> 
-      <atheneaform
-        [id]="id"
-        [questions]="questions"
-        [title]="title"
-        [lang]="lang"                 
-        (sendSurvey)="send()"
-        [preview]="preview"
-        [canAnswer]="canAnswer"
-        [availableDate]="availableDate"
-        [answersId]="answersId"
-        [useLocalStorage]="useLocalStorage"
-        [useBackgroundImage]="useBackgroundImage">
-      </atheneaform>
-   
+    <div class="max-form">
+        <atheneaform
+          [id]="id"
+          [questions]="questions"
+          [title]="title"
+          [lang]="lang"                 
+          (sendSurvey)="send()"
+          [preview]="preview"
+          [canAnswer]="canAnswer"
+          [availableDate]="availableDate"
+          [answersId]="answersId"
+          [useLocalStorage]="useLocalStorage"
+          [useBackgroundImage]="useBackgroundImage">
+        </atheneaform>
+      </div>
   </div>
 </ion-content>

@@ -101,15 +101,6 @@ atheneaform  ion-toolbar.nav-buttons ion-button.send::part(native) {
   min-width: 0 !important;
 }
 
-atheneaform .swiper-container {
-  height: 95% !important;
-  max-height: 95% !important;
-}
-
-atheneaform .question-container {
-  overflow: unset !important;
-}
-
 
 .margin-content {
   margin-top: 2rem;
@@ -179,7 +170,7 @@ ion-label span.text, ion-icon + span.text {
 }
 
 ion-toolbar {
-  padding:0 12px;
+  padding:10px 12px;
   ion-button {
     width:50px!important;
     height:50px!important;
