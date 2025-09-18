@@ -386,6 +386,12 @@ painLocationNumbersBack = [
 
   isConstantInputValid: boolean = false;
 
+  range(initial: number = 0, last: number): number[] {
+    
+    const length = last - initial + 1;
+    return Array.from({ length }, (_, i) => (i + Number(initial)));
+  }
+
   onConstantInputValidChange(
     index: number,
     { value, valid }: { value: string; valid: boolean }

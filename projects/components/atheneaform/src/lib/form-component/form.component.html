@@ -66,6 +66,18 @@
               {{ question.label[selectedLang] }}
             </span>
           </h3>
+
+          <div class="img-side">
+            <ng-template
+              [ngTemplateOutlet]="painLocationPati"
+              [ngTemplateOutletContext]="{
+                index: index,
+                options: question?.options,
+                id: question.id
+              }"
+            ></ng-template>
+        </div>
+
           <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
             <div class="pain-location-num-grid">
               <button
@@ -475,7 +487,23 @@
 </ng-template>
 
 <ng-template #numberSelector let-index="index">
-  <ion-range
+    <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
+      <div 
+      [style.--columns]="range(divideOption(questions[index].options, 0), divideOption(questions[index].options, 1)).length"
+      class="num-grid">
+        <button
+          type="button"
+          *ngFor="let n of range(divideOption(questions[index].options, 0), divideOption(questions[index].options, 1))"
+          class="card-number-button"
+          (click)="inputChange(index, n, false)"
+          [class.selected]="questions[index].value === n"
+          [disabled]="loading || !canAnswer"
+        >
+          {{ n }}
+        </button>
+      </div>
+  </ion-radio-group>
+  <!-- <ion-range
     [min]="divideOption(questions[index].options, 0)"
     [max]="divideOption(questions[index].options, 1)"
     step="1"
@@ -494,7 +522,7 @@
     <ion-label slot="end" mode="ios">{{
       divideOption(questions[index].options, 1)
     }}</ion-label>
-  </ion-range>
+  </ion-range> -->
 </ng-template>
 
 <ng-template #bloodGlucose let-index="index">
@@ -683,10 +711,9 @@
 
 <ng-template #painPati let-index="index">
   <div class="painpati">
-
     <div class="pain-container">
        <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
-        <div class="num-grid">
+        <div [style.--columns]="13" class="num-grid">
           <div class="card-pain-icon">
             <img [src]="painIcons[0].icon"/>
         </div>
