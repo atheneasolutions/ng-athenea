@@ -495,8 +495,8 @@
           type="button"
           *ngFor="let n of range(divideOption(questions[index].options, 0), divideOption(questions[index].options, 1))"
           class="card-number-button"
-          (click)="inputChange(index, n, false)"
-          [class.selected]="questions[index].value === n"
+          (click)="inputChange(index, n+1, false)"
+          [class.selected]="questions[index].value === n+1"
           [disabled]="loading || !canAnswer"
         >
           {{ n }}
