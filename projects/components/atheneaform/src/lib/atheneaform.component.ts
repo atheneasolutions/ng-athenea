@@ -20,11 +20,14 @@ import {
 } from '@angular/core';
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent, SwiperModule } from 'swiper/angular';
+import SwiperCore, { Pagination } from 'swiper';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { HdomComponentsModule } from './hdom/components/hdom-components.module';
 import { InputValidationService } from './hdom/services/input-validation.service';
+SwiperCore.use([Pagination])
+
 
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';

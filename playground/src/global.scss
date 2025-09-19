@@ -30,6 +30,11 @@
 @import "assets/scss/generic/_flex.scss";
 @import "assets/scss/generic/_wraps.scss";
 
+/*SWIPER*/
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+
 @font-face {
   font-family: Montserrat-Light;
   font-style: light;
