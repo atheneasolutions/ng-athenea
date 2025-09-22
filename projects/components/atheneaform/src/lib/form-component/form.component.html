@@ -32,7 +32,7 @@
         swiperSlide
         *ngIf="
           question?.depends_on
-            ? !questionValueIsZero(question.depends_on)
+            ? !questionValueActivating(question.depends_on, question.depends_on_value)
             : question?.main_tag
             ? question?.type == 'mult'
               ? false
@@ -721,9 +721,9 @@
             type="button"
             *ngFor="let n of [0,1,2,3,4,5,6,7,8,9,10]"
             class="card-pain-button"
-            (click)="inputChange(index, n, false)"
+            (click)="inputChange(index, n+1, false)"
             [ngClass]="painColors[n]"
-            [class.selected]="questions[index].value === n"
+            [class.selected]="questions[index].value === n+1"
             [disabled]="loading || !canAnswer"
           >
             {{ n }}

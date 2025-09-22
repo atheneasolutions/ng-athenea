@@ -452,10 +452,17 @@ painLocationNumbersBack = [
     return question?.value == 0;
   }
 
+    questionValueActivating(id: string | null, activatingNum: number | null): boolean {
+    if (id == null) return true;
+    let question = this.questions.find((q) => q.id === id);
+
+    return question?.value == activatingNum;
+  }
+
   shouldRenderQuestion(question: Question): boolean {
-    // If there's a dependency, render only if the dependent question's value is not zero.
+    // If there's a dependency, render only if the dependent question's value is not 'question.depends_on_value'.
     if (question?.depends_on) {
-      return !this.questionValueIsZero(question.depends_on);
+      return !this.questionValueActivating(question.depends_on, question.depends_on_value);
     }
     // If it has a main tag, use the main tag logic.
     if (question?.main_tag) {
@@ -469,11 +476,13 @@ painLocationNumbersBack = [
 
   get visibleQuestionIndices(): number[] {
     const indices: number[] = [];
+    
     this.questions.forEach((question, index) => {
       if (this.shouldRenderQuestion(question)) {
         indices.push(index);
       }
     });
+  
     return indices;
   }
 
@@ -644,7 +653,7 @@ painLocationNumbersBack = [
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
       if (elem.optional) continue;
-      if (elem.depends_on && this.questionValueIsZero(elem.depends_on))
+      if (elem.depends_on && !this.questionValueActivating(elem.depends_on, elem.depends_on_value))
         continue;
       if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
@@ -859,7 +868,6 @@ painLocationNumbersBack = [
   }
 
   this.saveAnswers();
-  console.log(question.value);
 
   if (slide) {
     setTimeout(() => {
@@ -1058,6 +1066,7 @@ export type Question =
       min_questions: number | null;
       headform: string | null;
       depends_on: string | null;
+      depends_on_value: number | null;
       group_name: string | null;
     }
   | {
@@ -1078,6 +1087,7 @@ export type Question =
       min_questions: number | null;
       headform: string | null;
       depends_on: string | null;
+      depends_on_value: number | null;
       group_name: string | null;
     };
 
