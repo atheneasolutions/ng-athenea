@@ -8,7 +8,6 @@ import { NotFoundPageRoutingModule } from './not-found-routing.module';
 
 import { NotFoundPage } from './not-found.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { AtheneaformComponent } from '@atheneasolutions/swiper-form-component';
 
 @NgModule({
   imports: [
@@ -16,8 +15,7 @@ import { AtheneaformComponent } from '@atheneasolutions/swiper-form-component';
     FormsModule,
     IonicModule,
     NotFoundPageRoutingModule,
-    TranslateModule,
-    AtheneaformComponent
+    TranslateModule
   ],
   declarations: [NotFoundPage]
 })
