@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     ICURA_ENDPOINT: 'https://pati-des.tauli.cat/backend/apicura',
+    FORMS_ENDPOINT: 'http://localhost:3000/athenea-form',
   };
   
   /*

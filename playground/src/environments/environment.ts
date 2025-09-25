@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  ICURA_ENDPOINT: 'http://localhost:8000'
+  ICURA_ENDPOINT: 'http://localhost:8000',
+  FORMS_ENDPOINT: 'http://localhost:3000/athenea-form'
 };
 
 /*
