@@ -26,6 +26,10 @@ import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { HdomComponentsModule } from './hdom/components/hdom-components.module';
 import { InputValidationService } from './hdom/services/input-validation.service';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+
+
 SwiperCore.use([Pagination])
 
 
@@ -70,6 +74,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() answersId!: string;
   @Input() id!: string;
   @Input() useLocalStorage: boolean = true;
+  @Input() useSaveProgress: boolean = true;
   @Input() useBackgroundImage: boolean = false;
   @Input() assetBase = 'assets/swiper-form'; // valor por defecto que coincide con el glob
 
@@ -415,7 +420,8 @@ painLocationNumbersBack = [
     return tag;
   }
 
-  constructor(public validator: InputValidationService) {}
+  constructor(public validator: InputValidationService, 
+    public http: HttpClient) {}
 
   onBloodPressureInputValidChange(
     index: number,
@@ -957,7 +963,12 @@ painLocationNumbersBack = [
   }
 
   async saveAnswers() {
-    if (!this.useLocalStorage) return;
+     console.log("FLAG this.useSaveProgress: ",this.useSaveProgress);
+     console.log("FLAG this.useLocalStorage: ",this.useLocalStorage);
+
+    if (!this.useLocalStorage && !this.useSaveProgress) {
+      return;
+    };
 
     let answers = await this.questions
       .filter(function (obj) {
@@ -975,32 +986,114 @@ painLocationNumbersBack = [
 
     let progress = Math.round((answers.length * 100) / possibleAnswers.length);
 
-    Preferences.set({
+    if (this.useLocalStorage) {
+       Preferences.set({
+        key: this.answersId,
+        value: JSON.stringify({
+          answers: answers,
+          progress: progress,
+        }),
+      });
+    };
+
+  if (this.useSaveProgress) {
+    let userId = (await Preferences.get({ key: "id_user" })).value;
+    if (!userId) {
+      console.error("No se encontró id_user en Preferences");
+      return null;
+    }
+
+    this.answersId = `${this.id}_${userId}`;
+
+    const answersToSave = {
       key: this.answersId,
       value: JSON.stringify({
-        answers: answers,
-        progress: progress,
+        answers,
+        progress,
       }),
-    });
+      app: "icura"
+    };
+
+    try {
+      let res: any = await firstValueFrom(
+      this.http.put(
+        "http://localhost:3000/athenea-form/progress/icura",
+        answersToSave
+      ));
+
+      console.log("RESPUESTA DE UPDATE: ", res);
+
+      if (!res || res.updated === false) {
+        console.log("No se actualizó, intentando crear con POST...");
+        res = await firstValueFrom(
+          this.http.post(
+            "http://localhost:3000/athenea-form/progress/icura",
+            answersToSave
+          )
+        );
+        console.log("RESPUESTA DE CREATE: ", res);
+      }
+
+      return res;
+    } catch (error) {
+      console.error(
+        "Error guardando en API, fallback a Preferences:",
+        error
+      );
+      await Preferences.set(answersToSave);
+      return { localOnly: true };
+    }
   }
 
-  async checkSavedAnswers() {
-    if (!this.useLocalStorage) return;
-    if (!this.answersId) return;
-    let preference = (await Preferences.get({ key: this.answersId })).value;
-    if (!preference) return;
-    let answers = JSON.parse(preference);
+  return null;
+}
 
-    if (answers)
-      await answers.answers.forEach((answer: any) => {
-        const index = this.questions.findIndex((question) => {
-          return question.id == answer.ID;
-        });
-        if (index >= 0) {
-          this.questions[index].value = answer.VALOR;
-          this.lastIndex = index;
+  async checkSavedAnswers() {
+    if (!this.useLocalStorage && !this.useSaveProgress) return;
+    if (!this.answersId) return;
+
+    if (this.useSaveProgress) {
+      try {
+        const res: any = await firstValueFrom(
+          this.http.get(
+            `http://localhost:3000/athenea-form/progress/icura/${this.answersId}`
+          )
+        );
+
+        if (res && res.answers) {
+          res.answers.forEach((answer: any) => {
+            const index = this.questions.findIndex(
+              (question) => question.id == answer.ID
+            );
+            if (index >= 0) {
+              this.questions[index].value = answer.VALOR;
+              this.lastIndex = index;
+            }
+          });
+          return; 
         }
-      });
+      } catch (err) {
+        console.warn("No se pudo recuperar de la API, intento con Preferences:", err);
+      }
+    }
+
+    if (this.useLocalStorage) {
+      let preference = (await Preferences.get({ key: this.answersId })).value;
+      if (!preference) return;
+
+      let answers = JSON.parse(preference);
+      if (answers) {
+        answers.answers.forEach((answer: any) => {
+          const index = this.questions.findIndex(
+            (question) => question.id == answer.ID
+          );
+          if (index >= 0) {
+            this.questions[index].value = answer.VALOR;
+            this.lastIndex = index;
+          }
+        });
+      }
+    }
   }
 
   slideLastAnswered() {

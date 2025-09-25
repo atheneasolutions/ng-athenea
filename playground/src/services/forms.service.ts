@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CommunicationService } from "./communication.service";
+import { FormCommunicationService } from "./form-communication.service";
 import { HttpClient } from "@angular/common/http";
 
 
@@ -10,6 +11,7 @@ export class FormService {
 
     constructor(
         public cs: CommunicationService,
+        public fcs: FormCommunicationService,
         public http: HttpClient,
     ) { } 
 
@@ -18,7 +20,10 @@ export class FormService {
     }
 
     async getAtheneaForm(id: string) {
-        return await this.cs.request(`/patients_api/forms/${id}`, 'get');
+      const app = "icura";
+      const res = await this.fcs.request(`/forms/${app}/${id}`, 'get');
+       if (!res) return null;
+        return res;
     }
 
     async updateEnviament(data: any) {

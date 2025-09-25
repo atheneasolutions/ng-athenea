@@ -26,7 +26,8 @@ export class FormPage implements OnInit {
   end: any = { ca: 'ca', es: 'es', en: 'en' };
   availableDate: Date = new Date();
   answersId: string = 'id';
-  useLocalStorage = true;
+  useLocalStorage = false;
+  useSaveProgress = true;
   useBackgroundImage = true;
 
   constructor(
