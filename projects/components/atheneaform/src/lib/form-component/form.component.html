@@ -487,43 +487,38 @@
 </ng-template>
 
 <ng-template #numberSelector let-index="index">
-    <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
-      <div 
-      [style.--columns]="range(divideOption(questions[index].options, 0), divideOption(questions[index].options, 1)).length"
-      class="num-grid">
-        <button
-          type="button"
-          *ngFor="let n of range(divideOption(questions[index].options, 0), divideOption(questions[index].options, 1))"
-          class="card-number-button"
-          (click)="inputChange(index, n+1, false)"
-          [class.selected]="questions[index].value === n+1"
-          [disabled]="loading || !canAnswer"
-        >
-          {{ n }}
-        </button>
+  <ion-radio-group class="faces" mode="md" [ngModel]="questions[index].value">
+    <div
+      class="num-grid"
+      [style.--columns]="getNSValues(index).length + (hasIcons(index) ? 2 : 0)"
+    >
+      <div class="card-pain-icon" *ngIf="hasIcons(index)">
+        <img
+          [src]="isIconsNormal(index) ? painIcons[0].icon : painIcons[4].icon"
+        />
       </div>
+
+      <button
+        type="button"
+        *ngFor="let opt of getNSValues(index)"
+        class="card-pain-button"
+        (click)="inputChange(index, opt.score, false)"
+        [class.selected]="questions[index].value === opt.score"
+        [style.backgroundColor]="opt.color"
+        [disabled]="loading || !canAnswer"
+      >
+        {{ opt.text }}
+      </button>
+
+      <div class="card-pain-icon" *ngIf="hasIcons(index)">
+        <img
+          [src]="isIconsNormal(index) ? painIcons[4].icon : painIcons[0].icon"
+        />
+      </div>
+    </div>
   </ion-radio-group>
-  <!-- <ion-range
-    [min]="divideOption(questions[index].options, 0)"
-    [max]="divideOption(questions[index].options, 1)"
-    step="1"
-    [pin]="questions[index].value != null ? true : false"
-    [snaps]="true"
-    [ticks]="false"
-    [(ngModel)]="questions[index].value"
-    (ionKnobMoveEnd)="inputChange(index)"
-    mode="ios"
-    class="mb-2 range-has-pin"
-    [disabled]="loading || !canAnswer"
-  >
-    <ion-label slot="start" mode="ios">{{
-      divideOption(questions[index].options, 0)
-    }}</ion-label>
-    <ion-label slot="end" mode="ios">{{
-      divideOption(questions[index].options, 1)
-    }}</ion-label>
-  </ion-range> -->
 </ng-template>
+
 
 <ng-template #bloodGlucose let-index="index">
   <app-blood-glucose-result

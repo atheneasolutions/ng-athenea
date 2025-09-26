@@ -28,7 +28,7 @@ export class FormPage implements OnInit {
   answersId: string = 'id';
   useLocalStorage = false;
   useSaveProgress = false;
-  useBackgroundImage = false;
+  useBackgroundImage = true;
 
   constructor(
     private router: Router,

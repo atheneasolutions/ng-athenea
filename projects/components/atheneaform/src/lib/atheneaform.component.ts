@@ -527,6 +527,7 @@ painLocationNumbersBack = [
   }
 
   async ngOnInit() {
+    // TODO: cambiar esto a un buen id (el de la url real)
     let userId = (await Preferences.get({ key: "id_user" })).value;
     if (!userId) {
       console.error("No se encontró id_user en Preferences");
@@ -970,6 +971,32 @@ painLocationNumbersBack = [
     this.checkHasLang(toCheck[0] as Lang, toCheck);
   }
 
+public isNumberSelectorOptions(
+  opts: any
+): opts is NumberSelectorOptions {
+  return !!opts && typeof opts === 'object' && Array.isArray(opts.values);
+}
+
+public getNSValues(index: number): QuestionOption[] {
+  const opts: any = this.questions[index]?.options;
+  if (this.isNumberSelectorOptions(opts)) return opts.values ?? [];
+  // compatibilidad: si ya viene como QuestionOption[]
+  if (Array.isArray(opts) && opts.every(o => o && typeof o === 'object' && 'text' in o && 'score' in o && 'color' in o)) {
+    return opts as QuestionOption[];
+  }
+  return [];
+}
+
+public hasIcons(index: number): boolean {
+  const opts: any = this.questions[index]?.options;
+  return this.isNumberSelectorOptions(opts) && !!opts.icons;
+}
+
+public isIconsNormal(index: number): boolean {
+  const opts: any = this.questions[index]?.options;
+  return this.isNumberSelectorOptions(opts) && opts.icons === 'normal';
+}
+
   async saveAnswers() {
      console.log("FLAG this.useSaveProgress: ",this.useSaveProgress);
      console.log("FLAG this.useLocalStorage: ",this.useLocalStorage);
@@ -1026,6 +1053,9 @@ painLocationNumbersBack = [
       }),
       app: "icura"
     };
+
+    // TODO: hacer endpoints programabales desde el cliente 
+    // que use el paquete con inputs al componente 
 
     try {
       let res: any = await firstValueFrom(
@@ -1162,6 +1192,19 @@ type Type =
   | 'scale'
   | 'thermometer';
 type Lang = 'ca' | 'es' | 'en';
+
+
+export interface QuestionOption {
+  text: string;   
+  score: number;  
+  color: string;  
+}
+
+export interface NumberSelectorOptions {
+  icons?: 'normal' | 'invert';
+  values: QuestionOption[];
+}
+
 export type Question =
   | {
       id: string;
@@ -1170,7 +1213,7 @@ export type Question =
       label: Multilang;
       value: string[];
       type: 'pain_location_pati';
-      options: Record<string, Multilang> | null | string | Array<any>;
+      options: Record<string, Multilang> | null | string | Array<any> | QuestionOption[] | NumberSelectorOptions;
       main_tag: string | null;
       escala: string | null;
       caract_form: string | null;
@@ -1191,7 +1234,7 @@ export type Question =
       label: Multilang;
       value: string | number | BloodPreasure | null;
       type: Exclude<Type, 'pain_location_pati'>;
-      options: Record<string, Multilang> | null | string | Array<any>;
+      options: Record<string, Multilang> | null | string | Array<any> | QuestionOption[] | NumberSelectorOptions;
       main_tag: string | null;
       escala: string | null;
       caract_form: string | null;
