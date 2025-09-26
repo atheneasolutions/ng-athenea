@@ -27,8 +27,8 @@ export class FormPage implements OnInit {
   availableDate: Date = new Date();
   answersId: string = 'id';
   useLocalStorage = false;
-  useSaveProgress = true;
-  useBackgroundImage = true;
+  useSaveProgress = false;
+  useBackgroundImage = false;
 
   constructor(
     private router: Router,
@@ -72,6 +72,7 @@ ngOnInit() {
   if (st?.availableDate) this.availableDate =  new Date(st.availableDate)
   if (st?.answersId) this.answersId = st.answersId;
   if (st?.useLocalStorage) this.useLocalStorage = st.useLocalStorage;
+  if (st?.useSaveProgress) this.useSaveProgress = st.useSaveProgress;
   if (st?.questions) this.questions = st.questions;
 }
 

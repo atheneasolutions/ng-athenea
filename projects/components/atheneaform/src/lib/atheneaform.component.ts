@@ -103,6 +103,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   private icon(name: string) { return `${this.assetBase}/${name}`; }
 
   backgroundImageUrl = this.icon('background-tauli.png');
+  saveProgressError = false;
 
   painLocationNumbersFront = [
       { index: 1, code: 'frontDalt' },
@@ -526,6 +527,13 @@ painLocationNumbersBack = [
   }
 
   async ngOnInit() {
+    let userId = (await Preferences.get({ key: "id_user" })).value;
+    if (!userId) {
+      console.error("No se encontró id_user en Preferences");
+    }
+    this.answersId = `${this.id}_${userId}`;
+    console.log("ANSWERS_ID de ngInit(): ", this.answersId);
+
     await this.checkSavedAnswers();
 
     let indexI = 0;
@@ -986,7 +994,7 @@ painLocationNumbersBack = [
 
     let progress = Math.round((answers.length * 100) / possibleAnswers.length);
 
-    if (this.useLocalStorage) {
+    if (this.useLocalStorage && (!this.useSaveProgress || this.useSaveProgress && this.saveProgressError)) {
        Preferences.set({
         key: this.answersId,
         value: JSON.stringify({
@@ -997,6 +1005,11 @@ painLocationNumbersBack = [
     };
 
   if (this.useSaveProgress) {
+    if (this.saveProgressError) {
+      console.warn("Saltando intento de API: flag saveProgressError activo");
+      return null;
+    }
+
     let userId = (await Preferences.get({ key: "id_user" })).value;
     if (!userId) {
       console.error("No se encontró id_user en Preferences");
@@ -1040,8 +1053,7 @@ painLocationNumbersBack = [
         "Error guardando en API, fallback a Preferences:",
         error
       );
-      await Preferences.set(answersToSave);
-      return { localOnly: true };
+      this.saveProgressError = true;
     }
   }
 
@@ -1051,6 +1063,7 @@ painLocationNumbersBack = [
   async checkSavedAnswers() {
     if (!this.useLocalStorage && !this.useSaveProgress) return;
     if (!this.answersId) return;
+    let noGetData = true;
 
     if (this.useSaveProgress) {
       try {
@@ -1061,6 +1074,8 @@ painLocationNumbersBack = [
         );
 
         if (res && res.answers) {
+          this.saveProgressError = false;
+
           res.answers.forEach((answer: any) => {
             const index = this.questions.findIndex(
               (question) => question.id == answer.ID
@@ -1070,14 +1085,21 @@ painLocationNumbersBack = [
               this.lastIndex = index;
             }
           });
+          noGetData = false;
+
+          if (this.useLocalStorage) {
+          await Preferences.remove({ key: this.answersId });
+          console.log("Respuestas locales eliminadas (ya están en la API).");
+        }
           return; 
         }
       } catch (err) {
+        this.saveProgressError = true;
         console.warn("No se pudo recuperar de la API, intento con Preferences:", err);
       }
     }
 
-    if (this.useLocalStorage) {
+    if (noGetData && this.useLocalStorage) {
       let preference = (await Preferences.get({ key: this.answersId })).value;
       if (!preference) return;
 

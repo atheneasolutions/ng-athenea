@@ -20,7 +20,8 @@ export interface AtheneaFormInputs {
   end: any;        
   availableDate: Date;
   answersId: string;
-  useLocalStorage: boolean;        
+  useLocalStorage: boolean;  
+  useSaveProgress: boolean;      
 }
 
 
@@ -74,6 +75,7 @@ export class ListAtheneaFormsPage implements OnInit {
   availableDate: Date = new Date();
   answersId:string = "id"
   useLocalStorage = true;
+  useSaveProgress = true;
 
   async ngOnInit() {
     this.loading = true;
@@ -135,7 +137,8 @@ export class ListAtheneaFormsPage implements OnInit {
       const end = this.end;
       const availableDate =  this.availableDate;
       const answersId =  this.answersId;
-      const useLocalStorage = true;                
+      const useLocalStorage = this.useLocalStorage;   
+      const useSaveProgress = this.useSaveProgress;               
 
       const questions = allQuestionsArrays[index];
 
@@ -150,6 +153,7 @@ export class ListAtheneaFormsPage implements OnInit {
         availableDate,
         answersId,
         useLocalStorage,
+        useSaveProgress,
       };
     });
   }
@@ -171,6 +175,7 @@ export class ListAtheneaFormsPage implements OnInit {
             availableDate: form.availableDate,
             answersId: form.answersId,
             useLocalStorage: form.useLocalStorage,
+            useSaveProgress: form.useSaveProgress,
             questions: form.questions,
             enviamentId: this.enviamentId,
           }
