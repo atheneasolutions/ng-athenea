@@ -74,7 +74,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @Input() answersId!: string;
   @Input() id!: string;
   @Input() useLocalStorage: boolean = true;
-  @Input() useSaveProgress: boolean = true;
+  @Input() useSaveProgress: SaveProgressOptions | null = null;
   @Input() useBackgroundImage: boolean = false;
   @Input() assetBase = 'assets/swiper-form'; // valor por defecto que coincide con el glob
 
@@ -531,8 +531,9 @@ painLocationNumbersBack = [
     if (!userId) {
       console.error("No se encontró id_user en Preferences");
     }
-    this.answersId = `${this.id}_${userId}`;
-    console.log("ANSWERS_ID de ngInit(): ", this.answersId);
+
+    console.log("ID del form:", this.id);
+    this.answersId = this.id;
 
     await this.checkSavedAnswers();
 
@@ -1000,7 +1001,7 @@ public isIconsNormal(index: number): boolean {
      console.log("FLAG this.useSaveProgress: ",this.useSaveProgress);
      console.log("FLAG this.useLocalStorage: ",this.useLocalStorage);
 
-    if (!this.useLocalStorage && !this.useSaveProgress) {
+    if (!this.useLocalStorage && !this.useSaveProgress?.enabled) {
       return;
     };
 
@@ -1020,7 +1021,7 @@ public isIconsNormal(index: number): boolean {
 
     let progress = Math.round((answers.length * 100) / possibleAnswers.length);
 
-    if (this.useLocalStorage && (!this.useSaveProgress || this.useSaveProgress && this.saveProgressError)) {
+    if (this.useLocalStorage && (!this.useSaveProgress?.enabled || this.useSaveProgress?.enabled && this.saveProgressError)) {
        Preferences.set({
         key: this.answersId,
         value: JSON.stringify({
@@ -1030,7 +1031,7 @@ public isIconsNormal(index: number): boolean {
       });
     };
 
-  if (this.useSaveProgress) {
+  if (this.useSaveProgress?.enabled) {
     if (this.saveProgressError) {
       console.warn("Saltando intento de API: flag saveProgressError activo");
       return null;
@@ -1053,13 +1054,12 @@ public isIconsNormal(index: number): boolean {
       app: "icura"
     };
 
-    // TODO: hacer endpoints programabales desde el cliente 
-    // que use el paquete con inputs al componente 
+  
 
     try {
       let res: any = await firstValueFrom(
       this.http.put(
-        "http://localhost:3000/athenea-form/progress/icura",
+        this.useSaveProgress.saveEndpoint,
         answersToSave
       ));
 
@@ -1069,7 +1069,7 @@ public isIconsNormal(index: number): boolean {
         console.log("No se actualizó, intentando crear con POST...");
         res = await firstValueFrom(
           this.http.post(
-            "http://localhost:3000/athenea-form/progress/icura",
+            this.useSaveProgress.saveEndpoint,
             answersToSave
           )
         );
@@ -1083,6 +1083,7 @@ public isIconsNormal(index: number): boolean {
         error
       );
       this.saveProgressError = true;
+ 
     }
   }
 
@@ -1090,15 +1091,23 @@ public isIconsNormal(index: number): boolean {
 }
 
   async checkSavedAnswers() {
-    if (!this.useLocalStorage && !this.useSaveProgress) return;
+    if (!this.useLocalStorage && !this.useSaveProgress?.enabled) return;
     if (!this.answersId) return;
     let noGetData = true;
 
-    if (this.useSaveProgress) {
+    let userId = (await Preferences.get({ key: "id_user" })).value;
+    if (!userId) {
+      console.error("No se encontró id_user en Preferences");
+      return ;
+    }
+
+    this.answersId = `${this.id}_${userId}`;
+
+    if (this.useSaveProgress?.enabled) {
       try {
         const res: any = await firstValueFrom(
           this.http.get(
-            `http://localhost:3000/athenea-form/progress/icura/${this.answersId}`
+            `${this.useSaveProgress.getEndpoint}/${this.answersId}`
           )
         );
 
@@ -1203,7 +1212,11 @@ export interface NumberSelectorOptions {
   icons?: 'normal' | 'invert';
   values: QuestionOption[];
 }
-
+export type SaveProgressOptions = {
+  saveEndpoint: string,
+  getEndpoint: string,
+  enabled: boolean
+}
 export type Question =
   | {
       id: string;

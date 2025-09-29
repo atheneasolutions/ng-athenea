@@ -8,6 +8,8 @@ import { FormService } from 'src/services/forms.service';
 import { ActivatedRoute } from '@angular/router';
 import { Enviament } from 'src/app/interfaces/enviament.interface';
 import { AthForm } from 'src/app/interfaces/athenea-form.interface';
+import { environment } from 'src/environments/environment';
+
 
 
 export interface AtheneaFormInputs {
@@ -21,7 +23,7 @@ export interface AtheneaFormInputs {
   availableDate: Date;
   answersId: string;
   useLocalStorage: boolean;  
-  useSaveProgress: boolean;      
+  useSaveProgress: SaveProgressOptions;      
 }
 
 
@@ -30,6 +32,12 @@ interface Preview {
   subtitle: string | null;
   desc_html: string | null;
   button: string;
+}
+
+interface SaveProgressOptions {
+  saveEndpoint: string,
+  getEndpoint: string,
+  enabled: boolean
 }
 
 @Component({
@@ -75,7 +83,12 @@ export class ListAtheneaFormsPage implements OnInit {
   availableDate: Date = new Date();
   answersId:string = "id"
   useLocalStorage = true;
-  useSaveProgress = false;
+  // TODO: luego quitar host y añadir variable de entorno ***
+  useSaveProgress:SaveProgressOptions = {
+    saveEndpoint: `${environment.FORMS_ENDPOINT}/progress/icura`,
+    getEndpoint: `${environment.FORMS_ENDPOINT}/progress/icura`,
+    enabled: true
+  };
 
   async ngOnInit() {
     this.loading = true;
