@@ -104,6 +104,11 @@ export class AtheneaformComponent implements AfterViewChecked {
 
   backgroundImageUrl = this.icon('background-tauli.png');
   saveProgressError = false;
+  progressIds = {
+    formId: "",
+    userId: "",
+    enviamentId: ""
+  };
 
   painLocationNumbersFront = [
       { index: 1, code: 'frontDalt' },
@@ -1040,13 +1045,24 @@ public isIconsNormal(index: number): boolean {
     let userId = (await Preferences.get({ key: "id_user" })).value;
     if (!userId) {
       console.error("No se encontró id_user en Preferences");
-      return null;
+      return ;
     }
 
-    this.answersId = `${this.id}_${userId}`;
+     let enviamentId = (await Preferences.get({ key: "id_enviament" })).value;
+    if (!enviamentId) {
+      console.error("No se encontró id_enviament en Preferences");
+      return ;
+    }
+
+    this.progressIds = {
+      formId : this.id,
+      userId,
+      enviamentId
+    }
+
 
     const answersToSave = {
-      key: this.answersId,
+      progressIds: this.progressIds,
       value: JSON.stringify({
         answers,
         progress,
@@ -1100,14 +1116,28 @@ public isIconsNormal(index: number): boolean {
       return ;
     }
 
-    this.answersId = `${this.id}_${userId}`;
+     let enviamentId = (await Preferences.get({ key: "id_enviament" })).value;
+    if (!enviamentId) {
+      console.error("No se encontró id_enviament en Preferences");
+      return ;
+    }
+
+      this.progressIds = {
+      formId: this.id,
+      userId,
+      enviamentId
+    };
 
     if (this.useSaveProgress?.enabled) {
       try {
         const res: any = await firstValueFrom(
-          this.http.get(
-            `${this.useSaveProgress.getEndpoint}/${this.answersId}`
-          )
+          this.http.get(`${this.useSaveProgress.getEndpoint}`, {
+            params: {
+              formId: this.progressIds.formId,
+              userId: this.progressIds.userId,
+              enviamentId: this.progressIds.enviamentId,
+            }
+          })
         );
 
         if (res && res.answers) {
