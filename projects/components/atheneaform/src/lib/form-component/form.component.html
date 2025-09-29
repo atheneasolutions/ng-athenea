@@ -108,10 +108,13 @@
             <span>{{ question.headform }}</span>
           </h2>
 
-          <h3 *ngIf="question.type !== 'info'">
+          <h3 class="q-heading" *ngIf="question.type !== 'info'">
             <span *ngIf="question.tag">
               {{ getTagWithDot(question.tag) }}
               {{ question.label[selectedLang] }}
+            </span>
+            <span class="subtitle" *ngIf="question.subtitle">
+              {{ question.subtitle[selectedLang] }}
             </span>
           </h3>
 

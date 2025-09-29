@@ -150,6 +150,13 @@
     }
   }
 
+  .q-heading {
+  margin: 0 0 8px;           
+  display: flex;
+  flex-direction: column;    
+  align-items: flex-start;    
+  } 
+
   ion-grid {
     margin: 0;
 
@@ -165,6 +172,18 @@
     --background: initial;
   }
 }
+
+.subtitle {
+    font-size: 15px;
+    color:#4C4C4C;
+    font-weight: 400;
+    margin-left: 2rem;
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      margin-left: 0;
+    }
+  }
 
 .swiper-buttons-container {
   background: var(--background);
@@ -427,10 +446,10 @@ ion-range::part(pin) {
 }
 
 .sin {
-  background-color: #e3ffc1;
+  background-color: #e6ffe3;
 }
 .muyleve {
-  background-color: #e6ffe3;
+  background-color: #e3ffc1;
 }
 .muyleve2 {
   background-color: #e0ff9c;
@@ -492,10 +511,10 @@ ion-range::part(pin) {
     }
   }
   .sin {
-    background-color: #e3ffc1;
+    background-color: #e6ffe3;
   }
   .muyleve {
-    background-color: #e6ffe3;
+    background-color: #e3ffc1;
   }
   .muyleve2 {
     background-color: #e0ff9c;

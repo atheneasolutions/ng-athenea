@@ -527,7 +527,6 @@ painLocationNumbersBack = [
   }
 
   async ngOnInit() {
-    // TODO: cambiar esto a un buen id (el de la url real)
     let userId = (await Preferences.get({ key: "id_user" })).value;
     if (!userId) {
       console.error("No se encontró id_user en Preferences");
@@ -1211,6 +1210,7 @@ export type Question =
       tag: string | null;
       order: number | string;
       label: Multilang;
+      subtitle: Multilang | null;
       value: string[];
       type: 'pain_location_pati';
       options: Record<string, Multilang> | null | string | Array<any> | QuestionOption[] | NumberSelectorOptions;
@@ -1232,6 +1232,7 @@ export type Question =
       tag: string | null;
       order: number | string;
       label: Multilang;
+      subtitle: Multilang | null;
       value: string | number | BloodPreasure | null;
       type: Exclude<Type, 'pain_location_pati'>;
       options: Record<string, Multilang> | null | string | Array<any> | QuestionOption[] | NumberSelectorOptions;
