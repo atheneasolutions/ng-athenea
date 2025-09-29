@@ -1089,7 +1089,6 @@ public isIconsNormal(index: number): boolean {
 
   return null;
 }
-
   async checkSavedAnswers() {
     if (!this.useLocalStorage && !this.useSaveProgress?.enabled) return;
     if (!this.answersId) return;
@@ -1112,7 +1111,6 @@ public isIconsNormal(index: number): boolean {
         );
 
         if (res && res.answers) {
-          this.saveProgressError = false;
 
           res.answers.forEach((answer: any) => {
             const index = this.questions.findIndex(
@@ -1132,7 +1130,6 @@ public isIconsNormal(index: number): boolean {
           return; 
         }
       } catch (err) {
-        this.saveProgressError = true;
         console.warn("No se pudo recuperar de la API, intento con Preferences:", err);
       }
     }
