@@ -505,7 +505,7 @@
         type="button"
         *ngFor="let opt of getNSValues(index)"
         class="card-pain-button"
-        (click)="inputChange(index, opt.score, false)"
+        (click)="inputChange(index, opt.score, true)"
         [class.selected]="questions[index].value === opt.score"
         [style.backgroundColor]="opt.color"
         [disabled]="loading || !canAnswer"
