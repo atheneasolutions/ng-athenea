@@ -814,13 +814,13 @@ ion-item .input-wrapper {
  .num-grid:has(.card-number-button) {
     margin-top: 2rem;
   }
-
-  .pain-container {
-    row-gap: 0;
-    .card-pain-icon {
+  .card-pain-icon {
       visibility: hidden;
       display: none;
     }
+
+  .pain-container {
+    row-gap: 0;
   }
   .pain-container:last-child {
     margin-bottom: 0;
