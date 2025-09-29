@@ -12,11 +12,11 @@
           <ion-icon name="reader-outline" slot="start"></ion-icon>
           <ion-label>{{ form.title }}</ion-label>
 
-          <span *ngIf="hasResponses(form.id!)" style="color: green;">
+          <span *ngIf="hasResponses(form._id!)" style="color: green;">
             {{ 'list_forms.completed' | translate }}
           </span>
 
-          <span *ngIf="!hasResponses(form.id!)" style="color: orange;">
+          <span *ngIf="!hasResponses(form._id!)" style="color: orange;">
             {{ 'list_forms.pending' | translate }} 
           </span>
         </ion-item>

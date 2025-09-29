@@ -1,7 +1,7 @@
 import { AthQuestion } from "./ath-question.interface";
 
 export interface AthForm {
-    id?: string;
+    _id?: string;
     app?: string,
     formId?: string;
     created_at?: Date;

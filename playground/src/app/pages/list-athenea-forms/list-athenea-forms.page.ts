@@ -11,7 +11,7 @@ import { AthForm } from 'src/app/interfaces/athenea-form.interface';
 
 
 export interface AtheneaFormInputs {
-  id: string;
+  _id: string;
   questions: any[];                
   title: string;                   
   lang: any;                     
@@ -75,7 +75,7 @@ export class ListAtheneaFormsPage implements OnInit {
   availableDate: Date = new Date();
   answersId:string = "id"
   useLocalStorage = true;
-  useSaveProgress = true;
+  useSaveProgress = false;
 
   async ngOnInit() {
     this.loading = true;
@@ -123,13 +123,12 @@ export class ListAtheneaFormsPage implements OnInit {
 
   private prepareFormsFromLocalJson(forms: AthForm[]) {
     const allQuestionsArrays: any[][] = forms.map((form) => {
-      console.log("Preguntas : ",form.questions);
       const qs = form?.questions ?? [];
       return Array.isArray(qs) ? qs : [];
     });
 
     this.finalForms = forms.map((form, index): AtheneaFormInputs => {
-      const id = form?.id ?? `form_${index + 1}`;
+      const _id = form?._id ?? `form_${index + 1}`;
       const title = form?.title ?? 'Example title';        
       const lang = 'ca';                           
       const preview = this.preview;
@@ -143,7 +142,7 @@ export class ListAtheneaFormsPage implements OnInit {
       const questions = allQuestionsArrays[index];
 
       return {
-        id,
+        _id,
         questions,
         title,
         lang,
@@ -161,8 +160,9 @@ export class ListAtheneaFormsPage implements OnInit {
  async openForm(form: AtheneaFormInputs) {
   // TODO: descomentar el condicional
   //if (!this.hasResponses(form.id!)) {
+
       await this.navCtrl.navigateForward(
-        ['list-athenea-forms', 'view-forms', form.id],
+        ['list-athenea-forms', 'view-forms', form._id],
         {
           queryParams: {
             title: form.title,
@@ -215,16 +215,6 @@ export class ListAtheneaFormsPage implements OnInit {
   closeForm() {
     // this.activeForm = null;
   }
-
-  // async send(payload: any) {
-  //   if (!this.id) return;
-  //   try {
-  //    // llamada a service
-  //     this.closeForm();
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }
 
   showError(message: string, navBack: boolean = false) {
     this.alertCtrl.create({
