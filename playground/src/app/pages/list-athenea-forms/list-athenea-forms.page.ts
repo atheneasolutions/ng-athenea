@@ -83,7 +83,6 @@ export class ListAtheneaFormsPage implements OnInit {
   availableDate: Date = new Date();
   answersId:string = "id"
   useLocalStorage = true;
-  // TODO: luego quitar host y añadir variable de entorno ***
   useSaveProgress:SaveProgressOptions = {
     saveEndpoint: `${environment.FORMS_ENDPOINT}/progress/icura`,
     getEndpoint: `${environment.FORMS_ENDPOINT}/progress/icura`,

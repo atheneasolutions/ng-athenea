@@ -76,10 +76,6 @@ export class HomePage implements OnInit{
             role: this.role
           }
 
-          // formato de id param en home -->  enviamentId:indexRecordatori:password:role
-          // 6718068766e52a80a20a2597:1:$2y$13$/vjNN24vipU9fP8rIXC.AOaso6goX6k.kZdXN3ZgQlg3iuZLy3IFi:patient
-         //test id:  68ac3d92db2dc95fd25bbb0a:1:$2y$13$%2FvjNN24vipU9fP8rIXC.AOaso6goX6k.kZdXN3ZgQlg3iuZLy3IFi:patient 
-
           const response = await this.enviamentService.checkEnviament(this.data);
           this.enviament =  response['data']['enviament'];
           this.role =  response['data']['role'];
