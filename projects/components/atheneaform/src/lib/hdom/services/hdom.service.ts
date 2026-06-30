@@ -1,7 +1,6 @@
 
 import { BaseConstants } from './BaseConstants';
 
-import { Preferences } from '@capacitor/preferences';
 import { Injectable } from '@angular/core';
 
 

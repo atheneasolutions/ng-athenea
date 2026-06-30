@@ -1,0 +1,46 @@
+/*SWIPER*/
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+
+.form-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-wrapper{
+  width: 75%;
+  height: 75%;
+  overflow: hidden;
+}
+.question-container {
+  scrollbar-width: none;
+}
+
+.form-wrapper{
+  width: 75%;
+  height: 75%;
+  overflow: hidden;
+  box-shadow: 0px 10px 16px rgba(0, 0, 0, .15);
+  border-radius: 20px;
+}
+
+atheneaform {
+  .swiper-container {
+    width: 100%;
+  }
+}
+
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+}

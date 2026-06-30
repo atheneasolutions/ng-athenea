@@ -1,0 +1,20 @@
+<ion-content>
+  <section class="form-container">
+    <div class="form-wrapper">
+      <atheneaform
+        [id]="id"
+        [questions]="questions"
+        [title]="title"
+        [lang]="lang"
+        (sendSurvey)="send($event)"
+        [preview]="preview"
+        [canAnswer]="canAnswer"
+        [end]="end"
+        [availableDate]="formDate"
+        [answersId]="answersId"
+        [useLocalStorage]="useLocalStorage"
+      >
+      </atheneaform>
+    </div>
+  </section>
+</ion-content>

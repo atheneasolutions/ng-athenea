@@ -880,24 +880,24 @@ type Type =
   | 'thermometer';
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
-  id: string;
-  tag: string | null;
-  order: number | string;
+  id?: string;
+  tag?: string | null;
+  order?: number | string;
   label: Multilang;
   value: string | number | BloodPreasure | null;
   type: Type;
-  options: Record<string, Multilang> | null | string | Array<any>;
+  options?: Record<string, Multilang> | null | string | Array<any>;
   main_tag: string | null;
-  escala: string | null;
-  caract_form: string | null;
-  optional: boolean;
-  info: Info | null;
-  units: string | null;
-  max_questions: number | null;
-  min_questions: number | null;
-  headform: string | null;
+  escala?: string | null;
+  caract_form?: string | null;
+  optional?: boolean;
+  info?: Info | null;
+  units?: string | null;
+  max_questions?: number | null;
+  min_questions?: number | null;
+  headform?: string | null;
   depends_on: string | null;
-  group_name: string | null;
+  group_name?: string | null;
 }
 
 export interface BloodPreasure {
