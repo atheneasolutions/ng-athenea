@@ -27,15 +27,7 @@
     <ng-container *ngFor="let question of questions; let index = index">
       <ng-template
         swiperSlide
-        *ngIf="
-          question?.depends_on
-            ? !questionValueIsZero(question.depends_on)
-            : question?.main_tag
-            ? question?.type == 'mult'
-              ? false
-              : isMainPositive(question.main_tag)
-            : true
-        "
+        *ngIf="shouldRenderQuestion(question)"
       >
         <div
           class="question-container"
@@ -47,8 +39,8 @@
             <span>{{ question.headform }}</span>
           </h2>
           <h3 *ngIf="question.type !== 'info'">
-            <span *ngIf="question.tag"
-              >{{ getTagWithDot(question.tag) }}
+            <span *ngIf="question.tag">
+              {{ getDisplayTag(question) }} 
               {{ question.label[selectedLang] }}</span
             >
           </h3>
@@ -472,6 +464,17 @@
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"
   ></app-scale-result>
+</ng-template>
+
+
+<ng-template #unit let-index="index">
+  <app-unit-result
+    [canAnswer]="canAnswer"
+    [value]="getString(this.questions[index].value)"
+    [unitType]="getUnitType(this.questions[index].type_unit)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+  ></app-unit-result>
 </ng-template>
 
 <ng-template #txtSelector let-index="index">

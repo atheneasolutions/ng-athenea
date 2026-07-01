@@ -37,6 +37,7 @@ const CONSTANT_TYPES = [
   'scale',
   'thermometer',
   'heart',
+  'unit',
 ];
 
 @Component({
@@ -50,7 +51,7 @@ const CONSTANT_TYPES = [
     HdomComponentsModule,
   ],
   templateUrl: './form-component/form.component.html',
-  styleUrl: './form-component/form.component.scss',
+  styleUrls:[ './form-component/form.component.scss'],
 })
 export class AtheneaformComponent implements AfterViewChecked {
   @Input() questions: Question[] = [];
@@ -84,6 +85,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('scale') scale!: TemplateRef<any>;
   @ViewChild('thermometer') thermometer!: TemplateRef<any>;
   @ViewChild('heart') heart!: TemplateRef<any>;
+  @ViewChild('unit') unit!: TemplateRef<any>;
 
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -328,6 +330,10 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   shouldRenderQuestion(question: Question): boolean {
+    // Si hi ha logica de int_comparator
+    if (question?.int_comparator_question != null && question?.int_comparator_condition != null && question?.int_comparator_value != null){
+      return this.operateIntConditional(question.int_comparator_question, question.int_comparator_condition, question.int_comparator_value);
+    }
     // If there's a dependency, render only if the dependent question's value is not zero.
     if (question?.depends_on) {
       return !this.questionValueIsZero(question.depends_on);
@@ -377,6 +383,14 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     return '';
   }
+
+  getUnitType(type_unit: string | null | undefined): string {
+    if (typeof type_unit === 'string') {
+      return type_unit;
+    }
+    return '';
+  }
+
 
   async ngOnInit() {
     await this.checkSavedAnswers();
@@ -563,6 +577,8 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.thermometer;
       case 'heart':
         return this.heart;
+      case 'unit':
+        return this.unit;
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -579,6 +595,29 @@ export class AtheneaformComponent implements AfterViewChecked {
     }
 
     return false;
+  }
+
+  operateIntConditional(int_comparator_question: string, int_comparator_condition:IntComparatorConditionals, int_comparator_value:number){
+    let question = this.getQuestion(int_comparator_question);
+    let value = question?.value;
+    if (typeof value === "string") {
+      value = parseInt(value, 10);
+    }
+    if (typeof value === "number"){
+      if (int_comparator_condition === "greater_than" && value > int_comparator_value) return true;
+      if (int_comparator_condition === "less_than" && value < int_comparator_value) return true;
+      if (int_comparator_condition === "equal" && value === int_comparator_value) return true;
+    }
+    return false;
+  }
+
+  getDisplayTag(question: Question): string {
+    const visibleQuestions = this.questions.filter(q =>
+      this.shouldRenderQuestion(q) && q.type !== 'info'
+    );
+    const index = visibleQuestions.findIndex(q => q.id === question.id);
+
+    return index >= 0 ? `${index + 1}.` : '';
   }
 
   getQuestion(tag: string) {
@@ -877,7 +916,14 @@ type Type =
   | 'blood_pressure'
   | 'heart_rate'
   | 'scale'
-  | 'thermometer';
+  | 'thermometer'
+  | 'unit';
+
+type IntComparatorConditionals =
+  | 'greater_than'
+  | 'less_than'
+  | 'equal';
+
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id?: string;
@@ -898,6 +944,10 @@ export interface Question {
   headform?: string | null;
   depends_on: string | null;
   group_name?: string | null;
+  int_comparator_question?: string | null;
+  int_comparator_condition?: IntComparatorConditionals |null;
+  int_comparator_value?: number | null;
+  type_unit?: string| null;
 }
 
 export interface BloodPreasure {
