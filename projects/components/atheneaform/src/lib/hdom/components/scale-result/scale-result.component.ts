@@ -22,16 +22,40 @@ import { InputValidationService } from '../../services/input-validation.service'
 export class ScaleResultComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.temp_value = this.value;
-    this.temp_value = this.value;
-    this.checkValid();
+
+    queueMicrotask(() => {
+      this.checkValid();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log("CHANGE");
+
     if (changes['value']) {
-      this.temp_value = changes['value'].currentValue;
-      this.checkValid();
+      // this.temp_value = changes['value'].currentValue;
+
+      queueMicrotask(() => {
+        this.checkValid();
+      });
     }
   }
+  //   ngOnInit(): void {
+  //   this.temp_value = this.value;
+
+  //   setTimeout(() => {
+  //     this.checkValid();
+  //   });
+  // }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['value']) {
+  //     this.temp_value = changes['value'].currentValue;
+
+  //     setTimeout(() => {
+  //       this.checkValid();
+  //     });
+  //   }
+  // }
 
   @Output() inputValid = new EventEmitter<{
     value: string;
@@ -52,14 +76,21 @@ export class ScaleResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    this.check = this.validator.isWeight(this.temp_value);
-    if (this.check.valid) {
-      this.value = this.temp_value;
-      this.inputValid.emit({ value: this.value, valid: true });
-    } else {
-      this.inputValid.emit({ value: '', valid: false });
-    }
+  console.log('checkValid');
+  console.log('temp_value:', this.temp_value);
+  console.log('value:', this.value);
+
+  this.check = this.validator.isWeight(this.temp_value);
+
+  console.log('resultado:', this.check);
+
+  if (this.check.valid) {
+    this.value = this.temp_value;
+    this.inputValid.emit({ value: this.value, valid: true });
+  } else {
+    this.inputValid.emit({ value: '', valid: false });
   }
+}
 }
 
 type Lang = 'ca' | 'es' | 'en';

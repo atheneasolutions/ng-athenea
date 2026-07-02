@@ -284,17 +284,42 @@ export class AtheneaformComponent implements AfterViewChecked {
   isConstantInputValid: boolean = false;
 
   onConstantInputValidChange(
-    index: number,
-    { value, valid }: { value: string; valid: boolean }
-  ) {
-    this.isConstantInputValid = valid;
-    if (this.isConstantInputValid) {
-      this.inputChange(index, value, false);
-      this.showContinueButton();
-    } else {
-      this.hideContinueButton();
-    }
+  index: number,
+  { value, valid }: { value: string; valid: boolean }
+) {
+    console.log("change recibe: ", index, value, valid );
+  this.isConstantInputValid = valid;
+  console.log("------is valid",this.isConstantInputValid );
+
+  if (!valid) {
+    this.hideContinueButton();
+    return;
   }
+
+  queueMicrotask(() => {
+    this.inputChange(index, value, false);
+    this.showContinueButton();
+  });
+}
+
+
+
+// onConstantInputValidChange(
+//   index: number,
+//   { value, valid }: { value: string; valid: boolean }
+// ) {
+
+//   setTimeout(() => {
+//     this.isConstantInputValid = valid;
+
+//     if (valid) {
+//       this.inputChange(index, value, false);
+//       this.showContinueButton();
+//     } else {
+//       this.hideContinueButton();
+//     }
+//   });
+// }
 
   getTagWithDot(tag: string): string {
     if (!tag.includes('.')) {
@@ -306,6 +331,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   constructor(public validator: InputValidationService) {}
 
   onBloodPressureInputValidChange(
+    
     index: number,
     { BloodPreasure, valid }: { BloodPreasure: BloodPreasure; valid: boolean }
   ) {

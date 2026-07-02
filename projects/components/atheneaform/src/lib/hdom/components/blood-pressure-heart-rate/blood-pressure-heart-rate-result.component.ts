@@ -22,16 +22,17 @@ import { InputValidationService } from '../../services/input-validation.service'
 export class BloodPressureHeartRateResultComponent
   implements OnInit, OnChanges
 {
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.temp_sys_value = this.value.sys_value;
     this.temp_bpm_value = this.value.bpm_value;
     this.temp_dia_value = this.value.dia_value;
-    this.checkValid();
+
+    queueMicrotask(() => {
+      this.checkValid();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //    if (!this.initialized && changes['value'] && changes['value'].currentValue) {
-
     if (changes['value']) {
       const newValue = changes['value'].currentValue;
       this.temp_sys_value = newValue.sys_value || this.temp_sys_value;

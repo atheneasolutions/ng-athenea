@@ -20,15 +20,21 @@ import { InputValidationService } from '../../services/input-validation.service'
   ],
 })
 export class HeartRateResultComponent implements OnInit, OnChanges {
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.temp_value = this.value;
-    this.checkValid();
+
+    queueMicrotask(() => {
+      this.checkValid();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) {
       this.temp_value = changes['value'].currentValue;
-      this.checkValid();
+
+      queueMicrotask(() => {
+        this.checkValid();
+      });
     }
   }
 

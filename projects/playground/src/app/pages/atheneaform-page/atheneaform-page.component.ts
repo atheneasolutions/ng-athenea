@@ -67,7 +67,8 @@ export class AtheneaformPageComponent {
         int_comparator_question: "PES_ACT_PA",
         int_comparator_condition: "greater_than",
         int_comparator_value: 200,
-        type_unit: "cm"
+        type_unit: "cm",
+        optional: true
     },
     {
         id: "SATISF_CAL",
