@@ -281,45 +281,22 @@ export class AtheneaformComponent implements AfterViewChecked {
     },
   ];
 
-  isConstantInputValid: boolean = false;
+  constantInputValidity: Record<number, boolean> = {};
 
   onConstantInputValidChange(
-  index: number,
-  { value, valid }: { value: string; valid: boolean }
-) {
-    console.log("change recibe: ", index, value, valid );
-  this.isConstantInputValid = valid;
-  console.log("------is valid",this.isConstantInputValid );
+    index: number,
+    { value, valid }: { value: string; valid: boolean }
+  ) {
+    this.constantInputValidity[index] = valid;
 
-  if (!valid) {
-    this.hideContinueButton();
-    return;
-  }
+    if (!valid) {
+      this.hideContinueButton();
+      return;
+    }
 
-  queueMicrotask(() => {
     this.inputChange(index, value, false);
     this.showContinueButton();
-  });
-}
-
-
-
-// onConstantInputValidChange(
-//   index: number,
-//   { value, valid }: { value: string; valid: boolean }
-// ) {
-
-//   setTimeout(() => {
-//     this.isConstantInputValid = valid;
-
-//     if (valid) {
-//       this.inputChange(index, value, false);
-//       this.showContinueButton();
-//     } else {
-//       this.hideContinueButton();
-//     }
-//   });
-// }
+  }
 
   getTagWithDot(tag: string): string {
     if (!tag.includes('.')) {
@@ -331,17 +308,18 @@ export class AtheneaformComponent implements AfterViewChecked {
   constructor(public validator: InputValidationService) {}
 
   onBloodPressureInputValidChange(
-    
     index: number,
     { BloodPreasure, valid }: { BloodPreasure: BloodPreasure; valid: boolean }
   ) {
-    this.isConstantInputValid = valid;
-    if (this.isConstantInputValid) {
-      this.inputChange(index, BloodPreasure, false);
-      this.showContinueButton();
-    } else {
+    this.constantInputValidity[index] = valid;
+
+    if (!valid) {
       this.hideContinueButton();
+      return;
     }
+
+    this.inputChange(index, BloodPreasure, false);
+    this.showContinueButton();
   }
 
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
@@ -551,19 +529,26 @@ export class AtheneaformComponent implements AfterViewChecked {
   formHasErrors(slide = false): Boolean {
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
+      if (!this.shouldRenderQuestion(elem)) continue;
       if (elem.optional) continue;
-      if (elem.depends_on && this.questionValueIsZero(elem.depends_on))
-        continue;
       if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
-            if (slide) this.slideTo(index);
+            if (slide) this.slideToQuestionIndex(index);
             return true;
           }
         } else {
-          if (slide) this.slideTo(index);
+          if (slide) this.slideToQuestionIndex(index);
           return true;
         }
+      }
+
+      if (
+        CONSTANT_TYPES.includes(elem.type) &&
+        this.constantInputValidity[index] === false
+      ) {
+        if (slide) this.slideToQuestionIndex(index);
+        return true;
       }
     }
     return false;
@@ -624,16 +609,20 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   operateIntConditional(int_comparator_question: string, int_comparator_condition:IntComparatorConditionals, int_comparator_value:number){
-    let question = this.getQuestion(int_comparator_question);
-    let value = question?.value;
-    if (typeof value === "string") {
-      value = parseInt(value, 10);
-    }
-    if (typeof value === "number"){
-      if (int_comparator_condition === "greater_than" && value > int_comparator_value) return true;
-      if (int_comparator_condition === "less_than" && value < int_comparator_value) return true;
-      if (int_comparator_condition === "equal" && value === int_comparator_value) return true;
-    }
+    const question = this.getQuestion(int_comparator_question);
+    const rawValue = question?.value;
+
+    const value =
+      typeof rawValue === 'number'
+        ? rawValue
+        : Number(String(rawValue).replace(',', '.'));
+
+    if (!Number.isFinite(value)) return false;
+
+    if (int_comparator_condition === "greater_than" && value > int_comparator_value) return true;
+    if (int_comparator_condition === "less_than" && value < int_comparator_value) return true;
+    if (int_comparator_condition === "equal" && value === int_comparator_value) return true;
+
     return false;
   }
 
@@ -711,6 +700,17 @@ export class AtheneaformComponent implements AfterViewChecked {
     this.swiper.swiperRef.slideTo(this.preview ? index + 1 : index, speed);
   }
 
+  slideToQuestionIndex(questionIndex: number, speed: number = 100) {
+    const visibleSlideIndex = this.visibleQuestionIndices.indexOf(questionIndex);
+
+    if (visibleSlideIndex === -1) return;
+
+    this.swiper.swiperRef.slideTo(
+      this.preview ? visibleSlideIndex + 1 : visibleSlideIndex,
+      speed
+    );
+  }
+
   onSlideChange(e: any) {
     this.slideIndex = e[0]?.activeIndex;
   }
@@ -726,35 +726,60 @@ export class AtheneaformComponent implements AfterViewChecked {
     //Si final swiper no continua
     if (this.swiper?.swiperRef.isEnd) return false;
     if (!this.canAnswer) return true;
-    //Si pregunta contestada pot continuar, sinó no
-    let question =
-      this.questions[this.preview ? this.slideIndex - 1 : this.slideIndex];
-    // Get the visible questions mapping.
-    const visibleIndices = this.visibleQuestionIndices;
+    if (this.preview && this.slideIndex == 0) return true;
 
-    // Adjust the index if you're using a preview slide.
+    const current = this.getCurrentVisibleQuestion();
+
+    if (!current) return false;
+
+    const { index, question } = current;
+
+    if (question.type == 'csi_multiple')
+      return this.multValue(question.id);
+
+    if (CONSTANT_TYPES.includes(question.type)) {
+      if (question.optional && (question.value == null || question.value === '')) {
+        return true;
+      }
+
+      return (
+        question.value !== null &&
+        question.value !== '' &&
+        this.constantInputValidity[index] === true
+      );
+    }
+
+    if (
+      question.optional ||
+      (question.value != null && question.value != '')
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private getCurrentVisibleQuestion():
+    | { index: number; question: Question }
+    | null {
+    const visibleIndices = this.visibleQuestionIndices;
     const adjustedSlideIndex = this.preview
       ? this.slideIndex - 1
       : this.slideIndex;
 
-    // Make sure we have a valid mapping.
-    if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
-      const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
-      question = this.questions[actualQuestionIndex];
+    if (
+      adjustedSlideIndex < 0 ||
+      adjustedSlideIndex >= visibleIndices.length
+    ) {
+      return null;
     }
-    if (this.preview && this.slideIndex == 0) return true;
-    else if (CONSTANT_TYPES.includes(question.type)) {
-      if (question.value !== '' && question.value !== null) {
-        return this.isConstantInputValid;
-      } else return false;
-    } else if (
-      question.optional ||
-      (question.value != null && question.value != '')
-    )
-      return true;
-    else if (question.type == 'csi_multiple')
-      return this.multValue(question.id);
-    return false;
+
+    const questionIndex = visibleIndices[adjustedSlideIndex];
+
+    return {
+      index: questionIndex,
+      question: this.questions[questionIndex],
+    };
   }
 
   inputChange(
@@ -764,7 +789,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     valNul: boolean = false
   ) {
     //Assignem valor
-    if (e && !valNul) this.questions[index].value = e;
+    if (e !== null && e !== undefined && !valNul) this.questions[index].value = e;
     else if (valNul) {
       this.questions[index].value = null;
       this.hideContinueButton();
