@@ -47,6 +47,8 @@ export class UnitResultComponent implements OnInit, OnChanges {
   // Value que tindra la questio
   @Input() value: string = '';
   @Input() unitType: string = '';
+  @Input() unitMax: number = 100000;
+  @Input() unitMin: number = 0;
   // Value que sortira en el display en cas que possi un valor erroni per aixi no trencar
   temp_value: string = '';
 
@@ -58,7 +60,7 @@ export class UnitResultComponent implements OnInit, OnChanges {
   ) {}
 
   checkValid() {
-    this.check = this.validator.isWeight(this.temp_value);
+    this.check = this.validator.isUnit(this.temp_value, this.unitMin, this.unitMax);
     if (this.check.valid) {
       this.value = this.temp_value;
       this.inputValid.emit({ value: this.value, valid: true });

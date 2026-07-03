@@ -195,4 +195,21 @@ export class InputValidationService {
     if (val < 30) return { valid: false, error: 'invalid_range' };
     return { valid: true };
   }
+
+
+  /**
+   * Funció per validar si el valor de les unitats és correcte
+   *
+   * @param val Valor a validar
+   * @param min Valor minim
+   * @param max Valor maxim
+   * @returns boolean
+   */
+  isUnit(val: any, min: number, max: number) {
+    let number = this.isInteger(val, false);
+    if (!number) return { valid: false, error: 'not_number' };
+    if (val > max) return { valid: false, error: 'invalid_range' };
+    if (val < min) return { valid: false, error: 'invalid_range' };
+    return { valid: true };
+  }
 }

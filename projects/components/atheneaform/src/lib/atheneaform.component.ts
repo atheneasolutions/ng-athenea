@@ -388,11 +388,24 @@ export class AtheneaformComponent implements AfterViewChecked {
     return '';
   }
 
-  getUnitType(type_unit: string | null | undefined): string {
-    if (typeof type_unit === 'string') {
-      return type_unit;
+  getUnitType(unit_type: string | null | undefined): string {
+    if (typeof unit_type === 'string') {
+      return unit_type;
     }
     return '';
+  }
+
+    getUnitMin(unit_min: number | null | undefined): number {
+    if (typeof unit_min === 'number') {
+      return unit_min;
+    }
+    return 0;
+  }
+    getUnitMax(unit_max: number | null | undefined): number {
+    if (typeof unit_max === 'number') {
+      return unit_max;
+    }
+    return 100000;
   }
 
 
@@ -998,7 +1011,9 @@ export interface Question {
   int_comparator_question?: string | null;
   int_comparator_condition?: IntComparatorConditionals |null;
   int_comparator_value?: number | null;
-  type_unit?: string| null;
+  unit_type?: string| null;
+  unit_min?: number | null;
+  unit_max?: number | null;
 }
 
 export interface BloodPreasure {

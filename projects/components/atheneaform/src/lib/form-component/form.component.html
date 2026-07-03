@@ -471,7 +471,9 @@
   <app-unit-result
     [canAnswer]="canAnswer"
     [value]="getString(this.questions[index].value)"
-    [unitType]="getUnitType(this.questions[index].type_unit)"
+    [unitType]="getUnitType(this.questions[index].unit_type)"
+    [unitMin]="getUnitMin(this.questions[index].unit_min)"
+    [unitMax]="getUnitMax(this.questions[index].unit_max)"
     [selectedLang]="selectedLang"
     (inputValid)="onConstantInputValidChange(index, $any($event))"
   ></app-unit-result>

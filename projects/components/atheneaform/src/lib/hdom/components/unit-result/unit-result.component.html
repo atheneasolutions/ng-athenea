@@ -29,6 +29,13 @@
         dispositivo és incorrecta. Tiene que ser {{unitType}} } @case ('en') { The unit
         received from the device is incorrect. It should be {{unitType}} } }
       </p>
+      <p *ngIf="check?.error !== 'invalid_unit'">
+        <!-- FORA DE MIN-MAX -->
+        @switch (selectedLang) { @case ('ca') { El valor ha de ser numèric enter
+        entre {{unitMin}} i {{unitMax}} } @case ('es') { El valor tiene que ser un número entero
+        entre {{unitMin}} y {{unitMax}} } @case ('en') { The value must be an integer between {{unitMin}} 
+        and {{unitMax}} } }
+      </p>
     </div>
   </div>
 </div>
