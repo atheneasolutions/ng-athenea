@@ -20,20 +20,27 @@ import { InputValidationService } from '../../services/input-validation.service'
   ],
 })
 export class BloodPressureResultComponent implements OnInit, OnChanges {
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.temp_sys_value = this.value.sys_value;
-    this.temp_bpm_value = this.value.bpm_value;
     this.temp_dia_value = this.value.dia_value;
-    this.checkValid();
+
+    queueMicrotask(() => {
+      this.checkValid();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['value']) {
-      this.value = changes['value'].currentValue;
+      const newValue = changes['value'].currentValue;
+      this.temp_sys_value = newValue.sys_value || this.temp_sys_value;
+      this.temp_dia_value = newValue.dia_value || this.temp_dia_value;
     }
   }
 
-  @Output() inputValid = new EventEmitter<BloodPreasure>(); // Language
+  @Output() inputValid = new EventEmitter<{
+    BloodPreasure: BloodPreasure;
+    valid: boolean;
+  }>(); // Language
   @Input() selectedLang: Lang = 'ca';
   @Input() canAnswer: boolean = true;
 
@@ -41,12 +48,10 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
   @Input() value: BloodPreasure = {
     sys_value: '',
     dia_value: '',
-    bpm_value: '',
   };
   // Value que sortira en el display en cas que possi un valor erroni per aixi no trencar
   temp_sys_value: string = '';
   temp_dia_value: string = '';
-  temp_bpm_value: string = '';
 
   checkSystolic: any = {};
   checkDiastolic: any = {};
@@ -70,17 +75,16 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
       this.checkDiastolic = res.checkDiastolic;
     }
 
-    if (this.temp_bpm_value !== null && this.temp_bpm_value !== '') {
-      this.checkBpms = this.validator.isHeartRate(this.temp_bpm_value);
-    }
-
-    this.value = {
+    const updatedValue: BloodPreasure = {
       sys_value: this.temp_sys_value,
       dia_value: this.temp_dia_value,
-      bpm_value: this.temp_bpm_value,
     };
 
-    this.inputValid.emit(this.value);
+    const valid =
+      this.checkSystolic.valid &&
+      this.checkDiastolic.valid;
+
+    this.inputValid.emit({ BloodPreasure: updatedValue, valid: valid });
   }
 }
 
@@ -89,5 +93,4 @@ type Lang = 'ca' | 'es' | 'en';
 export interface BloodPreasure {
   sys_value: string;
   dia_value: string;
-  bpm_value: string;
 }

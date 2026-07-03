@@ -36,52 +36,43 @@ export class AtheneaformPageComponent {
 
   questions: Question[] = [
     {
-        id: "SALUD_GEN",
-        escala: "ES_SALUD",
-        caract_form: "SALU_P",
-        tag: "1",
-        order: 1,
+        id: "PES_ACT_PA",
+        tag: "0",
+        order: 0,
         label: {
-            ca: "En general, avui en dia la seva salut es...",
+            ca: "Pes es",
             es: "En general, hoy dia que su salud es...?",
             en: "In general, would you say your health today is ...?"
         },
         value: null,
-      type: "select",
+      type: "scale",
       depends_on: null,
       main_tag: null,
-        options: {
-            "1": {
-                ca: "Excel·lent",
-                es: "Excelente",
-                en: "Excellent"
-            },
-            "2": {
-                ca: "Bona",
-                es: "Buena",
-                en: "Good"
-            },
-            "3": {
-                ca: "Regular",
-                es: "Regular",
-                en: "Okay"
-            },
-            "4": {
-                ca: "Dolenta",
-                es: "Mala",
-                en: "Bad"
-            },
-            "5": {
-                ca: "Molt dolenta",
-                es: "Muy mala",
-                en: "Very bad"
-            }
-        }
+        options: ""
+    },
+    {
+        id: "PER_ABDOM",
+        tag: "1",
+        order: 1,
+        label: {
+            ca: "Perimetre es",
+            es: "En general, hoy dia que su salud es...?",
+            en: "In general, would you say your health today is ...?"
+        },
+        value: null,
+      type: "unit",
+      depends_on: null,
+      main_tag: null,
+        options: "",
+        int_comparator_question: "PES_ACT_PA",
+        int_comparator_condition: "greater_than",
+        int_comparator_value: 200,
+        unit_type: "cm",
+        unit_min: 0,
+        unit_max: 99999
     },
     {
         id: "SATISF_CAL",
-        escala: "ES_SALUD",
-        caract_form: "SALU_P",
         tag: "2",
         order: 2,
         depends_on: null,
@@ -92,34 +83,8 @@ export class AtheneaformPageComponent {
             "en": "Are you satisfied with your quality of life?"
         },
         value: null,
-        type: "select",
-        options: {
-            "1": {
-                "ca": "Molt satisfeta",
-                "es": "Muy satisfecha",
-                "en": "Very satisfied"
-            },
-            "2": {
-                "ca": "Satisfeta",
-                "es": "Satisfecha",
-                "en": "Satisfied"
-            },
-            "3": {
-                "ca": "Regular",
-                "es": "Regular",
-                "en": "Okay"
-            },
-            "4": {
-                "ca": "Insatisfeta",
-                "es": "Insatisfecha",
-                "en": "Unsatisfied"
-            },
-            "5": {
-                "ca": "Molt insatisfet",
-                "es": "Muy insatisfecha",
-                "en": "Very unsatisfied"
-            }
-        }
+        type: "blood_pressure",
+        options: ""
     },
     {
         id: "DIF_ACT",

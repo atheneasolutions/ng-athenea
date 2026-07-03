@@ -37,6 +37,7 @@ const CONSTANT_TYPES = [
   'scale',
   'thermometer',
   'heart',
+  'unit',
 ];
 
 @Component({
@@ -50,7 +51,7 @@ const CONSTANT_TYPES = [
     HdomComponentsModule,
   ],
   templateUrl: './form-component/form.component.html',
-  styleUrl: './form-component/form.component.scss',
+  styleUrls:[ './form-component/form.component.scss'],
 })
 export class AtheneaformComponent implements AfterViewChecked {
   @Input() questions: Question[] = [];
@@ -84,6 +85,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('scale') scale!: TemplateRef<any>;
   @ViewChild('thermometer') thermometer!: TemplateRef<any>;
   @ViewChild('heart') heart!: TemplateRef<any>;
+  @ViewChild('unit') unit!: TemplateRef<any>;
 
   @ViewChild('swiper') swiper!: SwiperComponent;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -279,19 +281,21 @@ export class AtheneaformComponent implements AfterViewChecked {
     },
   ];
 
-  isConstantInputValid: boolean = false;
+  constantInputValidity: Record<number, boolean> = {};
 
   onConstantInputValidChange(
     index: number,
     { value, valid }: { value: string; valid: boolean }
   ) {
-    this.isConstantInputValid = valid;
-    if (this.isConstantInputValid) {
-      this.inputChange(index, value, false);
-      this.showContinueButton();
-    } else {
+    this.constantInputValidity[index] = valid;
+
+    if (!valid) {
       this.hideContinueButton();
+      return;
     }
+
+    this.inputChange(index, value, false);
+    this.showContinueButton();
   }
 
   getTagWithDot(tag: string): string {
@@ -307,13 +311,15 @@ export class AtheneaformComponent implements AfterViewChecked {
     index: number,
     { BloodPreasure, valid }: { BloodPreasure: BloodPreasure; valid: boolean }
   ) {
-    this.isConstantInputValid = valid;
-    if (this.isConstantInputValid) {
-      this.inputChange(index, BloodPreasure, false);
-      this.showContinueButton();
-    } else {
+    this.constantInputValidity[index] = valid;
+
+    if (!valid) {
       this.hideContinueButton();
+      return;
     }
+
+    this.inputChange(index, BloodPreasure, false);
+    this.showContinueButton();
   }
 
   onZoneClick(index: number, zone_code: string, slide: boolean): void {
@@ -328,6 +334,10 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   shouldRenderQuestion(question: Question): boolean {
+    // Si hi ha logica de int_comparator
+    if (question?.int_comparator_question != null && question?.int_comparator_condition != null && question?.int_comparator_value != null){
+      return this.operateIntConditional(question.int_comparator_question, question.int_comparator_condition, question.int_comparator_value);
+    }
     // If there's a dependency, render only if the dependent question's value is not zero.
     if (question?.depends_on) {
       return !this.questionValueIsZero(question.depends_on);
@@ -377,6 +387,27 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     return '';
   }
+
+  getUnitType(unit_type: string | null | undefined): string {
+    if (typeof unit_type === 'string') {
+      return unit_type;
+    }
+    return '';
+  }
+
+    getUnitMin(unit_min: number | null | undefined): number {
+    if (typeof unit_min === 'number') {
+      return unit_min;
+    }
+    return 0;
+  }
+    getUnitMax(unit_max: number | null | undefined): number {
+    if (typeof unit_max === 'number') {
+      return unit_max;
+    }
+    return 100000;
+  }
+
 
   async ngOnInit() {
     await this.checkSavedAnswers();
@@ -511,19 +542,26 @@ export class AtheneaformComponent implements AfterViewChecked {
   formHasErrors(slide = false): Boolean {
     for (let index = 0; index < this.questions.length; index++) {
       const elem = this.questions[index];
+      if (!this.shouldRenderQuestion(elem)) continue;
       if (elem.optional) continue;
-      if (elem.depends_on && this.questionValueIsZero(elem.depends_on))
-        continue;
       if (elem.value == null && elem.type != SKIP_CHECK_TYPE) {
         if (elem?.main_tag) {
           if (this.isMainPositive(elem.main_tag)) {
-            if (slide) this.slideTo(index);
+            if (slide) this.slideToQuestionIndex(index);
             return true;
           }
         } else {
-          if (slide) this.slideTo(index);
+          if (slide) this.slideToQuestionIndex(index);
           return true;
         }
+      }
+
+      if (
+        CONSTANT_TYPES.includes(elem.type) &&
+        this.constantInputValidity[index] === false
+      ) {
+        if (slide) this.slideToQuestionIndex(index);
+        return true;
       }
     }
     return false;
@@ -563,6 +601,8 @@ export class AtheneaformComponent implements AfterViewChecked {
         return this.thermometer;
       case 'heart':
         return this.heart;
+      case 'unit':
+        return this.unit;
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -579,6 +619,33 @@ export class AtheneaformComponent implements AfterViewChecked {
     }
 
     return false;
+  }
+
+  operateIntConditional(int_comparator_question: string, int_comparator_condition:IntComparatorConditionals, int_comparator_value:number){
+    const question = this.getQuestion(int_comparator_question);
+    const rawValue = question?.value;
+
+    const value =
+      typeof rawValue === 'number'
+        ? rawValue
+        : Number(String(rawValue).replace(',', '.'));
+
+    if (!Number.isFinite(value)) return false;
+
+    if (int_comparator_condition === "greater_than" && value > int_comparator_value) return true;
+    if (int_comparator_condition === "less_than" && value < int_comparator_value) return true;
+    if (int_comparator_condition === "equal" && value === int_comparator_value) return true;
+
+    return false;
+  }
+
+  getDisplayTag(question: Question): string {
+    const visibleQuestions = this.questions.filter(q =>
+      this.shouldRenderQuestion(q) && q.type !== 'info'
+    );
+    const index = visibleQuestions.findIndex(q => q.id === question.id);
+
+    return index >= 0 ? `${index + 1}.` : '';
   }
 
   getQuestion(tag: string) {
@@ -646,6 +713,17 @@ export class AtheneaformComponent implements AfterViewChecked {
     this.swiper.swiperRef.slideTo(this.preview ? index + 1 : index, speed);
   }
 
+  slideToQuestionIndex(questionIndex: number, speed: number = 100) {
+    const visibleSlideIndex = this.visibleQuestionIndices.indexOf(questionIndex);
+
+    if (visibleSlideIndex === -1) return;
+
+    this.swiper.swiperRef.slideTo(
+      this.preview ? visibleSlideIndex + 1 : visibleSlideIndex,
+      speed
+    );
+  }
+
   onSlideChange(e: any) {
     this.slideIndex = e[0]?.activeIndex;
   }
@@ -661,35 +739,60 @@ export class AtheneaformComponent implements AfterViewChecked {
     //Si final swiper no continua
     if (this.swiper?.swiperRef.isEnd) return false;
     if (!this.canAnswer) return true;
-    //Si pregunta contestada pot continuar, sinó no
-    let question =
-      this.questions[this.preview ? this.slideIndex - 1 : this.slideIndex];
-    // Get the visible questions mapping.
-    const visibleIndices = this.visibleQuestionIndices;
+    if (this.preview && this.slideIndex == 0) return true;
 
-    // Adjust the index if you're using a preview slide.
+    const current = this.getCurrentVisibleQuestion();
+
+    if (!current) return false;
+
+    const { index, question } = current;
+
+    if (question.type == 'csi_multiple')
+      return this.multValue(question.id);
+
+    if (CONSTANT_TYPES.includes(question.type)) {
+      if (question.optional && (question.value == null || question.value === '')) {
+        return true;
+      }
+
+      return (
+        question.value !== null &&
+        question.value !== '' &&
+        this.constantInputValidity[index] === true
+      );
+    }
+
+    if (
+      question.optional ||
+      (question.value != null && question.value != '')
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private getCurrentVisibleQuestion():
+    | { index: number; question: Question }
+    | null {
+    const visibleIndices = this.visibleQuestionIndices;
     const adjustedSlideIndex = this.preview
       ? this.slideIndex - 1
       : this.slideIndex;
 
-    // Make sure we have a valid mapping.
-    if (adjustedSlideIndex >= 0 && adjustedSlideIndex < visibleIndices.length) {
-      const actualQuestionIndex = visibleIndices[adjustedSlideIndex];
-      question = this.questions[actualQuestionIndex];
+    if (
+      adjustedSlideIndex < 0 ||
+      adjustedSlideIndex >= visibleIndices.length
+    ) {
+      return null;
     }
-    if (this.preview && this.slideIndex == 0) return true;
-    else if (CONSTANT_TYPES.includes(question.type)) {
-      if (question.value !== '' && question.value !== null) {
-        return this.isConstantInputValid;
-      } else return false;
-    } else if (
-      question.optional ||
-      (question.value != null && question.value != '')
-    )
-      return true;
-    else if (question.type == 'csi_multiple')
-      return this.multValue(question.id);
-    return false;
+
+    const questionIndex = visibleIndices[adjustedSlideIndex];
+
+    return {
+      index: questionIndex,
+      question: this.questions[questionIndex],
+    };
   }
 
   inputChange(
@@ -699,7 +802,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     valNul: boolean = false
   ) {
     //Assignem valor
-    if (e && !valNul) this.questions[index].value = e;
+    if (e !== null && e !== undefined && !valNul) this.questions[index].value = e;
     else if (valNul) {
       this.questions[index].value = null;
       this.hideContinueButton();
@@ -877,7 +980,14 @@ type Type =
   | 'blood_pressure'
   | 'heart_rate'
   | 'scale'
-  | 'thermometer';
+  | 'thermometer'
+  | 'unit';
+
+type IntComparatorConditionals =
+  | 'greater_than'
+  | 'less_than'
+  | 'equal';
+
 type Lang = 'ca' | 'es' | 'en';
 export interface Question {
   id?: string;
@@ -898,6 +1008,12 @@ export interface Question {
   headform?: string | null;
   depends_on: string | null;
   group_name?: string | null;
+  int_comparator_question?: string | null;
+  int_comparator_condition?: IntComparatorConditionals |null;
+  int_comparator_value?: number | null;
+  unit_type?: string| null;
+  unit_min?: number | null;
+  unit_max?: number | null;
 }
 
 export interface BloodPreasure {
