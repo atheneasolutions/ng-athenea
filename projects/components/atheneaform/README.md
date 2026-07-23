@@ -7,6 +7,10 @@ Llibreria Angular per mostrar formularis/qüestionaris interactius mitjançant e
 - [Tecnologies](#tecnologies)
 - [Instal·lació](#installació)
 - [Ús](#ús)
+- [Desenvolupament](#desenvolupament)
+  - [Generar nou codi](#generar-nou-codi)
+  - [Generar una nova versió](#generar-una-nova-versió)
+- [Migració de la v4 a la v5](#migració-de-la-v4-a-la-v5)
 - [API del component `ath-form`](#api-del-component-ath-form)
   - [Inputs](#inputs)
   - [Outputs](#outputs)
@@ -20,10 +24,6 @@ Llibreria Angular per mostrar formularis/qüestionaris interactius mitjançant e
   - [`Info`](#info)
   - [`Preview`](#preview)
   - [`Zone`](#zone)
-- [Desenvolupament](#desenvolupament)
-  - [Generar nou codi](#generar-nou-codi)
-  - [Generar una nova versió](#generar-una-nova-versió)
-- [Migració de la v4 a la v5](#migració-de-la-v4-a-la-v5)
 - [Llicència](#llicència)
 
 ## Tecnologies
@@ -64,6 +64,77 @@ onSendSurvey(event: any) {
   console.log('Respostes rebudes:', event);
 }
 ```
+
+## Desenvolupament
+
+Aquesta llibreria s'ha generat amb [Angular CLI](https://github.com/angular/angular-cli).
+
+### Generar nou codi
+
+Per generar un nou component, directiva, pipe, servei, etc. dins la llibreria, cal indicar el projecte amb `--project`:
+
+```bash
+ng generate component nom-component --project atheneaform
+```
+
+```bash
+ng generate directive|pipe|service|class|guard|interface|enum|module --project atheneaform
+```
+
+> ⚠️ No oblidis afegir `--project atheneaform`, ja que sinó l'element es generarà al projecte per defecte de l'`angular.json`.
+
+### Generar una nova versió
+
+1. Actualitza el número de versió al `package.json` de la llibreria seguint [Semantic Versioning](https://semver.org/lang/ca/).
+2. Compila la llibreria:
+
+   ```bash
+   ng build atheneaform
+   ```
+
+   El resultat de la compilació es genera a la carpeta `dist/`.
+3. Publica la nova versió:
+
+   ```bash
+   cd dist/atheneaform
+   npm publish
+   ```
+
+## Migració de la v4 a la v5
+
+La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) que requereixen actualitzar el projecte on s'utilitza la llibreria.
+
+### 1. Canvi de selector del component
+
+El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-form>`:
+
+```diff
+- <atheneaform></atheneaform>
++ <ath-form></ath-form>
+```
+
+### 2. Registre dels elements de Swiper
+
+Cal afegir el següent codi a l'arxiu `main.ts` de l'aplicació per registrar els custom elements de Swiper:
+
+```ts
+import { register } from 'swiper/element/bundle';
+register();
+```
+
+### 3. Actualització dels imports de CSS
+
+Els imports dels estils de Swiper canvien, ja que ara s'utilitza la versió basada en *web components* (`swiper/element`):
+
+```diff
+- @import "swiper/scss";
+- @import "swiper/scss/navigation";
+- @import "swiper/scss/pagination";
++ @import 'swiper/element/css/navigation';
++ @import 'swiper/element/css/pagination';
++ @import 'swiper/element/css/scrollbar';
+```
+
 
 ## API del component `ath-form`
 
@@ -212,76 +283,6 @@ Representa una zona (per exemple, per a preguntes de tipus `pain_location`).
 | `code` | `string` | Codi identificatiu de la zona. |
 | `ordinary_name` | `Multilang` | Nom habitual de la zona, multiidioma. |
 | `formal_name` | `Multilang` | Nom formal de la zona, multiidioma. |
-
-## Desenvolupament
-
-Aquesta llibreria s'ha generat amb [Angular CLI](https://github.com/angular/angular-cli).
-
-### Generar nou codi
-
-Per generar un nou component, directiva, pipe, servei, etc. dins la llibreria, cal indicar el projecte amb `--project`:
-
-```bash
-ng generate component nom-component --project atheneaform
-```
-
-```bash
-ng generate directive|pipe|service|class|guard|interface|enum|module --project atheneaform
-```
-
-> ⚠️ No oblidis afegir `--project atheneaform`, ja que sinó l'element es generarà al projecte per defecte de l'`angular.json`.
-
-### Generar una nova versió
-
-1. Actualitza el número de versió al `package.json` de la llibreria seguint [Semantic Versioning](https://semver.org/lang/ca/).
-2. Compila la llibreria:
-
-   ```bash
-   ng build atheneaform
-   ```
-
-   El resultat de la compilació es genera a la carpeta `dist/`.
-3. Publica la nova versió:
-
-   ```bash
-   cd dist/atheneaform
-   npm publish
-   ```
-
-## Migració de la v4 a la v5
-
-La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) que requereixen actualitzar el projecte on s'utilitza la llibreria.
-
-### 1. Canvi de selector del component
-
-El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-form>`:
-
-```diff
-- <atheneaform></atheneaform>
-+ <ath-form></ath-form>
-```
-
-### 2. Registre dels elements de Swiper
-
-Cal afegir el següent codi a l'arxiu `main.ts` de l'aplicació per registrar els custom elements de Swiper:
-
-```ts
-import { register } from 'swiper/element/bundle';
-register();
-```
-
-### 3. Actualització dels imports de CSS
-
-Els imports dels estils de Swiper canvien, ja que ara s'utilitza la versió basada en *web components* (`swiper/element`):
-
-```diff
-- @import "swiper/scss";
-- @import "swiper/scss/navigation";
-- @import "swiper/scss/pagination";
-+ @import 'swiper/element/css/navigation';
-+ @import 'swiper/element/css/pagination';
-+ @import 'swiper/element/css/scrollbar';
-```
 
 ## Llicència
 
