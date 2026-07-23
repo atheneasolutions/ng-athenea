@@ -104,15 +104,23 @@ ng generate directive|pipe|service|class|guard|interface|enum|module --project a
 
 La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) que requereixen actualitzar el projecte on s'utilitza la llibreria.
 
-### 0. Actualització del paquet `swiper`
+### 1. Canvi al paquet `form-component`
+
+Ja no fem servir el paquet `swiper-form-component`. Ara cal instal·lar el paquet `form-component`:
  
+```bash
+npm install @atheneasolutions/form-component
+```
+
+### 2. Actualització del paquet `swiper`
+
 Cal actualitzar el paquet `swiper` a l'última versió (mínim la 14):
  
 ```bash
 npm install swiper@14
 ```
 
-### 1. Canvi de selector del component
+### 3. Canvi de selector del component
 
 El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-form>`:
 
@@ -121,7 +129,7 @@ El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-fo
 + <ath-form></ath-form>
 ```
 
-### 2. Registre dels elements de Swiper
+### 4. Registre dels elements de Swiper
 
 Cal afegir el següent codi a l'arxiu `main.ts` de l'aplicació per registrar els custom elements de Swiper:
 
@@ -130,7 +138,7 @@ import { register } from 'swiper/element/bundle';
 register();
 ```
 
-### 3. Actualització dels imports de CSS
+### 5. Actualització dels imports de CSS
 
 Els imports dels estils de Swiper canvien, ja que ara s'utilitza la versió basada en *web components* (`swiper/element`):
 
@@ -142,7 +150,6 @@ Els imports dels estils de Swiper canvien, ja que ara s'utilitza la versió basa
 + @import 'swiper/element/css/pagination';
 + @import 'swiper/element/css/scrollbar';
 ```
-
 
 ## API del component `ath-form`
 
