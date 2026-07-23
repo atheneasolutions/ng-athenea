@@ -108,9 +108,8 @@ La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) 
 
 Ja no fem servir el paquet `swiper-form-component`. Ara cal instal·lar el paquet `form-component`:
 
- ```diff
-- 'swiper-form-component'
-+ 'form-component'
+```bash
+npm uninstall @atheneasolutions/swiper-form-component
 ```
 
 ```bash
