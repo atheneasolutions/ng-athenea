@@ -35,7 +35,7 @@ Llibreria Angular per mostrar formularis/qüestionaris interactius mitjançant e
 ## Instal·lació
 
 ```bash
-npm install form-component
+npm install @atheneasolutions/form-component
 ```
 
 > Assegura't que el teu projecte compleix els requisits de versions indicats a l'apartat de tecnologies (Angular 17, Ionic 6 i Swiper 14).
@@ -107,7 +107,12 @@ La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) 
 ### 1. Canvi al paquet `form-component`
 
 Ja no fem servir el paquet `swiper-form-component`. Ara cal instal·lar el paquet `form-component`:
- 
+
+ ```diff
+- 'swiper-form-component'
++ 'form-component'
+```
+
 ```bash
 npm install @atheneasolutions/form-component
 ```
