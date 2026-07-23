@@ -124,7 +124,16 @@ Cal actualitzar el paquet `swiper` a l'última versió (mínim la 14):
 npm install swiper@14
 ```
 
-### 3. Canvi de selector del component
+### 3. Actualització d'imports
+
+Cal modificar els imports al compoent antic
+
+```diff
+- import { AtheneaformComponent } from "@atheneasolutions/swiper-form-component";
++ import { AtheneaformComponent } from "@atheneasolutions/form-component";
+```
+
+### 4. Canvi de selector del component
 
 El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-form>`:
 
@@ -133,7 +142,7 @@ El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-fo
 + <ath-form></ath-form>
 ```
 
-### 4. Registre dels elements de Swiper
+### 5. Registre dels elements de Swiper
 
 Cal afegir el següent codi a l'arxiu `main.ts` de l'aplicació per registrar els custom elements de Swiper:
 
@@ -142,7 +151,7 @@ import { register } from 'swiper/element/bundle';
 register();
 ```
 
-### 5. Actualització dels imports de CSS
+### 6. Actualització dels imports de CSS
 
 Els imports dels estils de Swiper canvien, ja que ara s'utilitza la versió basada en *web components* (`swiper/element`):
 
