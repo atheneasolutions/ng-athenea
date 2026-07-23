@@ -1,4 +1,5 @@
 /*SWIPER*/
-@import "swiper/scss";
-@import "swiper/scss/navigation";
-@import "swiper/scss/pagination";
+/* @import "swiper/scss"; */
+@import 'swiper/element/css/navigation';
+@import 'swiper/element/css/pagination';
+@import 'swiper/element/css/scrollbar';
