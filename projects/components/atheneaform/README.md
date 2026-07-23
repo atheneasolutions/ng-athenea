@@ -104,6 +104,14 @@ ng generate directive|pipe|service|class|guard|interface|enum|module --project a
 
 La versió 5 introdueix canvis en l'ús de Swiper (ara basat en Swiper Element) que requereixen actualitzar el projecte on s'utilitza la llibreria.
 
+### 0. Actualització del paquet `swiper`
+ 
+Cal actualitzar el paquet `swiper` a l'última versió (mínim la 14):
+ 
+```bash
+npm install swiper@14
+```
+
 ### 1. Canvi de selector del component
 
 El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-form>`:
