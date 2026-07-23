@@ -37,7 +37,7 @@ const CONSTANT_TYPES = [
 ];
 
 @Component({
-  selector: 'atheneaform',
+  selector: 'ath-form',
   standalone: true,
   imports: [
     CommonModule,

@@ -104,7 +104,19 @@
           submitting, you can do so using the navigation buttons at the bottom
           of this window. } }
         </p>
-        <p *ngIf="end">{{ end }}</p>
+        <p *ngIf="end">
+          @switch(selectedLang){
+            @case('ca'){
+              {{end.ca}}
+            }
+            @case('es'){
+              {{end.es}}
+            }
+            @case('en'){
+              {{end.en}}
+            }
+          }
+        </p>
       </div>
     </swiper-slide>
   </swiper-container>
