@@ -5,14 +5,24 @@
     be able to answer from } }
     {{ availableDate | date : "dd/MM/yy" }}
   </div>
-  <swiper
+  <swiper-container
     #swiper
-    [config]="config"
-    (slideChange)="onSlideChange($event)"
+    [pagination]="{
+      enabled: true,
+      type: 'progressbar',
+      progressbarOpposite: false,
+    }"
+    direction="vertical"
+    effect="slide"
+    slides-per-view="1"
+    allow-touch-move="false"
+    prevent-interaction-on-transition="true"
+    speed="600"
+    (swiperslidechange)="onSlideChange($event)"
     class="swiper-container"
     [class.preview]="isEnd ? true : preview ? slideIndex == 0 : false"
   >
-    <ng-template swiperSlide *ngIf="preview">
+    <swiper-slide *ngIf="preview">
       <div class="question-container preview">
         <!-- <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1> -->
         <p class="mt-0" *ngIf="preview.subtitle">{{ preview.subtitle }}</p>
@@ -22,11 +32,10 @@
           class="param-start"
         ></div>
       </div>
-    </ng-template>
+    </swiper-slide>
 
     <ng-container *ngFor="let question of questions; let index = index">
-      <ng-template
-        swiperSlide
+      <swiper-slide
         *ngIf="shouldRenderQuestion(question)"
       >
         <div
@@ -40,7 +49,7 @@
           </h2>
           <h3 *ngIf="question.type !== 'info'">
             <span *ngIf="question.tag">
-              {{ getDisplayTag(question) }} 
+              {{ getDisplayTag(question) }}
               {{ question.label[selectedLang] }}</span
             >
           </h3>
@@ -67,10 +76,10 @@
             </div>
           </div>
         </div>
-      </ng-template>
+      </swiper-slide>
     </ng-container>
 
-    <ng-template swiperSlide>
+    <swiper-slide>
       <div class="question-container preview">
         <!-- <h1 class="mb-0" *ngIf="preview.title">{{preview.title}}</h1> -->
         <h4>
@@ -95,10 +104,22 @@
           submitting, you can do so using the navigation buttons at the bottom
           of this window. } }
         </p>
-        <p *ngIf="end">{{ end }}</p>
+        <p *ngIf="end">
+          @switch(selectedLang){
+            @case('ca'){
+              {{end.ca}}
+            }
+            @case('es'){
+              {{end.es}}
+            }
+            @case('en'){
+              {{end.en}}
+            }
+          }
+        </p>
       </div>
-    </ng-template>
-  </swiper>
+    </swiper-slide>
+  </swiper-container>
 
   <ion-toolbar class="nav-buttons">
     <!-- SEND AND CONTINUE BUTTON -->

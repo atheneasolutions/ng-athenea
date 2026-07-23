@@ -1,7 +1,7 @@
 /*SWIPER*/
-@import "swiper/scss";
-@import "swiper/scss/navigation";
-@import "swiper/scss/pagination";
+@import 'swiper/element/css/navigation';
+@import 'swiper/element/css/pagination';
+@import 'swiper/element/css/scrollbar';
 
 .form-container{
   width: 100%;
@@ -29,18 +29,7 @@
 }
 
 atheneaform {
-  .swiper-container {
+  swiper-container {
     width: 100%;
   }
-}
-
-
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  overflow: hidden;
-  list-style: none;
-  padding: 0;
-  z-index: 1;
 }

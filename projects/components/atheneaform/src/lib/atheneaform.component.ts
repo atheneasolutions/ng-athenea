@@ -1,13 +1,10 @@
 import {
-  AlertController,
   IonicModule,
-  ModalController,
-  RangeCustomEvent,
 } from '@ionic/angular';
 import {
   AfterViewChecked,
   AfterViewInit,
-  ChangeDetectorRef,
+  CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
   EventEmitter,
@@ -18,13 +15,12 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { SwiperOptions } from 'swiper';
-import { SwiperComponent, SwiperModule } from 'swiper/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Preferences } from '@capacitor/preferences';
 import { HdomComponentsModule } from './hdom/components/hdom-components.module';
 import { InputValidationService } from './hdom/services/input-validation.service';
+import { SwiperOptions } from 'swiper/core/core';
 
 const TIMEOUT_TIME = 350;
 const SI_VAL = '1';
@@ -41,19 +37,19 @@ const CONSTANT_TYPES = [
 ];
 
 @Component({
-  selector: 'atheneaform',
+  selector: 'ath-form',
   standalone: true,
   imports: [
     CommonModule,
-    SwiperModule,
     IonicModule,
     FormsModule,
     HdomComponentsModule,
   ],
   templateUrl: './form-component/form.component.html',
-  styleUrls:[ './form-component/form.component.scss'],
+  styleUrls: ['./form-component/form.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AtheneaformComponent implements AfterViewChecked {
+export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
   @Input() questions: Question[] = [];
   @Input() title: string | null = null;
   @Input() set lang(val: Lang) {
@@ -87,7 +83,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   @ViewChild('heart') heart!: TemplateRef<any>;
   @ViewChild('unit') unit!: TemplateRef<any>;
 
-  @ViewChild('swiper') swiper!: SwiperComponent;
+  @ViewChild('swiper') swiper?: ElementRef;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
 
   moods = [
@@ -110,21 +106,6 @@ export class AtheneaformComponent implements AfterViewChecked {
       index: 2,
     },
   ];
-
-  config: SwiperOptions = {
-    direction: 'vertical',
-    slidesPerView: 1, // Show only one slide at a time
-    allowTouchMove: false, // Allow manual swipe between slides
-    pagination: {
-      // el: 'form-progressbar',
-      enabled: true,
-      type: 'progressbar',
-      progressbarOpposite: false,
-    },
-    effect: 'slide', // You can use 'fade' for a fade effect
-    speed: 600, // Smooth transition speed
-    preventInteractionOnTransition: true, // Prevent interaction while sliding
-  };
 
   loading: boolean = false;
   hasScroll: any[] = [];
@@ -658,7 +639,7 @@ export class AtheneaformComponent implements AfterViewChecked {
     if (save) this.saveAnswers();
 
     // Trigger the slide animation.
-    this.swiper.swiperRef.slideNext(250);
+    this.swiper?.nativeElement?.swiper?.slideNext(250);
 
     // Get the visible questions mapping.
     const visibleIndices = this.visibleQuestionIndices;
@@ -687,7 +668,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   slidePrevious() {
-    this.swiper.swiperRef.slidePrev(250);
+    this.swiper?.nativeElement?.swiper?.slidePrev(250);
 
     // Get the current mapping of visible question indices
     const visibleIndices = this.visibleQuestionIndices;
@@ -710,7 +691,7 @@ export class AtheneaformComponent implements AfterViewChecked {
   }
 
   slideTo(index: number, speed: number = 100) {
-    this.swiper.swiperRef.slideTo(this.preview ? index + 1 : index, speed);
+    this.swiper?.nativeElement?.swiper?.slideTo(this.preview ? index + 1 : index, speed);
   }
 
   slideToQuestionIndex(questionIndex: number, speed: number = 100) {
@@ -718,26 +699,26 @@ export class AtheneaformComponent implements AfterViewChecked {
 
     if (visibleSlideIndex === -1) return;
 
-    this.swiper.swiperRef.slideTo(
+    this.swiper?.nativeElement?.swiper?.slideTo(
       this.preview ? visibleSlideIndex + 1 : visibleSlideIndex,
       speed
     );
   }
 
   onSlideChange(e: any) {
-    this.slideIndex = e[0]?.activeIndex;
+    this.slideIndex = e.detail[0]?.activeIndex;
   }
 
   get isBegining() {
-    return this.swiper?.swiperRef.isBeginning;
+    return this.swiper?.nativeElement?.swiper?.isBeginning;
   }
   get isEnd() {
-    return this.swiper?.swiperRef.isEnd;
+    return this.swiper?.nativeElement?.swiper?.isEnd;
   }
 
   get canContinue() {
     //Si final swiper no continua
-    if (this.swiper?.swiperRef.isEnd) return false;
+    if (this.swiper?.nativeElement?.swiper?.isEnd) return false;
     if (!this.canAnswer) return true;
     if (this.preview && this.slideIndex == 0) return true;
 
