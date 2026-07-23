@@ -142,6 +142,12 @@ El component ja no s'inicialitza amb `<atheneaform>`, ara cal utilitzar `<ath-fo
 + <ath-form></ath-form>
 ```
 
+També cal actualitzar els estils css
+```diff
+- atheneaform { .. }
++ ath-form { .. }
+```
+
 ### 5. Registre dels elements de Swiper
 
 Cal afegir el següent codi a l'arxiu `main.ts` de l'aplicació per registrar els custom elements de Swiper:
