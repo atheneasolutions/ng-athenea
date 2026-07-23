@@ -89,14 +89,14 @@ ng generate directive|pipe|service|class|guard|interface|enum|module --project a
 2. Compila la llibreria:
 
    ```bash
-   ng build atheneaform
+   ng build @components/atheneaform
    ```
 
    El resultat de la compilació es genera a la carpeta `dist/`.
 3. Publica la nova versió:
 
    ```bash
-   cd dist/atheneaform
+   cd dist/components/atheneaform
    npm publish
    ```
 
