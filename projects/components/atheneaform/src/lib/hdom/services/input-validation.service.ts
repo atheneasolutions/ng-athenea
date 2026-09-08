@@ -93,9 +93,7 @@ export class InputValidationService {
    * @param val Valor a validar
    * @returns boolean
    */
-  isOxygenSat(val: any, unit: any) {
-    if (unit != this.hdom.UNITS_LABELS.percentage)
-      return { valid: false, error: 'invalid_unit' };
+  isOxygenSat(val: any) {
     let number = this.isInteger(val, false);
     if (!number) return { valid: false, error: 'not_number' };
     if (val > 100) return { valid: false, error: 'invalid_range' };

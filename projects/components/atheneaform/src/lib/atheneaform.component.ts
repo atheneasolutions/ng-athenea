@@ -34,6 +34,7 @@ const CONSTANT_TYPES = [
   'thermometer',
   'heart',
   'unit',
+  'oxygen_saturation',
 ];
 
 @Component({
@@ -82,6 +83,7 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
   @ViewChild('thermometer') thermometer!: TemplateRef<any>;
   @ViewChild('heart') heart!: TemplateRef<any>;
   @ViewChild('unit') unit!: TemplateRef<any>;
+  @ViewChild('oxygenSaturation') oxygenSaturation!: TemplateRef<any>;
 
   @ViewChild('swiper') swiper?: ElementRef;
   @ViewChildren('scrollContainer') scrollContainers!: QueryList<ElementRef>;
@@ -584,6 +586,8 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
         return this.heart;
       case 'unit':
         return this.unit;
+      case 'oxygen_saturation':
+        return this.oxygenSaturation;
       case SKIP_CHECK_TYPE:
         return this.multiple;
       default:
@@ -962,7 +966,8 @@ type Type =
   | 'heart_rate'
   | 'scale'
   | 'thermometer'
-  | 'unit';
+  | 'unit'
+  | 'oxygen_saturation';
 
 type IntComparatorConditionals =
   | 'greater_than'
