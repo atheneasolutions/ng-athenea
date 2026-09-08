@@ -171,7 +171,22 @@ export class AtheneaformPageComponent {
                 "en": "Endometriosis prevents me from having social activities"
             }
         }
-  }
+  },
+    {
+        id: "SATUR_OXIG",
+        tag: "5",
+        order: 5,
+        depends_on: null,
+        main_tag: null,
+        label: {
+            "ca": "Sturació d'oxigen",
+            "es": "Saturación de oxígeno",
+            "en": "Oxygen saturation"
+        },
+        value: null,
+        type: "oxygen_saturation",
+        options: ""
+    },
   ];
 
 }
