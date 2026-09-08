@@ -500,6 +500,16 @@
   ></app-unit-result>
 </ng-template>
 
+
+<ng-template #oxygenSaturation let-index="index">
+  <app-oxygen-saturation-result
+    [canAnswer]="canAnswer"
+    [value]="getString(this.questions[index].value)"
+    [selectedLang]="selectedLang"
+    (inputValid)="onConstantInputValidChange(index, $any($event))"
+  ></app-oxygen-saturation-result>
+</ng-template>
+
 <ng-template #txtSelector let-index="index">
   <ion-radio-group
     mode="md"

@@ -10,6 +10,7 @@ import { ScaleResultComponent } from './scale-result/scale-result.component';
 import { ThermometerResultComponent } from './thermometer-result/thermometer-result.component';
 import { BloodPressureHeartRateResultComponent } from './blood-pressure-heart-rate/blood-pressure-heart-rate-result.component';
 import { UnitResultComponent } from './unit-result/unit-result.component';
+import { OxygenSaturationResultComponent } from './oxygen-saturation-result/oxygen-saturation-result.component';
 
 @NgModule({
         declarations: [
@@ -19,7 +20,8 @@ import { UnitResultComponent } from './unit-result/unit-result.component';
                 ScaleResultComponent,
                 ThermometerResultComponent,
                 BloodPressureHeartRateResultComponent,
-                UnitResultComponent
+                UnitResultComponent,
+                OxygenSaturationResultComponent
         ],
         imports: [
                 FormsModule,
@@ -34,7 +36,8 @@ import { UnitResultComponent } from './unit-result/unit-result.component';
                 ScaleResultComponent,
                 ThermometerResultComponent,
                 BloodPressureHeartRateResultComponent,
-                UnitResultComponent
+                UnitResultComponent,
+                OxygenSaturationResultComponent
         ]
 })
 export class HdomComponentsModule { }
