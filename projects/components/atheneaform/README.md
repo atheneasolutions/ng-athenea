@@ -246,7 +246,8 @@ type Type =
   | 'heart_rate'
   | 'scale'
   | 'thermometer'
-  | 'unit';
+  | 'unit'
+  | 'oxygen_saturation';
 ```
 
 ### `IntComparatorConditionals`
