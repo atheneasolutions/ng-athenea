@@ -84,7 +84,22 @@ export class AtheneaformPageComponent {
         },
         value: null,
         type: "blood_pressure",
-        options: ""
+        options: "",
+        help_title: {
+            "ca": "Ajuda",
+            "es": "Ayuda",
+            "en": "Help"
+        },
+        help_desc: {
+            "ca": "Automesura de la pressió arterial al domicili",
+            "es": "Automedida de la presión arterial en el domicilio",
+            "en": "Automesura de la pressió arterial al domicili"
+        },
+        help_link: {
+            "ca": "https://intranet.clinic.cat/sites/default/files/materials/20220018_cat_automesura_pressio_arterial_icmid_print.pdf",
+            "es": "https://intranet.clinic.cat/sites/default/files/materials/20220018_cas_automedida_presion_arterial_icmid_print.pdf",
+            "en": "https://intranet.clinic.cat/sites/default/files/materials/20220018_cas_automedida_presion_arterial_icmid_print.pdf"
+        }
     },
     {
         id: "DIF_ACT",

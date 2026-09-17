@@ -11,3 +11,45 @@
         padding: 0;
     }
 }
+
+
+.help-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 1rem;
+    max-width: 100%;
+    cursor: pointer;
+    padding: 12px;
+    position: absolute;
+    bottom: 20px;
+    width: 86%;
+}
+
+.help-text-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .help-text-title {
+        font-weight: bold;
+        font-size: 1.10rem;
+    }
+}
+
+ion-item::part(native) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+ion-item ion-label {
+  white-space: normal !important; 
+}
+
+ion-icon {
+    color: inherit;
+    font-size: 2.5rem;
+    margin-right: 16px;
+    flex-shrink: 0; 
+}

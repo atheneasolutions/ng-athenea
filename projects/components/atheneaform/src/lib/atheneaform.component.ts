@@ -1000,6 +1000,9 @@ export interface Question {
   unit_type?: string| null;
   unit_min?: number | null;
   unit_max?: number | null;
+  help_title?: Multilang;
+  help_desc?: Multilang;
+  help_link?: Multilang;
 }
 
 export interface BloodPreasure {

@@ -37,6 +37,7 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
     }
   }
 
+  @Output() helpClickOpenUrl = new EventEmitter<string>();
   @Output() inputValid = new EventEmitter<{
     BloodPreasure: BloodPreasure;
     valid: boolean;
@@ -49,6 +50,11 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
     sys_value: '',
     dia_value: '',
   };
+
+  @Input() helpTitle: string = "";
+  @Input() helpDesc: string = "";
+  @Input() helpLink: string = "";
+  
   // Value que sortira en el display en cas que possi un valor erroni per aixi no trencar
   temp_sys_value: string = '';
   temp_dia_value: string = '';
@@ -85,6 +91,10 @@ export class BloodPressureResultComponent implements OnInit, OnChanges {
       this.checkDiastolic.valid;
 
     this.inputValid.emit({ BloodPreasure: updatedValue, valid: valid });
+  }
+
+  showHelp(){
+    this.helpClickOpenUrl.emit(this.helpLink);
   }
 }
 
