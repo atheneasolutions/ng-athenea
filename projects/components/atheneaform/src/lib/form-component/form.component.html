@@ -447,6 +447,9 @@
     [canAnswer]="canAnswer"
     [value]="getBloodPressure(index)"
     [selectedLang]="selectedLang"
+    [helpTitle]="getString(this.questions[index].help_title?.[selectedLang] ?? '' )"
+    [helpDesc]="getString(this.questions[index].help_desc?.[selectedLang] ?? '')"
+    [helpLink]="getString(this.questions[index].help_link?.[selectedLang] ?? '')"
     (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
   ></app-blood-pressure-result>
 </ng-template>
