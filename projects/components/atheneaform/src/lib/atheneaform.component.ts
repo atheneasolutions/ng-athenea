@@ -57,6 +57,8 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
     this.checkHasLang(val ?? 'ca');
   }
   @Output() sendSurvey: EventEmitter<any> = new EventEmitter<any>();
+  @Output() helpClickOpenUrl = new EventEmitter<string>();
+
   //PREVIEW
   @Input() preview: Preview | null = null;
   @Input() end: Multilang | null = null;
@@ -357,6 +359,10 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
     }
 
     return { dia_value: '', sys_value: '', bpm_value: '' };
+  }
+
+  onHelpClick(url: string) {
+    this.helpClickOpenUrl.emit(url);
   }
 
   getString(value: string | number | BloodPreasure | null): string {
