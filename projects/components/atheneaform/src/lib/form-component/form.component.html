@@ -451,6 +451,7 @@
     [helpDesc]="getString(this.questions[index].help_desc?.[selectedLang] ?? '')"
     [helpLink]="getString(this.questions[index].help_link?.[selectedLang] ?? '')"
     (inputValid)="onBloodPressureInputValidChange(index, $any($event))"
+    (helpClickOpenUrl)="onHelpClick($event)"
   ></app-blood-pressure-result>
 </ng-template>
 
