@@ -1,3 +1,8 @@
+:host {
+    --help-border-color: #d9e2ed;
+    --help-background-color: #f5f7fa;
+}
+
 .value-register-cards-container .value-register-container {
     border: 0px solid var(--ion-color-neutro400); 
 }
@@ -16,7 +21,8 @@
 .help-container {
     display: flex;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid var(--help-border-color, #d9e2ed);
+    background-color: var(--help-background-color, #f5f7fa);
     border-radius: 1rem;
     max-width: 100%;
     cursor: pointer;
