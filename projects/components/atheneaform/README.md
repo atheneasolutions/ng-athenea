@@ -24,6 +24,7 @@ Llibreria Angular per mostrar formularis/qüestionaris interactius mitjançant e
   - [`Info`](#info)
   - [`Preview`](#preview)
   - [`Zone`](#zone)
+- [Estils](#estils)
 - [Llicència](#llicència)
 
 ## Tecnologies
@@ -224,6 +225,9 @@ Cada element de l'array `questions` representa una pregunta del formulari.
 | `unit_type` | `string \| null` | Tipus d'unitat (per a preguntes de tipus `unit`). |
 | `unit_min` | `number \| null` | Valor mínim permès per a la unitat. |
 | `unit_max` | `number \| null` | Valor màxim permès per a la unitat. |
+| `help_title`  |  `Multilang \| null` | Títol del botó d'ajuda en els tres idiomes. S'utilitza per mostrar el botó que permet accedir al PDF d'ajuda, (per a preguntes de tipus `blood-pressure`). |
+| `help_desc`  |  `Multilang \| null` | Descripció o text descriptiu associat al botó d'ajuda, disponible en els tres idiomes. |
+| `help_link`  |  `Multilang \| null` | Enllaç al PDF d'ajuda corresponent a cada idioma. |
 
 ### `Type`
 
@@ -318,6 +322,32 @@ Representa una zona (per exemple, per a preguntes de tipus `pain_location`).
 | `code` | `string` | Codi identificatiu de la zona. |
 | `ordinary_name` | `Multilang` | Nom habitual de la zona, multiidioma. |
 | `formal_name` | `Multilang` | Nom formal de la zona, multiidioma. |
+
+## Estils
+
+La llibreria exposa variables CSS personalitzables per permetre sobreescriure determinats estils des del projecte que utilitza la llibreria.
+
+Actualment, aquestes variables s'utilitzen específicament al component `app-blood-pressure-result` i permeten personalitzar l'aparença de l'apartat d'ajuda.
+
+Les variables disponibles són:
+
+```html
+:host {
+  --help-border-color: #d9e2ed;
+  --help-background-color: #f5f7fa;
+}
+```
+
+Per sobreescriure aquests valors des del projecte que utilitza la llibreria, es poden definir les variables sobre el component `ath-form`:
+
+```html
+ath-form {
+  --help-border-color: #000000;
+  --help-background-color: #ffffff;
+}
+```
+
+D'aquesta manera, el projecte consumidor pot personalitzar els estils del component app-blood-pressure-result sense modificar els interns de la llibreria.
 
 ## Llicència
 
