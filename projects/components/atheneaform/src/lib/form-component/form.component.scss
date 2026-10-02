@@ -43,6 +43,12 @@ swiper-container::part(pagination) {
   }
 }
 
+
+swiper-slide {
+  height: 100%;
+}
+
+
 .nav-buttons {
   ion-button {
     color: inherit;

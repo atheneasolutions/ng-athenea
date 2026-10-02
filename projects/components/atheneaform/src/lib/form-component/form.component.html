@@ -41,6 +41,7 @@
         <div
           class="question-container"
           #scrollContainer
+          [attr.data-question-index]="index"
           (scroll)="checkScroll(index)"
           [ngClass]="{ 'grid-class': question.type === 'info' }"
         >
