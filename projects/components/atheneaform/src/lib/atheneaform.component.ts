@@ -2,7 +2,6 @@ import {
   IonicModule,
 } from '@ionic/angular';
 import {
-  AfterViewChecked,
   AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
@@ -50,7 +49,7 @@ const CONSTANT_TYPES = [
   styleUrls: ['./form-component/form.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
+export class AtheneaformComponent implements AfterViewInit {
   @Input() questions: Question[] = [];
   @Input() title: string | null = null;
   @Input() set lang(val: Lang) {
@@ -484,17 +483,18 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
     });
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollContainers.changes.subscribe(() => {
-      setTimeout(() => {
-        this.scrollContainers.forEach(
-          (scrollContainer: ElementRef, index: number) => {
-            const element = scrollContainer.nativeElement;
-            const isScrollable = element.scrollHeight > element.clientHeight;
-            if (isScrollable) this.hasScroll.push(index);
-          }
-        );
-      }, 500);
+  private measureScrollContainers(): void {
+    setTimeout(() => {
+      const scrollIndexes: number[] = [];
+      this.scrollContainers.forEach((scrollContainer: ElementRef) => {
+        const element = scrollContainer.nativeElement as HTMLElement;
+        const questionIndex = Number(element.dataset['questionIndex']);
+        if (Number.isFinite(questionIndex) && element.scrollHeight > element.clientHeight) {
+          scrollIndexes.push(questionIndex);
+        }
+      });
+      this.hasScroll = scrollIndexes;
+
     });
   }
 
@@ -835,17 +835,22 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
   }
 
   checkScroll(index: number) {
-    const element = this.scrollContainers.get(index)?.nativeElement;
+    const element = this.getNativeElem(index);
     if (element) {
       const isScrolledToBottom =
         element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
-      if (isScrolledToBottom)
-        this.hasScroll.splice(this.hasScroll.indexOf(index), 1);
+      if (isScrolledToBottom) {
+        const markerIndex = this.hasScroll.indexOf(index);
+        if (markerIndex !== -1) this.hasScroll.splice(markerIndex, 1);
+      }
     }
   }
 
   getNativeElem(index: number) {
-    return this.scrollContainers.get(index)?.nativeElement;
+    return this.scrollContainers
+      .toArray()
+      .find(container => Number(container.nativeElement.dataset['questionIndex']) === index)
+      ?.nativeElement;
   }
 
   divideOption(option: any, index: 0 | 1) {
@@ -938,6 +943,8 @@ export class AtheneaformComponent implements AfterViewChecked, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.scrollContainers.changes.subscribe(() => this.measureScrollContainers());
+    this.measureScrollContainers();
     this.disableTabNavigation();
   }
 
