@@ -8,6 +8,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   Output,
   QueryList,
   TemplateRef,
@@ -16,6 +17,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
 import { HdomComponentsModule } from './hdom/components/hdom-components.module';
 import { InputValidationService } from './hdom/services/input-validation.service';
@@ -289,7 +291,7 @@ export class AtheneaformComponent implements AfterViewInit {
     return tag;
   }
 
-  constructor(public validator: InputValidationService) {}
+  constructor(public validator: InputValidationService, private zone: NgZone) {}
 
   onBloodPressureInputValidChange(
     index: number,
@@ -483,18 +485,43 @@ export class AtheneaformComponent implements AfterViewInit {
     });
   }
 
+  private scrollResizeObserver?: ResizeObserver;
+  private scrollContentObserver?: MutationObserver;
+  private scrollContainersSubscription?: Subscription;
+  private scrollMeasurementFrame?: number;
+
+  private observeScrollContainers(): void {
+    this.scrollResizeObserver?.disconnect();
+    this.scrollContentObserver?.disconnect();
+    this.scrollContainers.forEach(container => {
+      const element = container.nativeElement as HTMLElement;
+      this.scrollResizeObserver?.observe(element);
+      // Content can grow without changing the scroll viewport's dimensions.
+      Array.from(element.children).forEach(child => {
+        if (!child.classList.contains('scroll-anim')) this.scrollResizeObserver?.observe(child);
+      });
+      this.scrollContentObserver?.observe(element, { childList: true, subtree: true, characterData: true });
+    });
+    this.measureScrollContainers();
+  }
+
   private measureScrollContainers(): void {
-    setTimeout(() => {
+    if (this.scrollMeasurementFrame !== undefined) return;
+    this.scrollMeasurementFrame = requestAnimationFrame(() => {
+      this.scrollMeasurementFrame = undefined;
       const scrollIndexes: number[] = [];
       this.scrollContainers.forEach((scrollContainer: ElementRef) => {
         const element = scrollContainer.nativeElement as HTMLElement;
         const questionIndex = Number(element.dataset['questionIndex']);
-        if (Number.isFinite(questionIndex) && element.scrollHeight > element.clientHeight) {
+        if (Number.isFinite(questionIndex) && element.clientHeight > 0 &&
+            element.scrollHeight - element.clientHeight - element.scrollTop > 1) {
           scrollIndexes.push(questionIndex);
         }
       });
-      this.hasScroll = scrollIndexes;
-
+      if (scrollIndexes.length !== this.hasScroll.length ||
+          scrollIndexes.some((index, position) => index !== this.hasScroll[position])) {
+        this.zone.run(() => { this.hasScroll = scrollIndexes; });
+      }
     });
   }
 
@@ -717,6 +744,7 @@ export class AtheneaformComponent implements AfterViewInit {
 
   onSlideChange(e: any) {
     this.slideIndex = e.detail[0]?.activeIndex;
+    this.measureScrollContainers();
   }
 
   get isBegining() {
@@ -943,8 +971,12 @@ export class AtheneaformComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.scrollContainers.changes.subscribe(() => this.measureScrollContainers());
-    this.measureScrollContainers();
+    this.zone.runOutsideAngular(() => {
+      this.scrollResizeObserver = new ResizeObserver(() => this.measureScrollContainers());
+      this.scrollContentObserver = new MutationObserver(() => this.observeScrollContainers());
+      this.scrollContainersSubscription = this.scrollContainers.changes.subscribe(() => this.observeScrollContainers());
+      this.observeScrollContainers();
+    });
     this.disableTabNavigation();
   }
 
@@ -959,6 +991,10 @@ export class AtheneaformComponent implements AfterViewInit {
   }
 
   ngOnDestroy() {
+    this.scrollContainersSubscription?.unsubscribe();
+    this.scrollResizeObserver?.disconnect();
+    this.scrollContentObserver?.disconnect();
+    if (this.scrollMeasurementFrame !== undefined) cancelAnimationFrame(this.scrollMeasurementFrame);
     document.removeEventListener('keydown', this.handleTabKeydown);
   }
 }
